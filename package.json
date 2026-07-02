@@ -1,0 +1,12 @@
+{
+  "name": "rocky-mountain-anglers",
+  "version": "1.0.0",
+  "description": "Verified catch leaderboards and fishing intelligence for UT, CO, WY, MT, and ID",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.26.0",
+    "@supabase/supabase-js": "^2.43.0",
+    "stripe": "^15.12.0"
+  }
+}

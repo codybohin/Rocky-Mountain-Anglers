@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "outputDirectory": "public",
+  "crons": [
+    {
+      "path": "/api/reports?sync=1",
+      "schedule": "0 13 * * 1"
+    }
+  ]
+}
