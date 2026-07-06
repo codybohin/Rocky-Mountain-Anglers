@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Account — Rocky Mountain Anglers</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/rma.css">
+</head>
+<body>
+<div id="_nav"></div>
+<div class="page-wrap">
+
+<section class="section section-dark">
+  <div class="inner-xs">
+    <div class="sh center" style="margin-bottom:32px">
+      <p class="lbl lbl-blue">Join Rocky Mountain Anglers</p>
+      <h1 class="d-lg" style="color:var(--snow)">Create Account</h1>
+      <p>Free account. Fish diary, lake reports, and community features included. Compete on the leaderboard after getting your Certified Kit.</p>
+    </div>
+    <div style="background:var(--charcoal);border:1px solid var(--border);border-radius:8px;padding:32px">
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div class="form-field"><label class="form-label" for="suFirst">First name</label><input type="text" class="form-input" id="suFirst" placeholder="First" autocomplete="given-name" required></div>
+          <div class="form-field"><label class="form-label" for="suLast">Last name</label><input type="text" class="form-input" id="suLast" placeholder="Last" autocomplete="family-name" required></div>
+        </div>
+        <div class="form-field"><label class="form-label" for="suUser">Username (public)</label><input type="text" class="form-input" id="suUser" placeholder="Your angler handle" required><div class="form-hint">This appears on the public leaderboard.</div></div>
+        <div class="form-field"><label class="form-label" for="suEmail">Email</label><input type="email" class="form-input" id="suEmail" placeholder="you@email.com" autocomplete="email" required></div>
+        <div class="form-field"><label class="form-label" for="suState">Home state</label>
+          <select class="form-select" id="suState" required><option value="">Select state...</option><option>UT</option><option>CO</option><option>WY</option><option>MT</option><option>ID</option><option>Other</option></select>
+        </div>
+        <div class="form-field"><label class="form-label" for="suPw">Password</label><input type="password" class="form-input" id="suPw" placeholder="Min 8 characters" autocomplete="new-password" required></div>
+        <label style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--silver);cursor:pointer"><input type="checkbox" style="accent-color:var(--ice);flex-shrink:0;margin-top:2px" required> I agree to the <a href="/legal/terms.html" style="color:var(--ice)">Terms of Use</a> and <a href="/legal/privacy.html" style="color:var(--ice)">Privacy Policy</a></label>
+        <button class="btn btn-md btn-primary btn-full" onclick="RMA_toast('Account creation launches with the full app!')">Create Free Account</button>
+      </div>
+      <div class="divider" style="margin:24px 0"></div>
+      <p style="text-align:center;font-size:14px;color:var(--silver)">Already a member? <a href="/sign-in.html" style="color:var(--ice)">Sign in →</a></p>
+    </div>
+  </div>
+</section>
+</div>
+<div id="_footer"></div>
+<script src="/js/rma-data.js"></script>
+<script>
+document.getElementById('_nav').innerHTML    = RMA_Nav('');
+document.getElementById('_footer').innerHTML = RMA_Footer();
+RMA_initNav(false);
+
+</script>
+</body>
+</html>

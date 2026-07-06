@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Submit a Catch — Rocky Mountain Anglers</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/rma.css">
+</head>
+<body>
+<div id="_nav"></div>
+<div class="page-wrap">
+
+<section class="section section-dark">
+  <div class="inner inner-sm">
+    <div class="sh center">
+      <p class="lbl lbl-blue">Leaderboard Entry</p>
+      <h1 class="d-xl" style="color:var(--snow)">Submit a Catch</h1>
+      <p>Submit your verified catch for the monthly leaderboard. Entry fee: $5. Requires a Certified Angler Kit.</p>
+    </div>
+    <!-- Step indicator -->
+    <div class="steps" id="stepBar" aria-label="Submission steps">
+      <div class="step active" data-step="1"><div class="step-num">1</div><div class="step-label">Lake</div></div>
+      <div class="step" data-step="2"><div class="step-num">2</div><div class="step-label">Species</div></div>
+      <div class="step" data-step="3"><div class="step-num">3</div><div class="step-label">Photos</div></div>
+      <div class="step" data-step="4"><div class="step-num">4</div><div class="step-label">Measure</div></div>
+      <div class="step" data-step="5"><div class="step-num">5</div><div class="step-label">Details</div></div>
+      <div class="step" data-step="6"><div class="step-num">6</div><div class="step-label">Review</div></div>
+      <div class="step" data-step="7"><div class="step-num">7</div><div class="step-label">Pay &amp; Submit</div></div>
+    </div>
+    <!-- Step panels -->
+    <div id="stepPanel" style="background:var(--charcoal);border:1px solid var(--border);border-radius:8px;padding:32px;margin-top:8px">
+      <!-- Step 1 -->
+      <div id="step1">
+        <div style="font-family:var(--display);font-size:1.3rem;font-weight:700;text-transform:uppercase;color:var(--snow);margin-bottom:20px">Step 1: Select Lake</div>
+        <div class="form-field" style="margin-bottom:20px">
+          <label class="form-label" for="catchLake">Which lake did you fish?</label>
+          <select class="form-select" id="catchLake" required>
+            <option value="">Select a lake...</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="catchDate">Catch date</label>
+          <input type="date" class="form-input" id="catchDate" required>
+        </div>
+        <div class="text-right mt-28"><button class="btn btn-md btn-primary" onclick="stepGo(2)">Next: Select Species →</button></div>
+      </div>
+      <!-- Step 2 -->
+      <div id="step2" style="display:none">
+        <div style="font-family:var(--display);font-size:1.3rem;font-weight:700;text-transform:uppercase;color:var(--snow);margin-bottom:20px">Step 2: Select Species</div>
+        <div class="form-field">
+          <label class="form-label" for="catchSpecies">What species did you catch?</label>
+          <select class="form-select" id="catchSpecies" required><option value="">Select species...</option></select>
+        </div>
+        <p style="font-size:13px;color:var(--silver);margin-top:12px">Not sure? The AI-assisted verification will help identify the species from your photo. If AI and your selection conflict, the catch may be flagged for manual review.</p>
+        <div style="display:flex;justify-content:space-between;margin-top:28px"><button class="btn btn-md btn-secondary" onclick="stepGo(1)">← Back</button><button class="btn btn-md btn-primary" onclick="stepGo(3)">Next: Upload Photos →</button></div>
+      </div>
+      <!-- Step 3 -->
+      <div id="step3" style="display:none">
+        <div style="font-family:var(--display);font-size:1.3rem;font-weight:700;text-transform:uppercase;color:var(--snow);margin-bottom:20px">Step 3: Upload Catch Photos</div>
+        <div style="background:var(--gunmetal);border:2px dashed var(--border-strong);border-radius:8px;padding:40px;text-align:center;margin-bottom:20px;cursor:pointer" onclick="RMA_toast('File upload — launches with the app!')">
+          <div style="font-size:2.5rem;margin-bottom:12px">📸</div>
+          <div style="font-weight:600;color:var(--snow);margin-bottom:4px">Tap to upload your catch photo</div>
+          <p style="font-size:13px">JPEG or PNG. Max 20MB. At least 1 photo required, up to 4.</p>
+        </div>
+        <div style="background:var(--midnight);border:1px solid var(--border);border-radius:8px;padding:20px">
+          <div style="font-family:var(--display);font-size:1rem;font-weight:700;text-transform:uppercase;color:var(--snow);margin-bottom:14px">Valid Photo Requirements</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div style="display:flex;gap:8px;font-size:13px;color:var(--lt-silver)"><span style="color:var(--ice);font-weight:700;flex-shrink:0">✓</span>RMA sticker clearly visible</div>
+            <div style="display:flex;gap:8px;font-size:13px;color:var(--lt-silver)"><span style="color:var(--ice);font-weight:700;flex-shrink:0">✓</span>Full ruler visible, not cropped</div>
+            <div style="display:flex;gap:8px;font-size:13px;color:var(--lt-silver)"><span style="color:var(--ice);font-weight:700;flex-shrink:0">✓</span>Fish head clearly visible</div>
+            <div style="display:flex;gap:8px;font-size:13px;color:var(--lt-silver)"><span style="color:var(--ice);font-weight:700;flex-shrink:0">✓</span>Fish tail clearly visible</div>
+            <div style="display:flex;gap:8px;font-size:13px;color:var(--lt-silver)"><span style="color:var(--ice);font-weight:700;flex-shrink:0">✓</span>Fish laying flat, not held up</div>
+            <div style="display:flex;gap:8px;font-size:13px;color:var(--lt-silver)"><span style="color:var(--ice);font-weight:700;flex-shrink:0">✓</span>Clear lighting, not blurry</div>
+            <div style="display:flex;gap:8px;font-size:13px;color:var(--lt-silver)"><span style="color:#E88;font-weight:700;flex-shrink:0">✗</span>No obstructed measurement</div>
+            <div style="display:flex;gap:8px;font-size:13px;color:var(--lt-silver)"><span style="color:#E88;font-weight:700;flex-shrink:0">✗</span>No sticker hidden or cropped</div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:28px"><button class="btn btn-md btn-secondary" onclick="stepGo(2)">← Back</button><button class="btn btn-md btn-primary" onclick="stepGo(4)">Next: Enter Measurement →</button></div>
+      </div>
+      <!-- Step 4 -->
+      <div id="step4" style="display:none">
+        <div style="font-family:var(--display);font-size:1.3rem;font-weight:700;text-transform:uppercase;color:var(--snow);margin-bottom:20px">Step 4: Enter Fish Length</div>
+        <div class="form-field" style="margin-bottom:20px">
+          <label class="form-label" for="catchLen">Length in inches (measured from tip of nose to end of tail)</label>
+          <div style="display:flex;align-items:center;gap:12px">
+            <input type="number" class="form-input" id="catchLen" placeholder="e.g. 28.5" step="0.125" min="1" max="72" style="flex:1" required>
+            <span style="color:var(--silver);font-size:14px;flex-shrink:0">inches</span>
+          </div>
+          <div class="form-hint">Measure to the nearest 1/8 inch. The measurement in your photo will be cross-checked by AI-assisted verification.</div>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="catchWeight">Weight (optional)</label>
+          <div style="display:flex;align-items:center;gap:12px">
+            <input type="number" class="form-input" id="catchWeight" placeholder="e.g. 4.5" step="0.1" min="0" style="flex:1">
+            <span style="color:var(--silver);font-size:14px;flex-shrink:0">lbs</span>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:28px"><button class="btn btn-md btn-secondary" onclick="stepGo(3)">← Back</button><button class="btn btn-md btn-primary" onclick="stepGo(5)">Next: Add Details →</button></div>
+      </div>
+      <!-- Step 5 -->
+      <div id="step5" style="display:none">
+        <div style="font-family:var(--display);font-size:1.3rem;font-weight:700;text-transform:uppercase;color:var(--snow);margin-bottom:20px">Step 5: Optional Catch Details</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+          <div class="form-field"><label class="form-label" for="catchLure">Lure / Bait</label><input type="text" class="form-input" id="catchLure" placeholder="e.g. Tube Jig, Chartreuse"></div>
+          <div class="form-field"><label class="form-label" for="catchDepth">Depth (ft)</label><input type="number" class="form-input" id="catchDepth" placeholder="e.g. 65"></div>
+          <div class="form-field"><label class="form-label" for="catchWaterTemp">Water Temp (°F)</label><input type="number" class="form-input" id="catchWaterTemp" placeholder="e.g. 52"></div>
+          <div class="form-field"><label class="form-label" for="catchPrivacy">Location Privacy</label>
+            <select class="form-select" id="catchPrivacy">
+              <option value="private">🔒 Private (GPS not shared)</option>
+              <option value="public">🌐 Public (visible to all)</option>
+              <option value="share">💡 Choose to share later</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-field"><label class="form-label" for="catchNotes">Notes (optional)</label><textarea class="form-textarea" id="catchNotes" placeholder="Conditions, technique, anything worth recording..."></textarea></div>
+        <div style="display:flex;justify-content:space-between;margin-top:28px"><button class="btn btn-md btn-secondary" onclick="stepGo(4)">← Back</button><button class="btn btn-md btn-primary" onclick="stepGo(6)">Review Submission →</button></div>
+      </div>
+      <!-- Step 6 -->
+      <div id="step6" style="display:none">
+        <div style="font-family:var(--display);font-size:1.3rem;font-weight:700;text-transform:uppercase;color:var(--snow);margin-bottom:20px">Step 6: Review Before Submitting</div>
+        <div style="background:var(--midnight);border:1px solid var(--border);border-radius:8px;padding:20px;margin-bottom:20px">
+          <div style="font-family:var(--display);font-size:1rem;font-weight:700;text-transform:uppercase;color:var(--silver);margin-bottom:12px">Verification Requirements</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <label style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--lt-silver);cursor:pointer"><input type="checkbox" id="chk1" style="accent-color:var(--ice)"> My RMA sticker is clearly visible in at least one photo</label>
+            <label style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--lt-silver);cursor:pointer"><input type="checkbox" id="chk2" style="accent-color:var(--ice)"> The full ruler is visible and not cropped</label>
+            <label style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--lt-silver);cursor:pointer"><input type="checkbox" id="chk3" style="accent-color:var(--ice)"> The fish head and tail are both clearly visible</label>
+            <label style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--lt-silver);cursor:pointer"><input type="checkbox" id="chk4" style="accent-color:var(--ice)"> I have selected the correct species</label>
+            <label style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--lt-silver);cursor:pointer"><input type="checkbox" id="chk5" style="accent-color:var(--ice)"> I agree to the <a href="/contest-rules.html" style="color:var(--ice)">contest rules</a> and that this catch is genuine</label>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:16px"><button class="btn btn-md btn-secondary" onclick="stepGo(5)">← Back</button><button class="btn btn-md btn-primary" onclick="stepGo(7)">Proceed to Payment →</button></div>
+      </div>
+      <!-- Step 7 -->
+      <div id="step7" style="display:none;text-align:center">
+        <div style="font-size:3rem;margin-bottom:16px">🎣</div>
+        <div style="font-family:var(--display);font-size:1.5rem;font-weight:700;text-transform:uppercase;color:var(--snow);margin-bottom:8px">Ready to Submit</div>
+        <p style="max-width:400px;margin:0 auto 24px">Entry fee: $5.00. This enters your catch into the monthly prize pot. Payment is processed by Stripe.</p>
+        <div style="background:var(--midnight);border:1px solid var(--border);border-radius:8px;padding:16px;max-width:320px;margin:0 auto 24px">
+          <div style="display:flex;justify-content:space-between;font-size:14px;padding:8px 0;border-bottom:1px solid var(--border)"><span style="color:var(--silver)">Leaderboard Entry Fee</span><span style="font-family:var(--mono);color:var(--snow)">$5.00</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:14px;padding:8px 0"><span style="color:var(--silver)">Enters Monthly Prize Pot</span><span style="color:var(--ice);font-weight:600">✓</span></div>
+        </div>
+        <button class="btn btn-lg btn-primary" onclick="RMA_toast('Payment launches with the full app. Kit available first!')">Pay $5 and Submit →</button>
+        <p style="font-size:12px;color:var(--silver);margin-top:12px">Secured by Stripe. <a href="/contest-rules.html" style="color:var(--ice)">Contest rules apply.</a></p>
+        <button class="btn btn-sm btn-ghost" style="margin-top:8px" onclick="stepGo(6)">← Back</button>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+<div id="_footer"></div>
+<script src="/js/rma-data.js"></script>
+<script>
+document.getElementById('_nav').innerHTML    = RMA_Nav('');
+document.getElementById('_footer').innerHTML = RMA_Footer();
+RMA_initNav(false);
+
+// Populate selects
+const lakeSelect = document.getElementById('catchLake');
+RMA_LAKES.forEach(l => { const o = document.createElement('option'); o.value = l.slug; o.textContent = l.name + ' (' + l.state + ')'; lakeSelect.appendChild(o); });
+const spSelect = document.getElementById('catchSpecies');
+RMA_SPECIES.forEach(s => { const o = document.createElement('option'); o.value = s.slug; o.textContent = s.name; spSelect.appendChild(o); });
+document.getElementById('catchDate').value = new Date().toISOString().split('T')[0];
+
+function stepGo(n) {
+  for (let i = 1; i <= 7; i++) {
+    const p = document.getElementById('step' + i);
+    if (p) p.style.display = i === n ? '' : 'none';
+  }
+  document.querySelectorAll('.step').forEach(s => {
+    const sn = parseInt(s.dataset.step);
+    s.classList.remove('active','done');
+    if (sn === n) s.classList.add('active');
+    if (sn < n)  s.classList.add('done');
+  });
+  document.getElementById('stepPanel').scrollIntoView({behavior:'smooth', block:'start'});
+}
+</script>
+</body>
+</html>

@@ -3,362 +3,252 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title id="pageTitle">Lake Name — Rocky Mountain Anglers</title>
-<meta name="description" id="pageDesc" content="Fishing reports, leaderboard, species guide, and catch data.">
+<title id="pageTitle">Loading... — Rocky Mountain Anglers</title>
+<meta name="description" id="pageDesc" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/rma.css">
 <style>
-:root{
-  --midnight:#080B0E; --carbon:#10161B; --charcoal:#1B242B; --gunmetal:#2B3740;
-  --silver:#AEBBC4; --lt-silver:#D5DDE2; --snow:#F4F7F8;
-  --ice:#9CCFE3; --glacier:#5EA6C7; --deep-blue:#2D6582;
-  --border:rgba(174,187,196,0.12); --border-strong:rgba(174,187,196,0.22);
-  --display:'Barlow Condensed',sans-serif; --body:'Inter',sans-serif; --mono:'JetBrains Mono',monospace;
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:var(--body);background:var(--midnight);color:var(--snow);overflow-x:hidden;line-height:1.6}
-a{color:inherit;text-decoration:none}
-button{font-family:var(--body);cursor:pointer;border:none}
-img{display:block;max-width:100%}
-p{color:var(--lt-silver);line-height:1.7}
-
-/* NAV */
-.nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;background:rgba(8,11,14,.95);border-bottom:1px solid var(--border)}
-.logo{display:flex;align-items:center;gap:10px}
-.logo-text{font-family:var(--display);font-size:1.1rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
-.logo-text span{color:var(--ice)}
-.logo-mark svg{display:block}
-.nav-back{font-size:13px;color:var(--silver);display:flex;align-items:center;gap:6px;transition:color .15s}
-.nav-back:hover{color:var(--snow)}
-
-/* HERO */
-.lk-hero{position:relative;height:60vh;min-height:440px;display:flex;align-items:flex-end;overflow:hidden}
-.lk-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.35) saturate(.7)}
-.lk-ov{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,11,14,.2) 0%,rgba(8,11,14,.8) 70%,rgba(8,11,14,1) 100%)}
-.lk-mtn{position:absolute;bottom:0;left:0;right:0;z-index:1;pointer-events:none}
-.lk-content{position:relative;z-index:2;padding:0 40px 48px;max-width:1200px;margin:0 auto;width:100%}
-.lk-state{font-family:var(--mono);font-size:12px;color:var(--glacier);letter-spacing:.16em;margin-bottom:10px}
-.lk-name{font-family:var(--display);font-size:clamp(2.5rem,6vw,5rem);font-weight:800;text-transform:uppercase;color:var(--snow);line-height:.95;margin-bottom:18px}
-.lk-badges{display:flex;gap:8px;flex-wrap:wrap}
-.badge{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 11px;border-radius:2px;border:1px solid}
-.b-hot{background:rgba(94,166,199,.15);color:var(--ice);border-color:rgba(94,166,199,.4)}
-.b-good{background:rgba(174,187,196,.1);color:var(--lt-silver);border-color:rgba(174,187,196,.3)}
-.b-slow{background:rgba(43,55,64,.6);color:var(--silver);border-color:rgba(174,187,196,.2)}
-.b-info{background:rgba(43,55,64,.5);color:var(--silver);border-color:var(--border)}
-
-/* LAYOUT */
-.lk-body{max-width:1200px;margin:0 auto;padding:0 40px 80px;display:grid;grid-template-columns:1fr 340px;gap:32px;margin-top:32px}
-.lk-main{}
-.lk-side{}
-
-/* CARDS */
-.card{background:var(--charcoal);border:1px solid var(--border);border-radius:8px;padding:22px;margin-bottom:20px}
-.card-title{font-family:var(--display);font-size:1.1rem;font-weight:700;text-transform:uppercase;color:var(--snow);margin-bottom:16px;letter-spacing:.04em}
-.lbl{font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--silver)}
-.lbl-blue{color:var(--ice)}
-
-/* Stats row */
-.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-bottom:24px}
-.stat{background:var(--charcoal);padding:18px 16px;border:1px solid var(--border)}
-.stat-v{font-family:var(--mono);font-size:1.3rem;font-weight:600;color:var(--snow)}
-.stat-l{font-size:11px;color:var(--silver);margin-top:3px;text-transform:uppercase;letter-spacing:.07em}
-
-/* Species list */
-.sp-list{display:flex;flex-direction:column;gap:10px}
-.sp-item{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:var(--gunmetal);border-radius:4px}
-.sp-left{display:flex;align-items:center;gap:10px}
-.sp-icon{font-size:1.3rem}
-.sp-name{font-weight:600;color:var(--snow);font-size:14px}
-.sp-note{font-size:12px;color:var(--silver);margin-top:1px}
-.sp-rec{font-family:var(--mono);font-size:12px;color:var(--glacier)}
-
-/* Report cards */
-.rep-c{background:var(--gunmetal);border-radius:4px;padding:14px;margin-bottom:10px}
-.rep-meta{display:flex;justify-content:space-between;margin-bottom:8px;font-size:11px}
-.rep-src{color:var(--glacier);font-weight:600;letter-spacing:.06em;text-transform:uppercase}
-.rep-dt{color:var(--silver);font-family:var(--mono)}
-.rep-body{font-size:13px;color:var(--lt-silver);line-height:1.6}
-
-/* Mini leaderboard */
-.lb-mini{display:flex;flex-direction:column;gap:2px}
-.lb-row{display:flex;align-items:center;gap:12px;padding:11px 12px;background:var(--gunmetal);border-radius:4px}
-.lb-rk{font-family:var(--mono);font-weight:700;font-size:1rem;width:28px;flex-shrink:0}
-.lb-r1{color:var(--ice)} .lb-r2{color:var(--lt-silver)} .lb-r3{color:var(--silver)}
-.lb-an{font-size:13px;font-weight:600;color:var(--snow);flex:1}
-.lb-sp{font-size:12px;color:var(--silver)}
-.lb-ln{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--ice);margin-left:auto}
-
-/* Info grid */
-.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.info-item{background:var(--gunmetal);padding:12px 14px;border-radius:4px}
-.info-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--silver);margin-bottom:4px}
-.info-val{font-size:14px;font-weight:500;color:var(--snow)}
-.info-val a{color:var(--ice)}
-
-/* Tackle */
-.tk-item{display:flex;flex-direction:column;gap:4px;padding:12px 14px;background:var(--gunmetal);border-radius:4px;margin-bottom:8px}
-.tk-nm{font-weight:600;color:var(--snow);font-size:14px}
-.tk-ds{font-size:12px;color:var(--silver)}
-.tk-by{font-size:12px;color:var(--ice);font-weight:600;background:none;border:none;padding:0;cursor:pointer;text-align:left}
-
-/* CTA */
-.lk-cta{background:var(--charcoal);border:1px solid var(--border);border-radius:8px;padding:20px;text-align:center}
-.btn-ice{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--midnight);padding:12px 24px;border-radius:4px;background:var(--ice);border:none;transition:all .2s;cursor:pointer}
-.btn-ice:hover{background:var(--snow)}
-.btn-out{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--silver);padding:10px 18px;border-radius:4px;border:1px solid var(--border-strong);background:transparent;transition:all .15s;margin-top:8px}
-.btn-out:hover{color:var(--snow);border-color:var(--snow)}
-
-/* RESPONSIVE */
-@media(max-width:900px){
-  .lk-body{grid-template-columns:1fr;padding:0 22px 60px}
-  .lk-content{padding:0 22px 36px}
-  .nav{padding:0 22px}
-  .stats-row{grid-template-columns:1fr 1fr}
-}
-@media(max-width:600px){
-  .stats-row{grid-template-columns:1fr 1fr}
-  .info-grid{grid-template-columns:1fr}
-}
+.lake-hero { position:relative;height:420px;overflow:hidden;display:flex;align-items:flex-end;padding-bottom:48px; }
+.lake-hero-bg { position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.35) saturate(.7); }
+.lake-hero-ov { position:absolute;inset:0;background:linear-gradient(to top,rgba(8,11,14,1) 0%,rgba(8,11,14,.4) 60%,transparent 100%); }
+.lake-hero-mtn { position:absolute;bottom:0;left:0;right:0;z-index:1;pointer-events:none; }
+.lake-hero-content { position:relative;z-index:2;max-width:1200px;width:100%;margin:0 auto;padding:0 40px; }
+.lake-stat-row { display:flex;gap:3px;flex-wrap:wrap;margin-top:16px; }
+.lake-stat-chip { background:rgba(27,36,43,.85);border:1px solid var(--border-strong);backdrop-filter:blur(8px);padding:10px 16px;display:flex;flex-direction:column;gap:2px;min-width:100px; }
+.lake-stat-chip:first-child { border-radius:4px 0 0 4px; }
+.lake-stat-chip:last-child  { border-radius:0 4px 4px 0; }
+.lake-stat-val { font-family:var(--mono);font-size:1rem;font-weight:600;color:var(--snow); }
+.lake-stat-lbl { font-size:10px;color:var(--silver);text-transform:uppercase;letter-spacing:.1em; }
+.reg-card { background:var(--charcoal);border:1px solid var(--border);border-radius:8px;padding:18px;position:sticky;top:80px; }
+.reg-card h4 { font-family:var(--display);font-size:.95rem;font-weight:700;text-transform:uppercase;color:var(--snow);margin-bottom:12px;border-bottom:1px solid var(--border);padding-bottom:10px; }
+.reg-card-row { display:flex;justify-content:space-between;font-size:13px;padding:7px 0;border-bottom:1px solid var(--border); }
+.reg-card-row:last-child { border-bottom:none; }
+.reg-card-row span:first-child { color:var(--silver); }
+.reg-card-row span:last-child  { color:var(--snow);font-weight:500; }
 </style>
 </head>
 <body>
+<div id="_nav"></div>
+<div class="page-wrap">
 
-<nav class="nav">
-  <a href="/" class="logo">
-    <div class="logo-mark">
-      <svg width="30" height="30" viewBox="0 0 34 34" fill="none">
-        <polygon points="17,3 31,27 3,27" fill="none" stroke="#9CCFE3" stroke-width="1.5"/>
-        <polygon points="17,9 27,27 7,27" fill="#9CCFE3" opacity="0.13"/>
-      </svg>
+<!-- LAKE HERO -->
+<section class="lake-hero" id="lakeHero">
+  <div class="lake-hero-bg" id="lakeBg" role="img"></div>
+  <div class="lake-hero-ov" aria-hidden="true"></div>
+  <div class="lake-hero-mtn" id="lakeMtn"></div>
+  <div class="lake-hero-content">
+    <a href="/lakes.html" style="font-size:12px;color:var(--glacier);font-family:var(--mono);letter-spacing:.1em;margin-bottom:10px;display:inline-block">← All Lakes</a>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+      <span id="lakeStateTag" class="lbl lbl-blue"></span>
+      <span id="lakeStatusBadge" class="badge"></span>
     </div>
-    <div class="logo-text">Rocky Mountain <span>Anglers</span></div>
-  </a>
-  <a href="/" class="nav-back">← All Lakes</a>
-</nav>
-
-<!-- HERO -->
-<div class="lk-hero" style="margin-top:64px">
-  <div class="lk-bg" id="lkBg"></div>
-  <div class="lk-ov" aria-hidden="true"></div>
-  <svg class="lk-mtn" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0,80 L0,50 L120,18 L220,45 L340,12 L460,40 L580,8 L700,36 L820,10 L940,38 L1060,12 L1180,42 L1300,18 L1440,36 L1440,80Z" fill="#080B0E"/>
-  </svg>
-  <div class="lk-content">
-    <div class="lk-state" id="lkState">STATE</div>
-    <div class="lk-name" id="lkName">Lake Name</div>
-    <div class="lk-badges" id="lkBadges"></div>
+    <h1 class="d-xl" id="lakeName" style="color:var(--snow)">Loading...</h1>
+    <p id="lakeRegion" style="font-size:14px;color:var(--silver);margin-top:4px"></p>
+    <div class="lake-stat-row" id="lakeStatRow"></div>
   </div>
-</div>
+</section>
 
-<!-- BODY -->
-<div class="lk-body">
-  <div class="lk-main">
-    <!-- Stats -->
-    <div class="stats-row" id="statsRow"></div>
-
-    <!-- About -->
-    <div class="card">
-      <div class="card-title">About This Lake</div>
-      <p id="lkSummary" style="margin-bottom:14px"></p>
-      <p id="lkDetail" style="font-size:14px;color:var(--silver)"></p>
-    </div>
-
-    <!-- Species -->
-    <div class="card">
-      <div class="card-title">Species in This Lake</div>
-      <div class="sp-list" id="spList"></div>
-    </div>
-
-    <!-- Reports -->
-    <div class="card">
-      <div class="card-title">Recent Fishing Reports</div>
-      <div id="repList"></div>
-      <p style="font-size:12px;color:var(--silver);margin-top:10px">Reports updated weekly. Member reports appear within 24 hours of submission.</p>
-    </div>
-
-    <!-- Leaderboard -->
-    <div class="card">
-      <div class="lbl lbl-blue" style="margin-bottom:10px">Lake Leaderboard</div>
-      <div class="card-title" style="margin-bottom:16px" id="lbTitle">Top Catches This Month</div>
-      <div class="lb-mini" id="lbMini"></div>
-      <div style="text-align:center;margin-top:16px">
-        <button class="btn-ice" onclick="alert('Catch submission launches soon!')">Submit a Catch — $5</button>
+<!-- MAIN CONTENT -->
+<div class="section section-dark">
+  <div class="inner">
+    <div class="sidebar-layout">
+      <!-- Main column -->
+      <div>
+        <!-- About -->
+        <div style="margin-bottom:36px">
+          <p class="lbl lbl-blue" style="margin-bottom:10px">About this Lake</p>
+          <p id="lakeAbout" style="font-size:15px;line-height:1.8"></p>
+        </div>
+        <!-- Species -->
+        <div style="margin-bottom:36px">
+          <p class="lbl lbl-blue" style="margin-bottom:10px">Target Species</p>
+          <div id="lakeSpeciesList" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+        </div>
+        <!-- Latest Report -->
+        <div style="margin-bottom:36px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+            <p class="lbl lbl-blue" style="margin-bottom:0">Latest Fishing Report</p>
+            <span class="demo-notice">Demo Data</span>
+          </div>
+          <div id="lakeLatestReport"></div>
+        </div>
+        <!-- Lake Leaderboard -->
+        <div style="margin-bottom:36px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+            <p class="lbl lbl-blue" style="margin-bottom:0">Lake Leaderboard</p>
+            <span class="demo-notice">Sample Data</span>
+          </div>
+          <div style="overflow-x:auto;background:var(--charcoal);border:1px solid var(--border);border-radius:8px;padding:20px">
+            <table class="lb-table" aria-label="Lake leaderboard">
+              <thead><tr><th>Rank</th><th>Angler</th><th>Species</th><th>Status</th><th style="text-align:right">Length</th></tr></thead>
+              <tbody id="lakeBoard"></tbody>
+            </table>
+            <div class="lb-cards" id="lakeBoardCards"></div>
+          </div>
+          <div class="text-center mt-20">
+            <a href="/submit-catch.html" class="btn btn-sm btn-primary">Submit a Catch from This Lake — $5</a>
+          </div>
+        </div>
+        <!-- Seasonal Tactics -->
+        <div style="margin-bottom:36px">
+          <p class="lbl lbl-blue" style="margin-bottom:12px">Seasonal Fishing Tactics</p>
+          <div id="lakeTactics" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px"></div>
+        </div>
+        <!-- Tackle -->
+        <div style="margin-bottom:36px">
+          <p class="lbl lbl-blue" style="margin-bottom:12px">What's Working</p>
+          <div id="lakeTackleGrid" style="display:flex;flex-direction:column;gap:10px"></div>
+        </div>
+        <!-- Guides -->
+        <div>
+          <p class="lbl lbl-blue" style="margin-bottom:12px">Local Guides</p>
+          <div id="lakeGuidesGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px"></div>
+        </div>
+      </div>
+      <!-- Sidebar -->
+      <div>
+        <!-- Quick stats -->
+        <div class="reg-card" style="margin-bottom:16px">
+          <h4>Lake Details</h4>
+          <div id="lakeQuickStats"></div>
+        </div>
+        <!-- Regulations -->
+        <div class="reg-card" style="margin-bottom:16px">
+          <h4>Fishing Regulations</h4>
+          <p style="font-size:12px;color:var(--silver);margin-bottom:10px">Always verify current regulations with the state wildlife agency before fishing.</p>
+          <div id="lakeRegsBody"></div>
+          <a id="lakeRegsLink" href="#" style="font-size:13px;color:var(--ice);display:block;margin-top:12px" target="_blank" rel="noopener">View State Regulations →</a>
+        </div>
+        <!-- Save -->
+        <div class="reg-card">
+          <h4>Track This Lake</h4>
+          <p style="font-size:13px;color:var(--silver);margin-bottom:12px">Save this lake to get report notifications and add catches to your fish diary.</p>
+          <button class="btn btn-sm btn-primary btn-full" onclick="RMA_toast('Lake saving launches with the full app!')">Save Lake</button>
+        </div>
       </div>
     </div>
-
-    <!-- Tackle -->
-    <div class="card">
-      <div class="card-title">Recommended Tackle</div>
-      <div id="tackleList"></div>
-      <p style="font-size:11px;color:var(--silver);margin-top:10px;font-style:italic">Affiliate links — Rocky Mountain Anglers may earn a commission.</p>
-    </div>
-  </div>
-
-  <!-- SIDEBAR -->
-  <div class="lk-side">
-    <!-- Quick facts -->
-    <div class="card">
-      <div class="card-title">Lake Facts</div>
-      <div class="info-grid" id="factsGrid"></div>
-    </div>
-
-    <!-- Regulations -->
-    <div class="card">
-      <div class="card-title">Regulations</div>
-      <div id="regsList" style="display:flex;flex-direction:column;gap:8px"></div>
-    </div>
-
-    <!-- Submit CTA -->
-    <div class="lk-cta">
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:700;text-transform:uppercase;color:var(--snow);margin-bottom:8px">Catch Something Here?</div>
-      <p style="font-size:13px;color:var(--silver);margin-bottom:16px">Submit a verified catch to the leaderboard and compete for the monthly prize pot.</p>
-      <button class="btn-ice" style="width:100%;justify-content:center" onclick="alert('Catch submission launching soon!')">Submit a Catch — $5</button>
-      <a href="/#kit" class="btn-out" style="width:100%;justify-content:center;display:flex">Get Certified Kit →</a>
-    </div>
-
-    <!-- Guides -->
-    <div class="card">
-      <div class="card-title">Local Guides</div>
-      <div id="guidesList" style="display:flex;flex-direction:column;gap:10px"></div>
-    </div>
   </div>
 </div>
 
-<!-- TOAST -->
-<div id="toast" style="position:fixed;bottom:22px;right:22px;background:var(--charcoal);border:1px solid var(--border-strong);color:var(--snow);padding:11px 18px;border-radius:8px;font-size:13px;z-index:9999;transform:translateY(80px);opacity:0;transition:all .3s" role="alert"></div>
+</div>
+<div id="_footer"></div>
 
+<script src="/js/rma-data.js"></script>
 <script>
-/* ── All lake data ── */
-const ALL_LAKES={
-  'flaming-gorge':{name:'Flaming Gorge Reservoir',state:'UT',county:'Daggett County',region:'Uinta Mountains',acres:42000,depth:436,elevation:6040,status:'hot',motorboat:true,boatRamp:true,hpLimit:null,summary:'A stunning red-rock canyon reservoir on the Utah-Wyoming border, impounded by Flaming Gorge Dam on the Green River. Renowned nationally for trophy lake trout (fish to 50+ lbs), world-class rainbow trout, and excellent smallmouth bass fishing in its clear canyon waters.',detail:'Elevation of 6,040 feet keeps water cool even in summer, creating ideal conditions for large trout. The Utah record lake trout (51 lbs 8 oz) came from here. Three full-service marinas offer launching, storage, and guided trips.',species:[{em:'🏔️',name:'Lake Trout',note:'Trophy class to 50+ lbs',rec:'50"'},{em:'🌈',name:'Rainbow Trout',note:'Heavily stocked, 12–18" avg',rec:'43"'},{em:'🐠',name:'Smallmouth Bass',note:'Excellent fall bite',rec:'27"'}],img:'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1400&auto=format&fit=crop&q=80',tackle:[{name:'Tube Jig Kit — Chartreuse/Smoke',desc:'6" tubes at 60–80ft on 1–2oz heads. The proven Flaming Gorge setup.'},{name:'White Roadrunner Jig',desc:'Excellent for smallmouth bass along the canyon walls in fall.'}],regs:{agency:'Utah Division of Wildlife Resources',url:'https://wildlife.utah.gov',license:'Utah Fishing License required',notes:'Check UDWR for current slot limits on lake trout.'},guides:[{name:'Flaming Gorge Guide Service',spec:'Lake Trout · Rainbow Trout'},{name:'High Country Fly',spec:'Trophy Trout'}]},
-  'deer-creek':{name:'Deer Creek Reservoir',state:'UT',county:'Wasatch County',region:'Wasatch Front',acres:3400,depth:85,elevation:5417,status:'good',motorboat:true,boatRamp:true,hpLimit:null,summary:'A popular Wasatch Front reservoir just 45 minutes from Salt Lake City, offering excellent rainbow trout, yellow perch, and smallmouth bass fishing with dramatic mountain backdrop.',detail:'Heavily stocked annually by UDWR with catchable-size rainbow trout. Perch fishing can be outstanding in late summer and fall. Smallmouth bass have established a healthy population.',species:[{em:'🌈',name:'Rainbow Trout',note:'Heavily stocked year-round',rec:'43"'},{em:'🟡',name:'Yellow Perch',note:'Excellent fall bite',rec:'19.9"'},{em:'🐠',name:'Smallmouth Bass',note:'Growing wild population',rec:'27"'}],img:'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1400&auto=format&fit=crop&q=80',tackle:[{name:'Powerbait Floating Trout Bait',desc:'Standard rainbow trout setup for stocked fish.'},{name:'Small Tube Jig 1/8oz',desc:'For yellow perch in deeper structure.'}],regs:{agency:'Utah Division of Wildlife Resources',url:'https://wildlife.utah.gov',license:'Utah Fishing License required',notes:'Standard Utah trout regulations apply.'},guides:[{name:'Wasatch Angler',spec:'Rainbow Trout · Perch'}]},
-  'utah-lake':{name:'Utah Lake',state:'UT',county:'Utah County',region:'Wasatch Front',acres:148000,depth:14,elevation:4489,status:'good',motorboat:true,boatRamp:true,hpLimit:null,summary:"Utah's largest freshwater lake by surface area. A warm, shallow lake known for catfish, walleye, and white bass. Unique warm-water fishery unlike most Utah lakes.",detail:'Shallow average depth of 5-6 feet makes Utah Lake highly susceptible to algae blooms in late summer. Best fishing is spring and fall. The walleye fishery has been expanding due to stocking efforts.',species:[{em:'😸',name:'Channel Catfish',note:'Best summer night fishing',rec:'47"'},{em:'👁️',name:'Walleye',note:'Expanding stocked population',rec:'35.8"'}],img:'https://images.unsplash.com/photo-1439853949212-36589f9f2bf4?w=1400&auto=format&fit=crop&q=80',tackle:[{name:'Cut Bait Rig',desc:'Standard catfish setup on bottom.'},{name:'Jig and Crawler Rig',desc:'Walleye in evening near rocky structure.'}],regs:{agency:'Utah Division of Wildlife Resources',url:'https://wildlife.utah.gov',license:'Utah Fishing License required',notes:'Check UDWR for current walleye size limits.'},guides:[]},
-  'yuba-reservoir':{name:'Yuba Reservoir',state:'UT',county:'Juab County',region:'West Desert',acres:11000,depth:38,elevation:4625,status:'good',motorboat:true,boatRamp:true,hpLimit:null,summary:'A productive southern Utah reservoir with a trophy walleye fishery that rivals any in the state, plus consistent rainbow trout action year-round.',detail:'Water levels fluctuate significantly year to year. In good water years, Yuba produces exceptional walleye catches. The rainbow trout fishery is supported by regular UDWR stocking.',species:[{em:'👁️',name:'Walleye',note:'Trophy fishery, fish to 10+ lbs',rec:'35.8"'},{em:'🌈',name:'Rainbow Trout',note:'Stocked regularly by UDWR',rec:'43"'},{em:'😸',name:'Channel Catfish',note:'Good summer bite',rec:'47"'}],img:'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1400&auto=format&fit=crop&q=80',tackle:[{name:'Bottom Bouncer Walleye Rig',desc:'Standard Yuba walleye setup. Fish structure transitions.'},{name:'Powerbait',desc:'Rainbow trout near the marina inlet.'}],regs:{agency:'Utah Division of Wildlife Resources',url:'https://wildlife.utah.gov',license:'Utah Fishing License required',notes:'Check current walleye regulations before fishing.'},guides:[]},
-  'echo-reservoir':{name:'Echo Reservoir',state:'UT',county:'Summit County',region:'Uinta Mountains',acres:1100,depth:36,elevation:5480,status:'slow',motorboat:true,boatRamp:true,hpLimit:null,summary:'A Summit County reservoir stocked regularly with rainbow trout. Reliable family-friendly fishing close to Park City and the Wasatch Front.',detail:'One of the most convenient trout reservoirs for Salt Lake City anglers. Water levels can vary. Yellow perch can be excellent in mid-summer.',species:[{em:'🌈',name:'Rainbow Trout',note:'Primary species, stocked regularly',rec:'43"'},{em:'🟡',name:'Yellow Perch',note:'Good mid-summer schools',rec:'19.9"'}],img:'https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?w=1400&auto=format&fit=crop&q=80',tackle:[{name:'Powerbait Eggs',desc:'Standard trout setup from shore.'},{name:'Small Kastmaster Spoon',desc:'Trolling for rainbow trout.'}],regs:{agency:'Utah Division of Wildlife Resources',url:'https://wildlife.utah.gov',license:'Utah Fishing License required',notes:'Standard Utah trout regulations.'},guides:[]},
-  'blue-mesa':{name:'Blue Mesa Reservoir',state:'CO',county:'Gunnison County',region:'Gunnison Country',acres:9000,depth:340,elevation:7519,status:'hot',motorboat:true,boatRamp:true,hpLimit:null,summary:"Colorado's largest reservoir in the stunning Gunnison canyon. A flagship fishery for trophy lake trout, kokanee salmon, and rainbow trout with depths exceeding 300 feet.",detail:'The three arms of Blue Mesa — Gunnison, Cebolla, and Sapinero — fish differently. Lake trout concentrate in the deepest sections; kokanee salmon school near the surface in summer mornings; rainbow trout favor the Cebolla arm.',species:[{em:'🏔️',name:'Lake Trout',note:'World-class, fish to 30+ lbs',rec:'50"'},{em:'🐟',name:'Kokanee Salmon',note:'School near surface in AM',rec:'28"'},{em:'🌈',name:'Rainbow Trout',note:'Strong Cebolla arm population',rec:'43"'}],img:'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1400&auto=format&fit=crop&q=80',tackle:[{name:'Tube Jig 1–2oz',desc:'Lake trout in 80–120ft. Chartreuse and white produce best.'},{name:'UV Kokanee Spoons',desc:'Trolled at 1.5–2 mph near surface for kokanee in morning.'}],regs:{agency:'Colorado Parks and Wildlife',url:'https://cpw.state.co.us',license:'Colorado Fishing License required',notes:'Check CPW for current kokanee and lake trout regulations.'},guides:[{name:'Rocky Ridge Guide Co.',spec:'Lake Trout · Kokanee'}]},
-  'lake-granby':{name:'Lake Granby',state:'CO',county:'Grand County',region:'Rocky Mountain National Park Area',acres:7256,depth:265,elevation:8280,status:'good',motorboat:true,boatRamp:true,hpLimit:null,summary:'Part of the Colorado-Big Thompson project, Lake Granby offers trophy lake trout and excellent kokanee salmon fishing with spectacular views of the Never Summer Mountains.',detail:'Connected to Shadow Mountain Lake and Grand Lake, creating a system of linked waters. The deep, cold water supports large lake trout year-round. Kokanee salmon spawn in tributaries in the fall.',species:[{em:'🏔️',name:'Lake Trout',note:'Trophy class in deep water',rec:'50"'},{em:'🐟',name:'Kokanee Salmon',note:'Excellent June–September',rec:'28"'},{em:'🌈',name:'Rainbow Trout',note:'Good in shallow bays',rec:'43"'}],img:'https://images.unsplash.com/photo-1470770903676-69b98201ea1c?w=1400&auto=format&fit=crop&q=80',tackle:[{name:'Heavy Tube Jig 2–3oz',desc:'Lake trout require heavy gear at Granby depths.'},{name:'Small Spoons',desc:'Kokanee salmon trolling in June–August.'}],regs:{agency:'Colorado Parks and Wildlife',url:'https://cpw.state.co.us',license:'Colorado Fishing License required',notes:'Standard Colorado regulations apply.'},guides:[]},
-  'horsetooth':{name:'Horsetooth Reservoir',state:'CO',county:'Larimer County',region:'Front Range',acres:1900,depth:180,elevation:5430,status:'good',motorboat:true,boatRamp:true,hpLimit:null,summary:'A Front Range fishery just west of Fort Collins with excellent smallmouth bass, wipers (hybrid striped bass), and consistent rainbow trout fishing year-round.',detail:'Named for the Horsetooth Rock formation visible above the reservoir. The combination of rocky structure and clear water makes this excellent smallmouth bass habitat. Stocked rainbow trout provide consistent action.',species:[{em:'🐠',name:'Smallmouth Bass',note:'Excellent rocky structure fishing',rec:'27"'},{em:'🌈',name:'Rainbow Trout',note:'Stocked, consistent action',rec:'43"'},{em:'👁️',name:'Walleye',note:'Evening bite near rocky points',rec:'35.8"'}],img:'https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=1400&auto=format&fit=crop&q=80',tackle:[{name:'Tube Jig 1/4oz',desc:'Smallmouth bass along rocky structure. Smoke/green colors.'},{name:'Kastmaster Spoon',desc:'Rainbow trout trolling along the main body.'}],regs:{agency:'Colorado Parks and Wildlife',url:'https://cpw.state.co.us',license:'Colorado Fishing License required',notes:'Standard Colorado regulations apply.'},guides:[]},
-  'eleven-mile':{name:'Eleven Mile Reservoir',state:'CO',county:'Park County',region:'South Platte River Basin',acres:3405,depth:100,elevation:8663,status:'hot',motorboat:true,boatRamp:true,hpLimit:null,summary:'A South Park gem famous for trophy northern pike, kokanee salmon, and rainbow trout. Spectacular high-altitude mountain scenery at 8,663 feet elevation.',detail:'Home to some of the largest pike in Colorado. The clear, cold water produces fast-growing fish. Kokanee salmon run in late September creating an exciting fall fishery. Ice fishing for perch is popular in winter.',species:[{em:'🗡️',name:'Northern Pike',note:'Trophy class, fish to 35" common',rec:'52.5"'},{em:'🐟',name:'Kokanee Salmon',note:'Excellent fall run in September',rec:'28"'},{em:'🌈',name:'Rainbow Trout',note:'Stocked and wild population',rec:'43"'}],img:'https://images.unsplash.com/photo-1535931737580-a99567967ddc?w=1400&auto=format&fit=crop&q=80',tackle:[{name:'Large Spoon or Sucker Meat',desc:'Trophy pike setup. 30lb fluorocarbon leader mandatory.'},{name:'Small UV Spoons',desc:'Kokanee salmon trolling in September.'}],regs:{agency:'Colorado Parks and Wildlife',url:'https://cpw.state.co.us',license:'Colorado Fishing License required',notes:'Check CPW for current pike size limits.'},guides:[{name:'South Park Angler',spec:'Northern Pike · Kokanee'}]},
-  'dillon-reservoir':{name:'Dillon Reservoir',state:'CO',county:'Summit County',region:'Summit County',acres:3300,depth:256,elevation:9017,status:'good',motorboat:true,boatRamp:true,hpLimit:10,summary:"Colorado's highest major reservoir at 9,017 feet elevation. A 10 HP motor limit keeps the water quiet. Rainbow and brown trout fishing with a 360-degree Tenmile Range backdrop.",detail:'The 10 HP limit makes Dillon unusually peaceful for a Front Range reservoir. Fish to 20" are common. The deep, cold water maintains quality even in summer. Popular with kayakers and paddleboarders as well.',species:[{em:'🌈',name:'Rainbow Trout',note:'Strong population, fish to 20"',rec:'43"'},{em:'🟤',name:'Brown Trout',note:'Wild population, fall spawning run',rec:'42.9"'}],img:'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1400&auto=format&fit=crop&q=80',tackle:[{name:'Woolly Bugger Streamer',desc:'Brown trout in fall near inlets.'},{name:'Powerbait',desc:'Rainbow trout from the marina area.'}],regs:{agency:'Colorado Parks and Wildlife',url:'https://cpw.state.co.us',license:'Colorado Fishing License required',notes:'10 HP motor limit strictly enforced. Check CPW for current size limits.'},guides:[]},
-  'boysen-reservoir':{name:'Boysen Reservoir',state:'WY',county:'Fremont County',region:'Wind River Canyon',acres:19600,depth:80,elevation:4930,status:'good',motorboat:true,boatRamp:true,hpLimit:null,summary:'A Wind River Canyon reservoir with excellent walleye, sauger, and rainbow trout fishing across varied structure. Popular with Wyoming families for camping and fishing.',detail:'The Wind River enters Boysen through spectacular canyon terrain, creating diverse fishing structure. Walleye concentrate near the canyon mouth; sauger prefer the shallower upper end. Rainbow trout are stocked annually.',species:[{em:'👁️',name:'Walleye',note:'Excellent near canyon mouth',rec:'35.8"'},{em:'👁️',name:'Sauger',note:'Upper reservoir shallows',rec:'22"'},{em:'🌈',name:'Rainbow Trout',note:'Stocked annually',rec:'43"'}],img:'https://images.unsplash.com/photo-1439853949212-36589f9f2bf4?w=1400&auto=format&fit=crop&q=80',tackle:[{name:'Bottom Bouncer Walleye Rig',desc:'Standard Boysen walleye setup with nightcrawler.'},{name:'Jigging Spoon',desc:'Walleye and sauger in deeper canyon structure.'}],regs:{agency:'Wyoming Game and Fish Department',url:'https://wgfd.wyo.gov',license:'Wyoming Fishing License required',notes:'Check WGFD for current walleye and sauger regulations.'},guides:[]},
-  'fremont-lake':{name:'Fremont Lake',state:'WY',county:'Sublette County',region:'Bridger-Teton',acres:5330,depth:600,elevation:7500,status:'good',motorboat:true,boatRamp:true,hpLimit:null,summary:"Wyoming's second-deepest natural lake, formed by glaciers. Cold, clear water to 600 feet supports trophy lake trout, rainbow trout, and cutthroat trout.",detail:'Wind can come up very rapidly on Fremont Lake — always check weather before launching. The extreme depth keeps water cold year-round. Cutthroat trout are found near inlet streams. Lake trout require deep-water jigging or downrigger trolling.',species:[{em:'🏔️',name:'Lake Trout',note:'Requires deep-water techniques',rec:'50"'},{em:'🌈',name:'Rainbow Trout',note:'Good surface action in spring',rec:'43"'},{em:'✂️',name:'Cutthroat Trout',note:'Native to inlet streams',rec:'39"'}],img:'https://images.unsplash.com/photo-1470770903676-69b98201ea1c?w=1400&auto=format&fit=crop&q=80',tackle:[{name:'Heavy Tube Jig 3–4oz',desc:'Required for lake trout in deep water. 100ft+ common.'},{name:'Kastmaster 1oz',desc:'Rainbow trout surface trolling in early season.'}],regs:{agency:'Wyoming Game and Fish Department',url:'https://wgfd.wyo.gov',license:'Wyoming Fishing License required',notes:'Standard Wyoming trout regulations. Wind advisory — always check forecast.'},guides:[]},
-  'jackson-lake':{name:'Jackson Lake',state:'WY',county:'Teton County',region:'Grand Teton National Park',acres:15800,depth:438,elevation:6772,status:'good',motorboat:true,boatRamp:true,hpLimit:null,summary:'A Grand Teton National Park reservoir with brown trout, lake trout, and cutthroat trout fishing beneath one of the most spectacular mountain backdrops in America.',detail:'All fishing within Grand Teton National Park requires a Wyoming fishing license — National Park Service does not sell its own. Brown trout are the premier target. Check NPS website for any seasonal closures near inlet streams where cutthroat spawn.',species:[{em:'🟤',name:'Brown Trout',note:'Premier target, fish to 25"',rec:'42.9"'},{em:'🏔️',name:'Lake Trout',note:'Deep water jigging required',rec:'50"'},{em:'✂️',name:'Cutthroat Trout',note:'Native species, inlet streams',rec:'39"'}],img:'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1400&auto=format&fit=crop&q=80',tackle:[{name:'Large Streamer Fly or Lure',desc:'Brown trout near rocky points and drop-offs.'},{name:'Deep Tube Jig',desc:'Lake trout in 80–150ft sections.'}],regs:{agency:'Wyoming Game and Fish Department / NPS',url:'https://wgfd.wyo.gov',license:'Wyoming Fishing License required — NPS does not issue licenses',notes:'Check NPS for seasonal closures near spawning areas.'},guides:[]},
-  'flathead-lake':{name:'Flathead Lake',state:'MT',county:'Lake County',region:'Northwest Montana',acres:191000,depth:370,elevation:2893,status:'hot',motorboat:true,boatRamp:true,hpLimit:null,summary:'The largest natural freshwater lake west of the Mississippi River. A nationally significant fishery for lake trout and bull trout, with excellent yellow perch and smallmouth bass fishing.',detail:'Bull trout are a catch-and-release only species at Flathead. The Mission Mountains visible from the east shore create one of the most scenic fishing environments in the US. Lake trout can be found to 120ft in summer. The west shore Salish Mountains provide dramatic sunset backdrops.',species:[{em:'🏔️',name:'Lake Trout',note:'Trophy class, 100–130ft in summer',rec:'50"'},{em:'🟡',name:'Yellow Perch',note:'Outstanding fall schools in south bay',rec:'19.9"'},{em:'🐠',name:'Smallmouth Bass',note:'Rocky island shorelines',rec:'27"'}],img:'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1400&auto=format&fit=crop&q=80',tackle:[{name:'Tube Jig 2–3oz',desc:'Lake trout deep jigging at 100–130ft in summer.'},{name:'Small Jig 1/16–1/8oz',desc:'Yellow perch near south bay drop-offs.'}],regs:{agency:'Montana Fish, Wildlife and Parks',url:'https://fwp.mt.gov',license:'Montana Fishing License required',notes:'Bull trout: catch and release only. Check CSKT tribal regulations for areas within Flathead Indian Reservation.'},guides:[{name:'Montana Trophy Fishing',spec:'Lake Trout · Perch'}]},
-  'fort-peck-lake':{name:'Fort Peck Lake',state:'MT',county:'Valley County',region:'Northeast Montana',acres:383000,depth:220,elevation:2250,status:'hot',motorboat:true,boatRamp:true,hpLimit:null,summary:"Montana's largest reservoir and one of the largest in the US. World-class walleye, northern pike, and smallmouth bass fishing across massive uncrowded water.",detail:'Fort Peck is so large that even on weekends you can find solitude. The Missouri River arms provide classic walleye habitat. Pike move into shallow bays in spring. Multiple fish species exceed Montana state records. The sheer scale requires planning — bring charts.',species:[{em:'👁️',name:'Walleye',note:'World-class, main river channel',rec:'35.8"'},{em:'🗡️',name:'Northern Pike',note:'Shallow bays in spring',rec:'52.5"'},{em:'🐠',name:'Smallmouth Bass',note:'Rocky points and islands',rec:'27"'}],img:'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1400&auto=format&fit=crop&q=80',tackle:[{name:'Bottom Bouncer Walleye Rig',desc:'Nightcrawler or leech. Standard Fort Peck walleye setup.'},{name:'Large Spinnerbait',desc:'Northern pike in shallow bays May–June.'}],regs:{agency:'Montana Fish, Wildlife and Parks',url:'https://fwp.mt.gov',license:'Montana Fishing License required',notes:'Check FWP for current walleye and pike regulations.'},guides:[{name:'Montana Trophy Fishing',spec:'Walleye · Northern Pike'}]},
-  'canyon-ferry-lake':{name:'Canyon Ferry Lake',state:'MT',county:'Lewis and Clark County',region:'Helena Valley',acres:35000,depth:60,elevation:3767,status:'good',motorboat:true,boatRamp:true,hpLimit:null,summary:"Helena's home lake. Multiple boat ramps and campgrounds make this the most accessible major fishery in central Montana. Rainbow trout, brown trout, and walleye.",detail:'Canyon Ferry is the closest large reservoir to the state capitol. The lower end near the dam fishes for walleye; the upper end has better trout fishing. Ice fishing is popular in winter for perch and walleye.',species:[{em:'🌈',name:'Rainbow Trout',note:'Stocked, consistent action',rec:'43"'},{em:'🟤',name:'Brown Trout',note:'Wild population, fall spawning',rec:'42.9"'},{em:'👁️',name:'Walleye',note:'Lower reservoir near dam',rec:'35.8"'}],img:'https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?w=1400&auto=format&fit=crop&q=80',tackle:[{name:'Powerbait',desc:'Rainbow trout near stocking areas.'},{name:'Bottom Bouncer',desc:'Walleye near dam end structure.'}],regs:{agency:'Montana Fish, Wildlife and Parks',url:'https://fwp.mt.gov',license:'Montana Fishing License required',notes:'Standard Montana regulations apply.'},guides:[]},
-  'lake-pend-oreille':{name:'Lake Pend Oreille',state:'ID',county:'Bonner County',region:'North Idaho',acres:148000,depth:1158,elevation:2062,status:'hot',motorboat:true,boatRamp:true,hpLimit:null,summary:'One of the deepest lakes in the United States at over 1,100 feet. Home to the legendary Kamloops rainbow trout — a fish that can exceed 30 pounds. Trophy fishing in a spectacular north Idaho setting.',detail:'The Kamloops rainbow is a landlocked kokanee-eating strain of rainbow trout that grows to enormous size. Fish to 35" are caught regularly. Lake trout and smallmouth bass round out the fishery. Cold water year-round despite low elevation.',species:[{em:'🌈',name:'Rainbow Trout',note:'Legendary Kamloops strain, to 30+ lbs',rec:'43"'},{em:'🏔️',name:'Lake Trout',note:'Deep water, year-round',rec:'50"'},{em:'🐠',name:'Smallmouth Bass',note:'Rocky shorelines',rec:'27"'}],img:'https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=1400&auto=format&fit=crop&q=80',tackle:[{name:'Large Trolling Flasher + Hoochie',desc:'8–11" flashers at 3+ mph. For Kamloops rainbows at 60–100ft.'},{name:'Deep Tube Jig 2–4oz',desc:'Lake trout in 100–200ft sections.'}],regs:{agency:'Idaho Department of Fish and Game',url:'https://idfg.idaho.gov',license:'Idaho Fishing License required',notes:'Check IDFG for current Kamloops rainbow trout regulations.'},guides:[{name:'Snake River Angler',spec:'Kamloops Rainbow · Lake Trout'}]},
-  'american-falls':{name:'American Falls Reservoir',state:'ID',county:'Power County',region:'Snake River Plain',acres:56000,depth:40,elevation:4318,status:'hot',motorboat:true,boatRamp:true,hpLimit:null,summary:"Idaho's top reservoir for rainbow trout, yellow perch, and walleye on the Snake River. The perch fishery here may be the best in the state.",detail:'American Falls is a large, productive reservoir that draws anglers from across southern Idaho and northern Utah. The perch fishery peaks in summer with fish to 12" common. Walleye are increasing due to stocking. Rainbow trout are stocked by IDFG regularly.',species:[{em:'🌈',name:'Rainbow Trout',note:'Stocked by IDFG, consistent action',rec:'43"'},{em:'🟡',name:'Yellow Perch',note:'Best perch fishery in Idaho',rec:'19.9"'},{em:'👁️',name:'Walleye',note:'Growing stocked population',rec:'35.8"'}],img:'https://images.unsplash.com/photo-1535931737580-a99567967ddc?w=1400&auto=format&fit=crop&q=80',tackle:[{name:'Small Jig 1/16–1/8oz',desc:'Yellow perch — white or chartreuse. Fish structure with sonar.'},{name:'Bottom Bouncer',desc:'Walleye near rocky structure and transitions.'}],regs:{agency:'Idaho Department of Fish and Game',url:'https://idfg.idaho.gov',license:'Idaho Fishing License required',notes:'Standard Idaho regulations. Check IDFG for current perch and walleye limits.'},guides:[]},
-  'lucky-peak':{name:'Lucky Peak Reservoir',state:'ID',county:'Ada County',region:'Boise Front',acres:2700,depth:239,elevation:2824,status:'good',motorboat:true,boatRamp:true,hpLimit:null,summary:"Boise's home reservoir on the Boise River. Excellent spring rainbow trout fishing followed by smallmouth bass and yellow perch in summer. Drawdown in late summer affects fishing.",detail:'Lucky Peak provides quick access for Boise anglers. The spring rainbow trout bite is excellent before water drawdown begins in July for irrigation. The reservoir is significantly lower by September, concentrating fish in smaller areas which can actually improve fishing.',species:[{em:'🌈',name:'Rainbow Trout',note:'Excellent spring action through June',rec:'43"'},{em:'🐠',name:'Smallmouth Bass',note:'Summer rocky structure fishing',rec:'27"'},{em:'🟡',name:'Yellow Perch',note:'Mid-summer schools',rec:'19.9"'}],img:'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1400&auto=format&fit=crop&q=80',tackle:[{name:'Powerbait',desc:'Spring rainbow trout from shore.'},{name:'Tube Jig 1/4oz',desc:'Smallmouth bass on rocky structure.'}],regs:{agency:'Idaho Department of Fish and Game',url:'https://idfg.idaho.gov',license:'Idaho Fishing License required',notes:'Standard Idaho regulations apply.'},guides:[]},
-};
+(function() {
+  // Derive lake slug from URL
+  const slug = location.pathname.split('/').pop().replace('.html','');
+  const lake = RMA_LAKES.find(l => l.slug === slug);
 
-/* ── Get lake from URL ── */
-const slug=window.location.pathname.split('/lake/')[1]?.replace('.html','');
-const lake=ALL_LAKES[slug];
+  document.getElementById('_nav').innerHTML    = RMA_Nav('lakes');
+  document.getElementById('_footer').innerHTML = RMA_Footer();
+  RMA_initNav(false);
+  document.getElementById('lakeMtn').innerHTML = RMA_MtnSVG('#080B0E');
 
-if(!lake){
-  document.querySelector('.lk-name').textContent='Lake Not Found';
-  document.querySelector('.lk-content').insertAdjacentHTML('beforeend','<p style="color:var(--silver);margin-top:12px"><a href="/" style="color:var(--ice)">← Browse all lakes</a></p>');
-} else {
-  /* Page meta */
-  document.title=lake.name+' — Rocky Mountain Anglers';
-  document.getElementById('pageDesc').content='Fishing reports, leaderboard, species, and catch data for '+lake.name+', '+lake.state;
-
-  /* Hero */
-  document.getElementById('lkBg').style.backgroundImage="url('"+lake.img+"')";
-  document.getElementById('lkState').textContent=lake.state+' · '+lake.region;
-  document.getElementById('lkName').textContent=lake.name;
-
-  const SM2={hot:'🔥 Hot Bite',good:'✓ Good Fishing',slow:'⏳ Slow',iced_over:'🧊 Iced Over'};
-  const SC2={hot:'b-hot',good:'b-good',slow:'b-slow',iced_over:'b-slow'};
-  document.getElementById('lkBadges').innerHTML=`
-    <span class="badge ${SC2[lake.status]||'b-slow'}">${SM2[lake.status]||'Unknown'}</span>
-    ${lake.motorboat?'<span class="badge b-info">⛵ Motorboat Access</span>':''}
-    ${lake.hpLimit?`<span class="badge b-info">${lake.hpLimit} HP Limit</span>`:''}
-    ${lake.boatRamp?'<span class="badge b-info">🛥️ Boat Ramp</span>':''}`;
-
-  /* Stats */
-  document.getElementById('statsRow').innerHTML=[
-    {v:lake.acres.toLocaleString()+'ac',l:'Surface Area'},
-    {v:lake.depth+'ft',l:'Max Depth'},
-    {v:lake.elevation.toLocaleString()+"'",l:'Elevation'},
-    {v:lake.species.length,l:'Species Tracked'},
-  ].map(s=>`<div class="stat"><div class="stat-v mono">${s.v}</div><div class="stat-l">${s.l}</div></div>`).join('');
-
-  /* About */
-  document.getElementById('lkSummary').textContent=lake.summary;
-  document.getElementById('lkDetail').textContent=lake.detail;
-
-  /* Species */
-  document.getElementById('spList').innerHTML=lake.species.map(s=>`
-    <div class="sp-item">
-      <div class="sp-left"><span class="sp-icon">${s.em}</span><div><div class="sp-name">${s.name}</div><div class="sp-note">${s.note}</div></div></div>
-      <div class="sp-rec mono">${s.rec}</div>
-    </div>`).join('');
-
-  /* Reports — generic for now */
-  document.getElementById('repList').innerHTML=`
-    <div class="rep-c"><div class="rep-meta"><span class="rep-src">Member Report</span><span class="rep-dt">Jun 16, 2026</span></div><p class="rep-body">Recent fishing activity at ${lake.name}. Check back weekly for updated conditions from local anglers and the ${lake.regs.agency}.</p></div>
-    <div class="rep-c"><div class="rep-meta"><span class="rep-src" style="color:var(--silver)">🤖 Auto-Report</span><span class="rep-dt">Jun 9, 2026</span></div><p class="rep-body">Weekly automated report from ${lake.regs.agency}. Current regulations and stocking schedules available at <a href="${lake.regs.url}" style="color:var(--ice)">${lake.regs.url}</a>.</p></div>`;
-
-  /* Leaderboard */
-  document.getElementById('lbTitle').textContent='Top Catches at '+lake.name;
-  const sampleCatches=[
-    {rank:1,angler:'Local Angler',species:lake.species[0]?.name||'Rainbow Trout',len:'28.3"'},
-    {rank:2,angler:'RMA Member',species:lake.species[0]?.name||'Rainbow Trout',len:'24.1"'},
-    {rank:3,angler:'RMA Member',species:lake.species[1]?.name||'Brown Trout',len:'21.7"'},
-  ];
-  const rc={1:'lb-r1',2:'lb-r2',3:'lb-r3'};
-  document.getElementById('lbMini').innerHTML=`
-    <div style="text-align:center;padding:16px;background:var(--gunmetal);border-radius:4px;color:var(--silver);font-size:13px">Sample data — live rankings will appear once anglers submit verified catches at this lake.</div>
-    ${sampleCatches.map(r=>`<div class="lb-row"><div class="lb-rk ${rc[r.rank]}">${r.rank}</div><div class="lb-an">${r.angler}</div><div class="lb-sp">${r.species}</div><div class="lb-ln">${r.len}</div></div>`).join('')}`;
-
-  /* Tackle */
-  document.getElementById('tackleList').innerHTML=lake.tackle.map(t=>`
-    <div class="tk-item">
-      <div class="tk-nm">${t.name}</div>
-      <div class="tk-ds">${t.desc}</div>
-      <button class="tk-by" onclick="showToast('Affiliate link — opens partner store')">Shop Now →</button>
-    </div>`).join('');
-
-  /* Facts sidebar */
-  document.getElementById('factsGrid').innerHTML=[
-    {l:'County',v:lake.county},
-    {l:'Region',v:lake.region},
-    {l:'State',v:lake.state},
-    {l:'Motorboat',v:lake.motorboat?'Yes':'No'},
-    {l:'HP Limit',v:lake.hpLimit?lake.hpLimit+' HP':'Unlimited'},
-    {l:'Boat Ramp',v:lake.boatRamp?'Yes':'No'},
-    {l:'Elevation',v:lake.elevation.toLocaleString()+" ft"},
-    {l:'Max Depth',v:lake.depth+" ft"},
-  ].map(i=>`<div class="info-item"><div class="info-label">${i.l}</div><div class="info-val">${i.v}</div></div>`).join('');
-
-  /* Regulations */
-  document.getElementById('regsList').innerHTML=`
-    <div class="info-item"><div class="info-label">Wildlife Agency</div><div class="info-val">${lake.regs.agency}</div></div>
-    <div class="info-item"><div class="info-label">License Required</div><div class="info-val">${lake.regs.license}</div></div>
-    <div class="info-item" style="grid-column:1/-1"><div class="info-label">Notes</div><div class="info-val" style="font-size:13px">${lake.regs.notes}</div></div>
-    <div class="info-item"><div class="info-label">Full Regulations</div><div class="info-val"><a href="${lake.regs.url}" target="_blank" rel="noopener" style="color:var(--ice)">View Official Regs →</a></div></div>`;
-
-  /* Guides */
-  if(lake.guides && lake.guides.length>0){
-    document.getElementById('guidesList').innerHTML=lake.guides.map(g=>`
-      <div style="padding:12px 14px;background:var(--gunmetal);border-radius:4px">
-        <div style="font-weight:600;color:var(--snow);margin-bottom:2px">${g.name}</div>
-        <div style="font-size:12px;color:var(--glacier);margin-bottom:8px">${g.spec}</div>
-        <button style="font-size:12px;color:var(--ice);font-weight:600;background:none;border:none;padding:0;cursor:pointer" onclick="showToast('Guide contact info coming soon!')">Contact Guide →</button>
-      </div>`).join('');
-  } else {
-    document.getElementById('guidesList').innerHTML='<p style="font-size:13px;color:var(--silver)">No guides currently listed for this lake. <a href="/#guides" style="color:var(--ice)">View all guides →</a></p>';
+  if (!lake) {
+    document.getElementById('lakeName').textContent = 'Lake Not Found';
+    document.getElementById('lakeAbout').textContent = 'This lake page is not yet available.';
+    return;
   }
-}
 
-function showToast(msg){
-  const el=document.getElementById('toast');
-  el.textContent=msg; el.style.transform='translateY(0)'; el.style.opacity='1';
-  setTimeout(()=>{el.style.transform='translateY(80px)'; el.style.opacity='0';},3000);
-}
+  // Meta
+  document.getElementById('pageTitle').textContent = lake.name + ' Fishing Report — Rocky Mountain Anglers';
+  document.getElementById('pageDesc').content = 'Fishing reports, leaderboard, tackle recommendations, and species guide for ' + lake.name + ', ' + lake.state + '.';
+
+  // Hero
+  document.getElementById('lakeBg').style.backgroundImage = "url('" + lake.imgHero + "')";
+  document.getElementById('lakeBg').setAttribute('aria-label', lake.name + ' aerial view');
+  document.getElementById('lakeStateTag').textContent = lake.state + ' · ' + lake.region;
+  const sbEl = document.getElementById('lakeStatusBadge');
+  sbEl.textContent = SM[lake.status] || 'Unknown';
+  sbEl.className = 'badge ' + (SC[lake.status] || 'badge-slow');
+  document.getElementById('lakeName').textContent  = lake.name;
+  document.getElementById('lakeRegion').textContent = lake.county + ' · ' + lake.acres.toLocaleString() + ' acres · ' + lake.elev.toLocaleString() + ' ft elevation';
+
+  // Stat chips
+  const stats = [
+    { val: lake.acres.toLocaleString() + ' ac', lbl: 'Surface Area' },
+    { val: lake.depth + 'ft',                   lbl: 'Max Depth' },
+    { val: lake.elev.toLocaleString() + 'ft',    lbl: 'Elevation' },
+    { val: lake.motorboat ? '✓ Yes' : '✗ No',    lbl: 'Motorboat' },
+    { val: lake.boatRamp  ? '✓ Yes' : '✗ No',    lbl: 'Boat Ramp' },
+    { val: lake.hpLimit   ? lake.hpLimit + ' HP Limit' : 'No Limit', lbl: 'HP Limit' },
+  ];
+  document.getElementById('lakeStatRow').innerHTML = stats.map(s =>
+    '<div class="lake-stat-chip"><span class="lake-stat-val">' + s.val + '</span><span class="lake-stat-lbl">' + s.lbl + '</span></div>'
+  ).join('');
+
+  // About
+  document.getElementById('lakeAbout').textContent = lake.summary;
+
+  // Species chips
+  document.getElementById('lakeSpeciesList').innerHTML = lake.species.map(sp => {
+    const s = RMA_SPECIES.find(r => r.name === sp);
+    return '<span style="background:rgba(94,166,199,.1);border:1px solid rgba(94,166,199,.2);padding:8px 14px;border-radius:4px;font-size:14px;color:var(--lt-silver)">'
+      + (s ? s.em + ' ' : '') + sp + '</span>';
+  }).join('');
+
+  // Latest report (find matching or show generic)
+  const rep = RMA_REPORTS.find(r => r.lake === lake.name) || RMA_REPORTS[0];
+  document.getElementById('lakeLatestReport').innerHTML = RMA_ReportCard(rep);
+
+  // Leaderboard — filter or use sample
+  const lb = RMA_LB.monthly.filter(e => e.lake === lake.name);
+  const lbData = lb.length ? lb : RMA_LB.monthly.slice(0,4).map(e => ({...e, lake: lake.name}));
+  RMA_renderLB(lbData, 'lakeBoard', 'lakeBoardCards');
+
+  // Seasonal tactics
+  const tactics = [
+    { season:'Spring', tip:'Post-ice turnover brings fish shallow. Target 15–30ft with bright lures at first light.', icon:'🌱' },
+    { season:'Summer', tip:'Thermocline pushes fish deep (40–80ft+). Downriggers and deep jigging essential.', icon:'☀️' },
+    { season:'Fall',   tip:'Fish feed aggressively before winter. Most active 20–45ft during afternoon hours.', icon:'🍂' },
+    { season:'Winter', tip:'Ice fishing (where allowed) is productive. Check state regulations for ice season.', icon:'❄️' },
+  ];
+  document.getElementById('lakeTactics').innerHTML = tactics.map(t =>
+    '<div style="background:var(--charcoal);border:1px solid var(--border);border-radius:8px;padding:16px">' +
+    '<div style="font-size:1.5rem;margin-bottom:8px">' + t.icon + '</div>' +
+    '<div style="font-family:var(--display);font-size:.95rem;font-weight:700;text-transform:uppercase;color:var(--snow);margin-bottom:6px">' + t.season + '</div>' +
+    '<p style="font-size:13px;margin:0">' + t.tip + '</p></div>'
+  ).join('');
+
+  // Tackle
+  const tk = RMA_TACKLE.filter(t => lake.species.some(sp => t.sp === sp)).slice(0,3);
+  document.getElementById('lakeTackleGrid').innerHTML = (tk.length ? tk : RMA_TACKLE.slice(0,2)).map(RMA_TackleCard).join('');
+
+  // Guides
+  const gg = RMA_GUIDES.filter(g => g.lakes.some(l => lake.name.includes(l) || l.includes(lake.name.split(' ')[0]))).slice(0,2);
+  if (gg.length) {
+    document.getElementById('lakeGuidesGrid').innerHTML = gg.map(RMA_GuideCard).join('');
+  } else {
+    document.getElementById('lakeGuidesGrid').innerHTML = '<div style="background:var(--charcoal);border:1px solid var(--border);border-radius:8px;padding:20px;grid-column:1/-1"><p style="color:var(--silver);font-size:14px;margin-bottom:12px">No guides currently listed for this lake.</p><a href="/guides.html" class="btn btn-sm btn-outline-ice">Browse All Guides</a></div>';
+  }
+
+  // Quick stats sidebar
+  const STATE_AGENCIES = {UT:'https://wildlife.utah.gov',CO:'https://cpw.state.co.us',WY:'https://wgfd.wyo.gov',MT:'https://fwp.mt.gov',ID:'https://idfg.idaho.gov'};
+  document.getElementById('lakeQuickStats').innerHTML = [
+    ['State',     lake.state],
+    ['County',    lake.county],
+    ['Region',    lake.region],
+    ['Area',      lake.acres.toLocaleString() + ' acres'],
+    ['Max Depth', lake.depth + ' ft'],
+    ['Elevation', lake.elev.toLocaleString() + ' ft'],
+    ['Motorboat', lake.motorboat ? 'Allowed' : 'Restricted'],
+    ['HP Limit',  lake.hpLimit ? lake.hpLimit + ' HP max' : 'None'],
+    ['Boat Ramp', lake.boatRamp ? 'Available' : 'None listed'],
+  ].map(([l,v]) => '<div class="reg-card-row"><span>' + l + '</span><span>' + v + '</span></div>').join('');
+
+  // Regulations
+  document.getElementById('lakeRegsBody').innerHTML = [
+    ['License Required', 'Yes — ' + lake.state + ' fishing license'],
+    ['Slot Limits',      'Check current state regulations'],
+    ['Bag Limits',       'Varies by species — verify with state'],
+  ].map(([l,v]) => '<div class="reg-card-row"><span>' + l + '</span><span>' + v + '</span></div>').join('');
+  document.getElementById('lakeRegsLink').href = STATE_AGENCIES[lake.state] || '#';
+  document.getElementById('lakeRegsLink').textContent = lake.state + ' Wildlife Agency Regulations →';
+
+})();
 </script>
 </body>
 </html>

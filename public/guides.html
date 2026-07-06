@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guide Directory — Rocky Mountain Anglers</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/rma.css">
+</head>
+<body>
+<div id="_nav"></div>
+<div class="page-wrap">
+
+<section class="section section-dark">
+  <div class="inner">
+    <div class="sh" style="margin-bottom:32px">
+      <p class="lbl lbl-blue">Guide Directory</p>
+      <h1 class="d-xl" style="color:var(--snow)">Local Experts</h1>
+      <p>Verified fishing guides who know these waters. Browse and contact directly — no booking fees or commissions taken by Rocky Mountain Anglers.</p>
+    </div>
+    <div class="grid-auto" id="guidesGrid"></div>
+    <div style="margin-top:24px;background:var(--charcoal);border:1px solid var(--border);border-top:3px solid var(--glacier);border-radius:8px;padding:28px">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px">
+        <div>
+          <div style="font-family:var(--display);font-size:1.2rem;font-weight:700;text-transform:uppercase;color:var(--snow);margin-bottom:6px">List Your Guide Service</div>
+          <p style="font-size:14px;color:var(--silver);max-width:480px;margin:0">Free basic listing. Featured placement on lake pages available. No booking commission on direct bookings through your own contact info.</p>
+        </div>
+        <a href="/sign-up.html" class="btn btn-md btn-primary">Apply for a Listing →</a>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+<div id="_footer"></div>
+<script src="/js/rma-data.js"></script>
+<script>
+document.getElementById('_nav').innerHTML    = RMA_Nav('guides');
+document.getElementById('_footer').innerHTML = RMA_Footer();
+RMA_initNav(false);
+document.getElementById('guidesGrid').innerHTML = RMA_GUIDES.map(RMA_GuideCard).join('');
+</script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Species Guide — Rocky Mountain Anglers</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/rma.css">
+</head>
+<body>
+<div id="_nav"></div>
+<div class="page-wrap">
+
+<section class="section section-dark">
+  <div class="inner">
+    <div class="sh center">
+      <p class="lbl lbl-blue">Species Guide</p>
+      <h1 class="d-xl" style="color:var(--snow)">Know Your Fish</h1>
+      <p>12 species tracked across all five Rocky Mountain states. Each has its own leaderboard, identification guide, and lake-specific fishing tips.</p>
+    </div>
+    <div class="filter-tabs" style="margin-bottom:32px">
+      <button class="filter-tab active" data-cat="" onclick="spFilter(this)">All Species</button>
+      <button class="filter-tab" data-cat="trout"   onclick="spFilter(this)">Trout &amp; Salmon</button>
+      <button class="filter-tab" data-cat="bass"    onclick="spFilter(this)">Bass</button>
+      <button class="filter-tab" data-cat="walleye" onclick="spFilter(this)">Walleye &amp; Pike</button>
+      <button class="filter-tab" data-cat="panfish" onclick="spFilter(this)">Panfish</button>
+    </div>
+    <div class="grid-auto" id="spGrid" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:2px"></div>
+  </div>
+</section>
+<section class="section section-alt">
+  <div class="inner">
+    <div class="sh center">
+      <p class="lbl lbl-blue">Featured Species Spotlight</p>
+      <h2 class="d-lg" style="color:var(--snow)">Lake Trout — The Deep-Water Giant</h2>
+    </div>
+    <div class="grid-2" style="gap:48px;align-items:center">
+      <div>
+        <p style="margin-bottom:16px">Lake trout (<em>Salvelinus namaycush</em>) are the most sought-after trophy fish in Rocky Mountain reservoirs. Growing to exceptional size in cold, deep water, they require specialized deep-jigging or downrigger trolling techniques.</p>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px">
+          <div style="background:var(--charcoal);border:1px solid var(--border);border-radius:4px;padding:14px 16px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            <div><div class="lbl" style="margin-bottom:3px">Platform Record</div><div style="font-family:var(--mono);font-size:1.2rem;color:var(--snow)">53.5"</div></div>
+            <div><div class="lbl" style="margin-bottom:3px">Best Lakes</div><div style="font-size:13px;color:var(--lt-silver)">Flathead, Blue Mesa, Flaming Gorge</div></div>
+            <div><div class="lbl" style="margin-bottom:3px">Best Depths</div><div style="font-size:13px;color:var(--lt-silver)">60–150ft in summer</div></div>
+            <div><div class="lbl" style="margin-bottom:3px">Best Seasons</div><div style="font-size:13px;color:var(--lt-silver)">Spring, Fall, Ice Fishing</div></div>
+          </div>
+        </div>
+        <a href="/lakes.html" class="btn btn-md btn-primary">Find a Lake with Lake Trout</a>
+      </div>
+      <div style="background:var(--charcoal);border:1px solid var(--border);border-radius:8px;padding:28px">
+        <div style="font-family:var(--display);font-size:1.1rem;font-weight:700;text-transform:uppercase;color:var(--snow);margin-bottom:16px">Identification Tips</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;gap:10px;font-size:14px;color:var(--lt-silver)"><span style="color:var(--ice);font-weight:700;flex-shrink:0">✓</span>Light spots on dark grey or green body</div>
+          <div style="display:flex;gap:10px;font-size:14px;color:var(--lt-silver)"><span style="color:var(--ice);font-weight:700;flex-shrink:0">✓</span>Deeply forked tail — more forked than other trout</div>
+          <div style="display:flex;gap:10px;font-size:14px;color:var(--lt-silver)"><span style="color:var(--ice);font-weight:700;flex-shrink:0">✓</span>No pink lateral stripe (unlike rainbow trout)</div>
+          <div style="display:flex;gap:10px;font-size:14px;color:var(--lt-silver)"><span style="color:var(--ice);font-weight:700;flex-shrink:0">✓</span>Worm-like markings (vermiculations) near dorsal fin</div>
+          <div style="display:flex;gap:10px;font-size:14px;color:var(--lt-silver)"><span style="color:var(--ice);font-weight:700;flex-shrink:0">✓</span>Large head relative to body size</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+<div id="_footer"></div>
+<script src="/js/rma-data.js"></script>
+<script>
+document.getElementById('_nav').innerHTML    = RMA_Nav('species');
+document.getElementById('_footer').innerHTML = RMA_Footer();
+RMA_initNav(false);
+
+function spFilter(el) {
+  document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  const cat = el.dataset.cat;
+  const list = cat ? RMA_SPECIES.filter(s => s.cat === cat || (cat==='trout' && s.cat==='salmon')) : RMA_SPECIES;
+  document.getElementById('spGrid').innerHTML = list.map(RMA_SpeciesCard).join('');
+}
+spFilter(document.querySelector('.filter-tab[data-cat=""]'));
+</script>
+</body>
+</html>

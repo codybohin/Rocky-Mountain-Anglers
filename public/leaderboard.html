@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leaderboard — Rocky Mountain Anglers</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/rma.css">
+</head>
+<body>
+<div id="_nav"></div>
+<div class="page-wrap">
+
+<section class="section section-dark" style="padding-bottom:0">
+  <div class="inner">
+    <div class="sh" style="margin-bottom:32px">
+      <p class="lbl lbl-blue">Community Rankings</p>
+      <h1 class="d-xl" style="color:var(--snow)">Leaderboard</h1>
+      <p style="max-width:560px">Rankings by verified fish length. Pay $5 to submit a catch and compete for the monthly prize pot. <span class="demo-notice">Sample Data — live rankings populate as anglers submit verified catches.</span></p>
+    </div>
+    <!-- Filters row -->
+    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:24px">
+      <select class="form-select" style="width:auto" onchange="lbFilter()" id="lbStateFilter" aria-label="Filter by state">
+        <option value="">All States</option>
+        <option>UT</option><option>CO</option><option>WY</option><option>MT</option><option>ID</option>
+      </select>
+      <select class="form-select" style="width:auto" onchange="lbFilter()" id="lbSpeciesFilter" aria-label="Filter by species">
+        <option value="">All Species</option>
+        <option>Rainbow Trout</option><option>Brown Trout</option><option>Lake Trout</option>
+        <option>Cutthroat Trout</option><option>Walleye</option><option>Northern Pike</option>
+        <option>Smallmouth Bass</option><option>Kokanee Salmon</option>
+      </select>
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--silver);cursor:pointer">
+        <input type="checkbox" id="lbVerifiedOnly" onchange="lbFilter()" style="accent-color:var(--ice)"> Verified only
+      </label>
+    </div>
+  </div>
+</section>
+<section class="section section-dark" style="padding-top:0">
+  <div class="inner">
+    <div class="filter-tabs" style="margin-bottom:24px">
+      <button class="filter-tab active" onclick="lbTab(this,'monthly')">This Month</button>
+      <button class="filter-tab" onclick="lbTab(this,'annual')">2026 Season</button>
+      <button class="filter-tab" onclick="lbTab(this,'alltime')">All-Time Hall of Fame</button>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="lb-table" aria-label="Leaderboard">
+        <thead><tr>
+          <th>Rank</th><th>Angler</th><th>Species</th><th>Lake</th><th>State</th>
+          <th>Status</th><th style="text-align:right">Length</th><th style="text-align:right">Prize / Status</th>
+        </tr></thead>
+        <tbody id="lbBody"></tbody>
+      </table>
+    </div>
+    <div class="lb-cards" id="lbCards"></div>
+    <div class="text-center mt-28">
+      <a href="/submit-catch.html" class="btn btn-lg btn-primary">Submit a Catch — $5</a>
+      <p class="text-muted mt-12">Certified Angler Kit required. AI-assisted photo verification. <a href="/contest-rules.html" style="color:var(--ice)">Contest rules →</a></p>
+    </div>
+  </div>
+</section>
+<section class="section section-alt">
+  <div class="inner inner-sm" style="text-align:center">
+    <p class="lbl lbl-blue" style="margin-bottom:12px;justify-content:center;display:flex">Prize Structure</p>
+    <h2 class="d-md" style="margin-bottom:16px">Monthly Prize Pot</h2>
+    <p style="margin-bottom:28px;max-width:480px;margin-left:auto;margin-right:auto">Every $5 catch submission goes into the monthly pot. Winners are determined by fish length among verified catches. Contest is skill-based.</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;max-width:500px;margin:0 auto 16px">
+      <div style="background:var(--charcoal);padding:20px;text-align:center;border:1px solid rgba(94,166,199,.2)"><div style="font-size:1.4rem;margin-bottom:8px">🥇</div><div style="font-family:var(--mono);font-size:1.5rem;font-weight:700;color:var(--ice)">60%</div><div style="font-size:12px;color:var(--silver);margin-top:4px">First Place</div></div>
+      <div style="background:var(--charcoal);padding:20px;text-align:center;border:1px solid var(--border)"><div style="font-size:1.4rem;margin-bottom:8px">🥈</div><div style="font-family:var(--mono);font-size:1.5rem;font-weight:700;color:var(--lt-silver)">30%</div><div style="font-size:12px;color:var(--silver);margin-top:4px">Second Place</div></div>
+      <div style="background:var(--charcoal);padding:20px;text-align:center;border:1px solid var(--border)"><div style="font-size:1.4rem;margin-bottom:8px">🥉</div><div style="font-family:var(--mono);font-size:1.5rem;font-weight:700;color:var(--silver)">10%</div><div style="font-size:12px;color:var(--silver);margin-top:4px">Third Place</div></div>
+    </div>
+    <p style="font-size:12px;color:var(--silver)">Platform retains 5% administrative fee. 60% + 30% + 10% = 100% of available prize pot. <a href="/contest-rules.html" style="color:var(--ice)">Full rules →</a></p>
+  </div>
+</section>
+</div>
+<div id="_footer"></div>
+<script src="/js/rma-data.js"></script>
+<script>
+document.getElementById('_nav').innerHTML    = RMA_Nav('leaderboard');
+document.getElementById('_footer').innerHTML = RMA_Footer();
+RMA_initNav(false);
+
+let _lbKey = 'monthly';
+function lbTab(el, key) {
+  document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  _lbKey = key;
+  lbFilter();
+}
+function lbFilter() {
+  const st = document.getElementById('lbStateFilter').value;
+  const sp = document.getElementById('lbSpeciesFilter').value;
+  const vo = document.getElementById('lbVerifiedOnly').checked;
+  let data = RMA_LB[_lbKey];
+  if (st) data = data.filter(r => r.loc === st);
+  if (sp) data = data.filter(r => r.species.includes(sp));
+  if (vo) data = data.filter(r => r.verified);
+  RMA_renderLB(data, 'lbBody', 'lbCards');
+}
+lbFilter();
+</script>
+</body>
+</html>

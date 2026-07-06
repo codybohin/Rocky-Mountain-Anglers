@@ -4,898 +4,429 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rocky Mountain Anglers — Fish the Rockies. Prove It.</title>
-<meta name="description" content="Verified catch leaderboards, lake fishing reports, fish diary with GPS analytics across UT, CO, WY, MT, and ID.">
-<meta property="og:title" content="Rocky Mountain Anglers">
-<meta property="og:description" content="Fish the Rockies. Prove It. Verified leaderboards across 5 Rocky Mountain states.">
+<meta name="description" content="Verified catch leaderboards, lake fishing intelligence, and fishing reports for Utah, Colorado, Wyoming, Montana, and Idaho.">
+<meta property="og:title"       content="Rocky Mountain Anglers — Fish the Rockies. Prove It.">
+<meta property="og:description" content="Verified catch leaderboards and lake intelligence for serious Rocky Mountain anglers.">
+<meta property="og:type"        content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-:root{
-  --midnight:#080B0E; --carbon:#10161B; --charcoal:#1B242B; --gunmetal:#2B3740;
-  --steel:#3D4F5C; --silver:#AEBBC4; --lt-silver:#D5DDE2; --snow:#F4F7F8;
-  --ice:#9CCFE3; --glacier:#5EA6C7; --deep-blue:#2D6582; --lake-blue:#163F55;
-  --border:rgba(174,187,196,0.12); --border-strong:rgba(174,187,196,0.22);
-  --display:'Barlow Condensed',sans-serif; --body:'Inter',sans-serif; --mono:'JetBrains Mono',monospace;
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:var(--body);background:var(--midnight);color:var(--snow);overflow-x:hidden;line-height:1.6}
-a{color:inherit;text-decoration:none}
-button{font-family:var(--body);cursor:pointer;border:none;outline:none}
-img{display:block;max-width:100%}
-p{color:var(--lt-silver);line-height:1.7}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
-
-/* TYPE */
-.d-xl{font-family:var(--display);font-size:clamp(3rem,7vw,6.5rem);font-weight:800;line-height:.95;text-transform:uppercase;letter-spacing:-.01em}
-.d-lg{font-family:var(--display);font-size:clamp(2rem,4vw,4rem);font-weight:700;line-height:1;text-transform:uppercase;letter-spacing:-.01em}
-.d-md{font-family:var(--display);font-size:clamp(1.5rem,2.5vw,2.2rem);font-weight:700;text-transform:uppercase;letter-spacing:-.005em}
-.lbl{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--silver)}
-.lbl-blue{color:var(--ice)}
-.mono{font-family:var(--mono)}
-
-/* NAV */
-.nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;background:transparent;border-bottom:1px solid transparent;transition:background .4s,border-color .4s}
-.nav.scrolled{background:rgba(8,11,14,.93);border-color:var(--border);backdrop-filter:blur(16px)}
-.logo{display:flex;align-items:center;gap:10px}
-.logo-mark{width:34px;height:34px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.logo-text{font-family:var(--display);font-size:1.1rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;line-height:1.1}
-.logo-text span{color:var(--ice)}
-.nav-links{display:flex;gap:4px;align-items:center}
-.nav-a{font-size:13px;font-weight:500;color:var(--silver);padding:6px 10px;border-radius:4px;transition:color .15s}
-.nav-a:hover{color:var(--snow)}
-.nav-outline{font-size:13px;font-weight:600;color:var(--snow);padding:8px 16px;border-radius:4px;border:1px solid var(--border-strong);background:transparent;transition:all .15s}
-.nav-outline:hover{border-color:var(--glacier);color:var(--ice)}
-.nav-solid{font-size:13px;font-weight:600;color:var(--midnight);padding:8px 16px;border-radius:4px;background:var(--ice);border:none;transition:background .15s}
-.nav-solid:hover{background:var(--snow)}
-.nav-ham{display:none;background:none;border:none;color:var(--snow);font-size:22px;padding:4px}
-.mob-nav{display:none;position:fixed;inset:0;z-index:999;background:var(--carbon);padding:80px 32px 32px;flex-direction:column;gap:4px}
-.mob-nav.open{display:flex}
-.mob-a{font-family:var(--display);font-size:1.6rem;font-weight:700;text-transform:uppercase;color:var(--snow);padding:14px 0;border-bottom:1px solid var(--border);display:block;background:none;text-align:left;border-right:none;border-top:none;border-left:none}
-.mob-close{position:absolute;top:20px;right:24px;background:none;border:none;color:var(--silver);font-size:26px;cursor:pointer}
-
-/* HERO */
-.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;padding:120px 40px 80px;text-align:center}
-.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1800&auto=format&fit=crop&q=80');background-size:cover;background-position:center 30%;filter:brightness(.3) saturate(.7)}
-.hero-ov{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,11,14,.3) 0%,rgba(8,11,14,.05) 35%,rgba(8,11,14,.6) 75%,rgba(8,11,14,1) 100%)}
-.hero-mtn{position:absolute;bottom:0;left:0;right:0;z-index:1;pointer-events:none}
-.hero-c{position:relative;z-index:2;max-width:880px}
-.hero-eye{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:24px}
-.h-states{font-family:var(--mono);font-size:12px;letter-spacing:.2em;color:var(--ice)}
-.h-div{width:36px;height:1px;background:var(--glacier);opacity:.5}
-.h1-main{display:block;color:var(--snow)}
-.h1-accent{display:block;color:var(--ice)}
-.hero-sub{font-size:1.05rem;color:var(--lt-silver);max-width:560px;margin:0 auto 38px;line-height:1.8}
-.hero-acts{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
-.btn-ice{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:600;color:var(--midnight);padding:14px 30px;border-radius:4px;background:var(--ice);border:none;transition:all .2s}
-.btn-ice:hover{background:var(--snow);transform:translateY(-1px)}
-.btn-out{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:600;color:var(--snow);padding:14px 30px;border-radius:4px;border:1px solid rgba(244,247,248,.28);background:transparent;transition:all .2s}
-.btn-out:hover{border-color:var(--snow)}
-.hero-cert{font-size:12px;color:var(--silver);letter-spacing:.05em}
-.hero-cert a{color:var(--ice);text-decoration:underline;text-underline-offset:3px}
-.h-stats{display:flex;gap:2px;justify-content:center;flex-wrap:wrap;margin-top:52px}
-.h-stat{background:rgba(27,36,43,.75);border:1px solid var(--border-strong);backdrop-filter:blur(8px);padding:18px 26px;text-align:center;min-width:130px}
-.h-stat:first-child{border-radius:4px 0 0 4px}
-.h-stat:last-child{border-radius:0 4px 4px 0}
-.h-sv{font-family:var(--mono);font-size:1.6rem;font-weight:600;color:var(--snow);display:block}
-.h-sv.blue{color:var(--ice)}
-.h-sl{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--silver);display:block;margin-top:4px}
-
-/* SECTION */
-.sec{padding:88px 40px}
-.sec-alt{background:var(--carbon)}
-.sec-dark{background:var(--midnight)}
-.inner{max-width:1200px;margin:0 auto}
-.sh{margin-bottom:44px}
-.sh.c{text-align:center}
-.sh .lbl{margin-bottom:12px}
-.sh h2{margin-bottom:14px}
-.sh p{max-width:540px;color:var(--lt-silver)}
-.sh.c p{margin:0 auto}
-
-/* STATE FILTER */
-.sf{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:32px;overflow-x:auto;scrollbar-width:none}
-.sf::-webkit-scrollbar{display:none}
-.sb{flex-shrink:0;padding:11px 20px;font-size:13px;font-weight:600;letter-spacing:.05em;color:var(--silver);background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;white-space:nowrap}
-.sb:hover{color:var(--snow)}
-.sb.on{color:var(--ice);border-bottom-color:var(--ice)}
-
-/* LAKE CARDS */
-.lg{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:2px}
-.lc{position:relative;overflow:hidden;background:var(--charcoal);cursor:pointer;display:block;transition:transform .3s}
-.lc:hover{transform:translateY(-4px);z-index:1}
-.lc:hover .li{transform:scale(1.05)}
-.li-w{height:210px;overflow:hidden;position:relative}
-.li{width:100%;height:100%;object-fit:cover;transition:transform .6s;background:var(--charcoal)}
-.li-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,11,14,.92) 0%,rgba(8,11,14,.15) 55%,transparent 100%)}
-.ls-b{position:absolute;top:12px;left:12px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:2px;border:1px solid}
-.s-hot{background:rgba(94,166,199,.15);color:var(--ice);border-color:rgba(94,166,199,.4)}
-.s-good{background:rgba(174,187,196,.1);color:var(--lt-silver);border-color:rgba(174,187,196,.3)}
-.s-slow{background:rgba(43,55,64,.6);color:var(--silver);border-color:rgba(174,187,196,.2)}
-.lb{padding:16px 18px 18px}
-.l-sr{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px}
-.l-st{font-family:var(--mono);font-size:11px;color:var(--glacier);letter-spacing:.1em;font-weight:600}
-.l-dp{font-family:var(--mono);font-size:11px;color:var(--silver)}
-.l-nm{font-family:var(--display);font-size:1.3rem;font-weight:700;text-transform:uppercase;color:var(--snow);margin-bottom:4px;letter-spacing:.02em;line-height:1.1}
-.l-co{font-size:12px;color:var(--silver);margin-bottom:8px}
-.l-sm{font-size:13px;color:var(--lt-silver);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:12px}
-.l-sp{display:flex;gap:5px;flex-wrap:wrap}
-.l-ch{font-size:11px;color:var(--ice);background:rgba(94,166,199,.1);border:1px solid rgba(94,166,199,.2);padding:3px 7px;border-radius:2px;font-weight:500}
-.l-arr{position:absolute;bottom:18px;right:18px;width:30px;height:30px;border-radius:2px;background:var(--gunmetal);border:1px solid var(--border-strong);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--ice);transition:all .15s}
-.lc:hover .l-arr{background:var(--ice);color:var(--midnight)}
-
-/* LEADERBOARD */
-.lb-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:26px;overflow-x:auto;scrollbar-width:none}
-.lb-tabs::-webkit-scrollbar{display:none}
-.lbt{flex-shrink:0;padding:11px 18px;font-size:13px;font-weight:600;color:var(--silver);background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s}
-.lbt:hover{color:var(--snow)}
-.lbt.on{color:var(--ice);border-bottom-color:var(--ice)}
-.lb-t{width:100%;border-collapse:collapse}
-.lb-t th{text-align:left;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--silver);padding:0 0 13px;border-bottom:1px solid var(--border-strong)}
-.lb-t td{padding:15px 0;border-bottom:1px solid var(--border);vertical-align:middle}
-.lb-t tr:last-child td{border-bottom:none}
-.l-rnk{font-family:var(--mono);font-size:1.05rem;font-weight:600;width:46px}
-.r1{color:var(--ice)} .r2{color:var(--lt-silver)} .r3{color:var(--silver)}
-.a-wrap{display:flex;align-items:center;gap:12px}
-.a-av{width:34px;height:34px;border-radius:50%;background:var(--gunmetal);border:1px solid var(--border-strong);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--ice);flex-shrink:0}
-.a-nm{font-weight:600;color:var(--snow);font-size:14px}
-.a-lo{font-size:11px;color:var(--silver);font-family:var(--mono);margin-top:2px}
-.lb-sp{font-size:13px;color:var(--lt-silver)}
-.lb-lk{font-size:13px;color:var(--silver)}
-.lb-ln{font-family:var(--mono);font-size:1.15rem;font-weight:600;color:var(--snow);text-align:right}
-.p-bdg{font-size:11px;font-weight:600;letter-spacing:.05em;background:rgba(94,166,199,.15);color:var(--ice);border:1px solid rgba(94,166,199,.3);padding:4px 10px;border-radius:2px}
-.lb-mob{display:none;flex-direction:column;gap:10px}
-.lb-mc{background:var(--charcoal);border:1px solid var(--border);border-radius:8px;padding:14px;display:flex;gap:12px;align-items:flex-start}
-.mc-rk{font-family:var(--mono);font-size:1.4rem;font-weight:700;min-width:32px;line-height:1}
-.mc-bd{flex:1}
-.mc-an{font-weight:600;color:var(--snow);margin-bottom:2px}
-.mc-mt{font-size:12px;color:var(--silver)}
-.mc-ln{font-family:var(--mono);font-weight:700;font-size:1.2rem;color:var(--ice);text-align:right}
-
-/* HOW */
-.how-g{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
-.how-c{background:var(--charcoal);padding:34px 26px;position:relative;overflow:hidden}
-.how-c::before{content:attr(data-n);position:absolute;top:-14px;right:14px;font-family:var(--display);font-size:6.5rem;font-weight:800;color:rgba(94,166,199,.05);line-height:1;pointer-events:none}
-.how-sn{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--ice);letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px}
-.how-ic{width:46px;height:46px;margin-bottom:18px;border:1px solid var(--border-strong);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:20px;background:var(--gunmetal)}
-.how-c h3{font-family:var(--display);font-size:1.4rem;font-weight:700;text-transform:uppercase;color:var(--snow);margin-bottom:10px}
-.how-c p{font-size:14px;color:var(--lt-silver);line-height:1.7}
-
-/* KIT */
-.kit-g{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
-.kit-items{display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
-.kit-i{display:flex;align-items:flex-start;gap:14px;padding:15px 16px;background:var(--charcoal);border:1px solid var(--border);border-radius:4px;transition:border-color .15s}
-.kit-i:hover{border-color:var(--border-strong)}
-.kit-ico{font-size:19px;flex-shrink:0;margin-top:2px}
-.kit-n{font-weight:600;color:var(--snow);font-size:14px;margin-bottom:2px}
-.kit-d{font-size:13px;color:var(--silver);line-height:1.5}
-.kit-p{font-family:var(--mono);font-size:2.5rem;font-weight:600;color:var(--snow);margin-bottom:4px}
-.kit-ps{font-size:13px;color:var(--silver);margin-bottom:24px}
-.kit-ruler{height:28px;background:var(--gunmetal);border:1px solid var(--border-strong);border-radius:4px;margin-bottom:24px;display:flex;align-items:flex-end;padding:0 6px 4px;overflow:hidden;position:relative}
-.k-rm{background:var(--silver);opacity:.45;border-radius:1px;flex-shrink:0}
-/* Prize panel */
-.pp{background:var(--charcoal);border:1px solid var(--border);border-radius:12px;padding:28px}
-.pp-t{font-family:var(--display);font-size:1.5rem;font-weight:700;text-transform:uppercase;color:var(--snow);margin-bottom:4px}
-.pp-s{font-family:var(--mono);font-size:11px;color:var(--glacier);letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px}
-.sl-rw{margin-bottom:20px}
-.sl-h{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;margin-bottom:7px}
-.sl-lb{color:var(--lt-silver);font-weight:500}
-.sl-v{font-family:var(--mono);color:var(--ice);font-weight:600;font-size:14px}
-input[type=range].rsl{-webkit-appearance:none;width:100%;height:3px;background:var(--gunmetal);border-radius:2px;outline:none}
-input[type=range].rsl::-webkit-slider-thumb{-webkit-appearance:none;width:17px;height:17px;border-radius:50%;background:var(--ice);cursor:pointer;border:3px solid var(--charcoal)}
-.pc-g{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:4px}
-.pc{background:var(--gunmetal);border:1px solid var(--border);border-radius:4px;padding:13px 10px;text-align:center}
-.pc.top{border-color:rgba(94,166,199,.3)}
-.pc-rk{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--silver);margin-bottom:7px;font-weight:600}
-.pc-a{font-family:var(--mono);font-size:1.3rem;font-weight:600;color:var(--snow)}
-.pc-a.b{color:var(--ice)}
-.pc-p{font-size:11px;color:var(--silver);margin-top:2px}
-.pt{text-align:center;padding-top:16px;margin-top:14px;border-top:1px solid var(--border)}
-.pt-v{font-family:var(--mono);font-size:1.1rem;font-weight:600;color:var(--ice)}
-.pt-s{font-size:12px;color:var(--silver);margin-top:4px}
-.pt-n{font-size:11px;color:var(--silver);margin-top:8px;font-style:italic;text-align:center}
-
-/* SPECIES */
-.sp-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:2px}
-.sp-c{background:var(--charcoal);padding:22px 18px;cursor:pointer;transition:background .15s;border:1px solid transparent}
-.sp-c:hover{background:var(--gunmetal);border-color:var(--border-strong)}
-.sp-ic{font-size:2.2rem;margin-bottom:12px;display:block;line-height:1}
-.sp-nm{font-family:var(--display);font-size:1.05rem;font-weight:700;text-transform:uppercase;color:var(--snow);margin-bottom:2px;letter-spacing:.02em}
-.sp-sc{font-size:11px;color:var(--silver);font-style:italic;margin-bottom:10px}
-.sp-rc{font-family:var(--mono);font-size:12px;color:var(--glacier)}
-.sp-rc span{font-size:10px;color:var(--silver);letter-spacing:.08em;text-transform:uppercase}
-
-/* DIARY */
-.di-g{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
-.di-ft{display:flex;flex-direction:column;gap:9px;margin:22px 0 28px}
-.di-fi{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--lt-silver)}
-.fi-ck{width:19px;height:19px;border-radius:50%;background:rgba(94,166,199,.15);border:1px solid var(--glacier);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--ice);flex-shrink:0}
-.di-cd{background:var(--charcoal);border:1px solid var(--border);border-radius:14px;padding:22px;overflow:hidden}
-.di-mp{height:155px;border-radius:8px;overflow:hidden;background:var(--gunmetal);margin-bottom:16px;position:relative}
-.di-st{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
-.ds{background:var(--gunmetal);border:1px solid var(--border);border-radius:4px;padding:11px;text-align:center}
-.ds-v{font-family:var(--mono);font-size:1.05rem;font-weight:600;color:var(--snow)}
-.ds-l{font-size:10px;color:var(--silver);text-transform:uppercase;letter-spacing:.07em;margin-top:2px}
-.di-en{display:flex;flex-direction:column}
-.de{display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px solid var(--border)}
-.de:last-child{border-bottom:none}
-.de-ico{font-size:17px;flex-shrink:0}
-.de-nm{font-size:13px;font-weight:600;color:var(--snow)}
-.de-mt{font-size:11px;color:var(--silver);margin-top:1px}
-.de-r{margin-left:auto;text-align:right}
-.de-ln{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--ice)}
-.de-pv{font-size:10px;color:var(--silver);margin-top:2px}
-
-/* REPORTS */
-.rep-g{display:flex;flex-direction:column;gap:10px}
-.rep-c{background:var(--charcoal);border:1px solid var(--border);border-radius:8px;padding:18px 20px;transition:border-color .15s}
-.rep-c:hover{border-color:var(--border-strong)}
-.rep-h{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:11px;flex-wrap:wrap}
-.rep-lk{font-family:var(--display);font-size:1rem;font-weight:700;text-transform:uppercase;color:var(--snow)}
-.rep-st{font-family:var(--mono);font-size:11px;color:var(--glacier);margin-top:2px}
-.rep-m{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0}
-.rep-dt{font-family:var(--mono);font-size:11px;color:var(--silver)}
-.rep-bd{font-size:13px;color:var(--lt-silver);line-height:1.65;margin-bottom:11px}
-.rep-tg{display:flex;gap:6px;flex-wrap:wrap}
-.rt{font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:3px 8px;border-radius:2px}
-.rt-f{background:rgba(94,166,199,.1);color:var(--glacier);border:1px solid rgba(94,166,199,.2)}
-.rt-a{background:rgba(174,187,196,.08);color:var(--silver);border:1px solid var(--border)}
-.dot{width:6px;height:6px;border-radius:50%;display:inline-block;margin-right:5px}
-.d-hot{background:var(--ice)} .d-good{background:var(--lt-silver)} .d-slow{background:var(--silver)}
-
-/* GUIDES */
-.gu-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:2px}
-.gu-c{background:var(--charcoal);padding:22px;transition:background .15s}
-.gu-c.ft{background:var(--gunmetal);border-top:2px solid var(--glacier)}
-.gu-c:hover{background:var(--gunmetal)}
-.gu-fb{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--glacier);margin-bottom:10px;display:block}
-.gu-av{width:50px;height:50px;border-radius:50%;background:var(--steel);border:1px solid var(--border-strong);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:1.05rem;font-weight:700;color:var(--ice);margin-bottom:12px}
-.gu-nm{font-family:var(--display);font-size:1.1rem;font-weight:700;text-transform:uppercase;color:var(--snow);margin-bottom:2px}
-.gu-sp{font-size:12px;color:var(--glacier);font-weight:500;margin-bottom:8px}
-.gu-bi{font-size:13px;color:var(--lt-silver);line-height:1.6;margin-bottom:12px}
-.gu-lk{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
-.gu-lc{font-size:11px;color:var(--silver);background:rgba(174,187,196,.08);border:1px solid var(--border);padding:3px 7px;border-radius:2px}
-.gu-btn{font-size:13px;font-weight:600;color:var(--ice);border:1px solid rgba(94,166,199,.3);padding:8px 15px;border-radius:4px;background:transparent;transition:all .15s}
-.gu-btn:hover{background:rgba(94,166,199,.1);border-color:var(--glacier)}
-
-/* TACKLE */
-.tk-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:2px}
-.tk-c{background:var(--charcoal);padding:20px;transition:background .15s}
-.tk-c:hover{background:var(--gunmetal)}
-.tk-b{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--silver);margin-bottom:9px;display:block}
-.tk-lk{color:var(--glacier)}
-.tk-nm{font-weight:600;color:var(--snow);font-size:14px;margin-bottom:5px;line-height:1.3}
-.tk-ds{font-size:13px;color:var(--lt-silver);line-height:1.55;margin-bottom:12px}
-.tk-by{font-size:13px;font-weight:600;color:var(--ice);background:none;border:none;padding:0;transition:color .15s}
-.tk-by:hover{color:var(--snow)}
-.tk-di{font-size:11px;color:var(--silver);margin-top:4px;font-style:italic}
-
-/* CTA */
-.cta-s{position:relative;padding:110px 40px;text-align:center;overflow:hidden}
-.cta-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&auto=format&fit=crop&q=80');background-size:cover;background-position:center;filter:brightness(.2) saturate(.5)}
-.cta-ov{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,11,14,.5),rgba(8,11,14,.7))}
-.cta-mtn{position:absolute;bottom:0;left:0;right:0;z-index:1;opacity:.3}
-.cta-cnt{position:relative;z-index:2;max-width:580px;margin:0 auto}
-.cta-s h2{margin-bottom:14px}
-.cta-s p{color:var(--lt-silver);margin-bottom:32px}
-.cta-bts{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-
-/* FOOTER */
-footer{background:var(--carbon);border-top:1px solid var(--border);padding:60px 40px 28px;position:relative;overflow:hidden}
-.ft-mtn{position:absolute;bottom:0;left:0;right:0;opacity:.05;pointer-events:none}
-.ft-in{max-width:1200px;margin:0 auto}
-.ft-g{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px;margin-bottom:44px;position:relative;z-index:1}
-.ft-br{font-family:var(--display);font-size:1.35rem;font-weight:700;text-transform:uppercase;color:var(--snow);margin-bottom:9px;letter-spacing:.04em}
-.ft-br span{color:var(--ice)}
-.ft-tg{font-size:13px;color:var(--silver);line-height:1.6;max-width:210px;margin-bottom:12px}
-.ft-st{font-family:var(--mono);font-size:11px;color:var(--glacier);letter-spacing:.16em}
-.ft-col h4{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--silver);margin-bottom:14px}
-.ft-col ul{list-style:none}
-.ft-col ul li{margin-bottom:9px}
-.ft-col ul li a{font-size:13px;color:var(--silver);transition:color .15s}
-.ft-col ul li a:hover{color:var(--snow)}
-.ft-bt{border-top:1px solid var(--border);padding-top:20px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;position:relative;z-index:1}
-.ft-bt p{font-size:12px;color:var(--silver)}
-.ft-lg{font-size:11px;color:var(--silver);opacity:.65}
-
-/* UTILITY */
-.btn-sub{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;padding:12px 26px;border-radius:4px;background:var(--ice);color:var(--midnight);border:none;transition:all .2s}
-.btn-sub:hover{background:var(--snow);transform:translateY(-1px)}
-.btn-gh{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--silver);padding:10px 18px;border-radius:4px;border:1px solid var(--border-strong);background:transparent;transition:all .15s}
-.btn-gh:hover{color:var(--snow);border-color:var(--snow)}
-.tc{text-align:center}
-.mt28{margin-top:28px}
-
-/* TOAST */
-.toast{position:fixed;bottom:22px;right:22px;background:var(--charcoal);border:1px solid var(--border-strong);color:var(--snow);padding:11px 18px;border-radius:8px;font-size:13px;z-index:9999;transform:translateY(80px);opacity:0;transition:all .3s;max-width:300px}
-.toast.show{transform:translateY(0);opacity:1}
-
-/* RESPONSIVE */
-@media(max-width:1024px){
-  .nav{padding:0 22px}
-  .nav-links{display:none}
-  .nav-ham{display:block}
-  .kit-g,.di-g{grid-template-columns:1fr;gap:36px}
-  .ft-g{grid-template-columns:1fr 1fr}
-  .how-g{grid-template-columns:1fr}
-  .sec{padding:64px 22px}
-  .hero{padding:96px 22px 60px}
-}
-@media(max-width:768px){
-  .lb-t{display:none}
-  .lb-mob{display:flex}
-  .lg{grid-template-columns:1fr}
-  .h-stats{display:grid;grid-template-columns:1fr 1fr;gap:2px}
-  .h-stat:first-child,.h-stat:last-child{border-radius:0}
-  .pc-g{grid-template-columns:1fr}
-  .ft-g{grid-template-columns:1fr}
-}
-@media(max-width:480px){
-  .sp-g{grid-template-columns:1fr 1fr}
-  .di-st{grid-template-columns:repeat(3,1fr)}
-}
-</style>
+<link rel="stylesheet" href="/css/rma.css">
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="nav" id="nav">
-  <a href="/" class="logo" aria-label="Rocky Mountain Anglers home">
-    <div class="logo-mark">
-      <svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true">
-        <polygon points="17,3 31,27 3,27" fill="none" stroke="#9CCFE3" stroke-width="1.5"/>
-        <polygon points="17,9 27,27 7,27" fill="#9CCFE3" opacity="0.13"/>
-        <line x1="11" y1="27" x2="23" y2="27" stroke="#9CCFE3" stroke-width="1.5" opacity="0.35"/>
-        <line x1="17" y1="3" x2="17" y2="7" stroke="#9CCFE3" stroke-width="1" opacity="0.5"/>
-      </svg>
-    </div>
-    <div class="logo-text">Rocky Mountain <span>Anglers</span></div>
-  </a>
-  <div class="nav-links">
-    <a href="#lakes" class="nav-a">Lakes</a>
-    <a href="#leaderboard" class="nav-a">Leaderboard</a>
-    <a href="#species" class="nav-a">Species</a>
-    <a href="#reports" class="nav-a">Reports</a>
-    <a href="#guides" class="nav-a">Guides</a>
-    <a href="#tackle" class="nav-a">Tackle</a>
-    <a href="#" class="nav-outline" onclick="toast('Sign in launching soon')">Sign In</a>
-    <a href="#kit" class="nav-solid">Get Certified</a>
-  </div>
-  <button class="nav-ham" onclick="toggleMob()" aria-label="Open menu" aria-expanded="false" id="hamBtn">☰</button>
-</nav>
+<div id="nav-placeholder"></div>
+<div id="mob-nav-placeholder"></div>
 
-<nav class="mob-nav" id="mobNav" aria-hidden="true">
-  <button class="mob-close" onclick="toggleMob()" aria-label="Close menu">✕</button>
-  <a href="#lakes" class="mob-a" onclick="toggleMob()">Lakes</a>
-  <a href="#leaderboard" class="mob-a" onclick="toggleMob()">Leaderboard</a>
-  <a href="#species" class="mob-a" onclick="toggleMob()">Species</a>
-  <a href="#reports" class="mob-a" onclick="toggleMob()">Reports</a>
-  <a href="#guides" class="mob-a" onclick="toggleMob()">Guides</a>
-  <a href="#tackle" class="mob-a" onclick="toggleMob()">Tackle</a>
-  <a href="#kit" class="mob-a" onclick="toggleMob()">Get Certified — $34.99</a>
-</nav>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-bg" role="img" aria-label="Rocky Mountain lake at dawn"></div>
+<!-- ═══ HERO ═══════════════════════════════════════════ -->
+<section class="hero" aria-label="Rocky Mountain Anglers hero">
+  <div class="hero-bg" style="background-image:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1800&auto=format&fit=crop&q=80')" role="img" aria-label="Rocky Mountain lake at dawn"></div>
   <div class="hero-ov" aria-hidden="true"></div>
-  <svg class="hero-mtn" viewBox="0 0 1440 140" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0,140 L0,90 L110,35 L190,68 L290,18 L385,55 L480,8 L575,46 L670,3 L765,40 L860,12 L955,50 L1050,18 L1145,56 L1240,24 L1335,58 L1440,34 L1440,140Z" fill="#080B0E"/>
-    <path d="M670,3 L654,25 L686,25Z M480,8 L466,28 L496,28Z M860,12 L846,33 L876,33Z M1240,24 L1226,46 L1256,46Z" fill="rgba(156,207,227,0.55)"/>
-  </svg>
-  <div class="hero-c">
-    <div class="hero-eye">
-      <div class="h-div" aria-hidden="true"></div>
-      <span class="h-states">UT · CO · WY · MT · ID</span>
-      <div class="h-div" aria-hidden="true"></div>
+  <div class="hero-mtn-svg" aria-hidden="true" id="heroMtn"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="hero-divider" aria-hidden="true"></div>
+      <span class="hero-states">UT · CO · WY · MT · ID</span>
+      <div class="hero-divider" aria-hidden="true"></div>
     </div>
-    <h1 class="d-xl" style="margin-bottom:18px">
-      <span class="h1-main">Fish the Rockies.</span>
-      <span class="h1-accent">Prove It.</span>
+    <h1 class="d-2xl" style="margin-bottom:18px;color:var(--snow)">
+      Fish the Rockies.<br><span style="color:var(--ice)">Prove It.</span>
     </h1>
-    <p class="hero-sub">AI-assisted verified catch leaderboards, weekly fishing reports, and personal catch tracking across five Rocky Mountain states. Real fish. Real measurements. Real competition.</p>
-    <div class="hero-acts">
-      <a href="#leaderboard" class="btn-ice">Explore the Leaderboard</a>
-      <a href="#lakes" class="btn-out">Find a Lake</a>
+    <p style="font-size:1.05rem;color:var(--lt-silver);max-width:580px;margin:0 auto 36px;line-height:1.8">Verified catch leaderboards, lake reports, species intelligence, and private fishing logs for serious Rocky Mountain anglers across Utah, Colorado, Wyoming, Montana, and Idaho.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:14px">
+      <a href="/leaderboard.html" class="btn btn-lg btn-primary">Explore the Leaderboard</a>
+      <a href="/lakes.html"       class="btn btn-lg btn-outline">Find a Lake</a>
     </div>
-    <p class="hero-cert">Compete on the leaderboard — <a href="#kit">get your Certified Kit →</a></p>
-    <div class="h-stats">
-      <div class="h-stat"><span class="h-sv">19+</span><span class="h-sl">Featured Lakes</span></div>
-      <div class="h-stat"><span class="h-sv">12</span><span class="h-sl">Species Tracked</span></div>
-      <div class="h-stat"><span class="h-sv">5</span><span class="h-sl">States</span></div>
-      <div class="h-stat"><span class="h-sv blue" id="potHero">$570</span><span class="h-sl">Demo Prize Pot</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- LAKES -->
-<section class="sec sec-dark" id="lakes">
-  <div class="inner">
-    <div class="sh">
-      <p class="lbl lbl-blue">Water Directory</p>
-      <h2 class="d-lg">Find Your Lake</h2>
-      <p>A growing directory of motorboat-accessible Rocky Mountain lakes with live fishing report status. Click any lake for full details, reports, and species-specific tips.</p>
-    </div>
-    <div class="sf" role="tablist">
-      <button class="sb on" data-st="all" onclick="filterLakes(this)">All States</button>
-      <button class="sb" data-st="UT" onclick="filterLakes(this)">Utah</button>
-      <button class="sb" data-st="CO" onclick="filterLakes(this)">Colorado</button>
-      <button class="sb" data-st="WY" onclick="filterLakes(this)">Wyoming</button>
-      <button class="sb" data-st="MT" onclick="filterLakes(this)">Montana</button>
-      <button class="sb" data-st="ID" onclick="filterLakes(this)">Idaho</button>
-    </div>
-    <div class="lg" id="lakeGrid"></div>
-  </div>
-</section>
-
-<!-- LEADERBOARD -->
-<section class="sec sec-alt" id="leaderboard">
-  <div class="inner">
-    <div class="sh">
-      <p class="lbl lbl-blue">Community Rankings</p>
-      <h2 class="d-lg">Leaderboard</h2>
-      <p>All rankings by fish length. Submit a verified catch ($5) to compete for the monthly prize pot. <strong style="color:var(--snow)">Sample data shown</strong> — live rankings populate as anglers submit verified catches.</p>
-    </div>
-    <div class="lb-tabs" role="tablist">
-      <button class="lbt on" onclick="switchLB(this,'monthly')">This Month</button>
-      <button class="lbt" onclick="switchLB(this,'annual')">2026 Season</button>
-      <button class="lbt" onclick="switchLB(this,'alltime')">All-Time Hall of Fame</button>
-    </div>
-    <table class="lb-t" id="lbTable" aria-label="Leaderboard">
-      <thead><tr><th style="width:46px">Rank</th><th>Angler</th><th>Species</th><th>Lake</th><th style="text-align:right">Length</th><th style="text-align:right">Status</th></tr></thead>
-      <tbody id="lbBody"></tbody>
-    </table>
-    <div class="lb-mob" id="lbMob"></div>
-    <div class="tc mt28">
-      <a href="#kit" class="btn-sub">Submit a Catch — $5</a>
-      <p style="font-size:12px;color:var(--silver);margin-top:10px">Requires Certified Angler Kit. AI-assisted photo verification.</p>
+    <p style="font-size:12px;color:var(--silver)">Compete on the leaderboard — <a href="/kit.html" style="color:var(--ice);text-decoration:underline;text-underline-offset:3px">Get your Certified Kit →</a></p>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="hero-stat-val">19+</span><span class="hero-stat-lbl">Featured Lakes</span></div>
+      <div class="hero-stat"><span class="hero-stat-val">12</span><span class="hero-stat-lbl">Species Tracked</span></div>
+      <div class="hero-stat"><span class="hero-stat-val">5</span><span class="hero-stat-lbl">States</span></div>
+      <div class="hero-stat"><span class="hero-stat-val blue" id="potHero">$570</span><span class="hero-stat-lbl">Demo Prize Pot <span class="demo-notice" style="font-size:9px;padding:2px 6px">Demo</span></span></div>
     </div>
   </div>
 </section>
 
-<!-- HOW -->
-<section class="sec sec-dark" id="how">
+<!-- ═══ WHY IT EXISTS ══════════════════════════════════ -->
+<section class="section section-alt">
   <div class="inner">
-    <div class="sh c">
+    <div class="grid-2" style="gap:64px;align-items:center">
+      <div>
+        <p class="lbl lbl-blue" style="margin-bottom:12px">Why Rocky Mountain Anglers Exists</p>
+        <h2 class="d-lg" style="margin-bottom:20px;color:var(--snow)">Fishing Reports Are Scattered.<br>Bragging Rights Are Hard to Prove.</h2>
+        <p style="margin-bottom:16px">Good lake knowledge is buried in Facebook groups and outdated forums. When you catch a 40-inch lake trout, there's nowhere to document it, verify it, or compete with other serious anglers.</p>
+        <p>Rocky Mountain Anglers brings verified catches, lake intelligence, monthly prize competition, and a growing community into one platform — built specifically for the lakes you actually fish.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div style="background:var(--charcoal);border:1px solid var(--border);border-left:3px solid var(--ice);border-radius:0 8px 8px 0;padding:18px 20px">
+          <div style="font-family:var(--display);font-size:1.05rem;font-weight:700;text-transform:uppercase;color:var(--snow);margin-bottom:4px">Verified Catches</div>
+          <p style="font-size:13px;margin:0">AI-assisted photo verification + community oversight means every leaderboard entry is checked.</p>
+        </div>
+        <div style="background:var(--charcoal);border:1px solid var(--border);border-left:3px solid var(--glacier);border-radius:0 8px 8px 0;padding:18px 20px">
+          <div style="font-family:var(--display);font-size:1.05rem;font-weight:700;text-transform:uppercase;color:var(--snow);margin-bottom:4px">Lake Intelligence</div>
+          <p style="font-size:13px;margin:0">Real fishing reports, species data, tackle recommendations, and conditions — specific to the lake you're fishing.</p>
+        </div>
+        <div style="background:var(--charcoal);border:1px solid var(--border);border-left:3px solid var(--deep-blue);border-radius:0 8px 8px 0;padding:18px 20px">
+          <div style="font-family:var(--display);font-size:1.05rem;font-weight:700;text-transform:uppercase;color:var(--snow);margin-bottom:4px">Real Competition</div>
+          <p style="font-size:13px;margin:0">Monthly prize pots, season-long leaderboards, and a Hall of Fame for the biggest fish ever submitted.</p>
+        </div>
+        <div style="background:var(--charcoal);border:1px solid var(--border);border-left:3px solid var(--silver);border-radius:0 8px 8px 0;padding:18px 20px">
+          <div style="font-family:var(--display);font-size:1.05rem;font-weight:700;text-transform:uppercase;color:var(--snow);margin-bottom:4px">Private Fish Diary</div>
+          <p style="font-size:13px;margin:0">Log every catch with GPS, conditions, and gear. Your spots stay private until you decide otherwise.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FEATURED LAKES ════════════════════════════════ -->
+<section class="section section-dark" id="lakes">
+  <div class="inner">
+    <div class="sh" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:32px">
+      <div>
+        <p class="lbl lbl-blue">Water Directory</p>
+        <h2 class="d-lg" style="color:var(--snow)">Find Your Lake</h2>
+        <p style="max-width:480px">A growing directory of motorboat-accessible Rocky Mountain lakes. Each card links to full lake intelligence.</p>
+      </div>
+      <a href="/lakes.html" class="btn btn-md btn-outline-ice" style="flex-shrink:0">View All Lakes →</a>
+    </div>
+    <div class="filter-tabs" role="tablist" style="margin-bottom:28px">
+      <button class="filter-tab active" data-st="all"  onclick="homeFilterLakes(this)" role="tab">All States</button>
+      <button class="filter-tab"        data-st="UT"   onclick="homeFilterLakes(this)" role="tab">Utah</button>
+      <button class="filter-tab"        data-st="CO"   onclick="homeFilterLakes(this)" role="tab">Colorado</button>
+      <button class="filter-tab"        data-st="WY"   onclick="homeFilterLakes(this)" role="tab">Wyoming</button>
+      <button class="filter-tab"        data-st="MT"   onclick="homeFilterLakes(this)" role="tab">Montana</button>
+      <button class="filter-tab"        data-st="ID"   onclick="homeFilterLakes(this)" role="tab">Idaho</button>
+    </div>
+    <div class="grid-auto" id="homeLakeGrid"></div>
+    <p style="text-align:center;margin-top:28px;font-size:13px;color:var(--silver)">Showing featured lakes. <a href="/lakes.html" style="color:var(--ice)">Browse the full directory →</a></p>
+  </div>
+</section>
+
+<!-- ═══ LEADERBOARD PREVIEW ═══════════════════════════ -->
+<section class="section section-alt" id="leaderboard">
+  <div class="inner">
+    <div class="sh" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:24px">
+      <div>
+        <p class="lbl lbl-blue">Community Rankings</p>
+        <h2 class="d-lg" style="color:var(--snow)">Leaderboard</h2>
+        <p style="max-width:480px">Rankings by fish length. Submit a verified catch ($5) to compete for the monthly prize pot. <span class="demo-notice">Sample Data</span></p>
+      </div>
+      <a href="/leaderboard.html" class="btn btn-md btn-outline-ice" style="flex-shrink:0">Full Leaderboard →</a>
+    </div>
+    <div class="filter-tabs" style="margin-bottom:24px">
+      <button class="filter-tab active" onclick="homeSwitchLB(this,'monthly')">This Month</button>
+      <button class="filter-tab" onclick="homeSwitchLB(this,'annual')">2026 Season</button>
+      <button class="filter-tab" onclick="homeSwitchLB(this,'alltime')">All-Time Hall of Fame</button>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="lb-table" aria-label="Leaderboard preview">
+        <thead><tr>
+          <th style="width:46px">Rank</th><th>Angler</th><th>Species</th><th>Lake</th>
+          <th>Status</th><th style="text-align:right">Length</th><th style="text-align:right">Prize</th>
+        </tr></thead>
+        <tbody id="homeLBBody"></tbody>
+      </table>
+    </div>
+    <div class="lb-cards" id="homeLBCards"></div>
+    <div class="text-center mt-28">
+      <a href="/submit-catch.html" class="btn btn-lg btn-primary">Submit a Catch — $5</a>
+      <p class="text-muted mt-12">Requires Certified Angler Kit. AI-assisted photo verification.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HOW IT WORKS ══════════════════════════════════ -->
+<section class="section section-dark" id="how">
+  <div class="inner">
+    <div class="sh center">
       <p class="lbl lbl-blue">The Process</p>
-      <h2 class="d-lg">How It Works</h2>
-      <p>A verifiable Rocky Mountain fishing leaderboard built on AI-assisted photo verification and community oversight.</p>
+      <h2 class="d-lg" style="color:var(--snow)">How It Works</h2>
+      <p>A verifiable Rocky Mountain fishing leaderboard built on AI-assisted photo review and community oversight.</p>
     </div>
-    <div class="how-g">
-      <div class="how-c" data-n="01"><div class="how-sn">Step 01</div><div class="how-ic" aria-hidden="true">📦</div><h3>Get Certified</h3><p>Order your Certified Angler Kit ($34.99). We ship a branded RMA sticker, certified ruler, and digital scale. The sticker must appear in every leaderboard photo — it's your proof of membership and how we verify catches.</p></div>
-      <div class="how-c" data-n="02"><div class="how-sn">Step 02</div><div class="how-ic" aria-hidden="true">📸</div><h3>Catch and Document</h3><p>Place the RMA sticker and ruler in frame and take your photo. AI-assisted verification analyzes the sticker, identifies the species, and cross-checks the measurement. Community members can flag anything suspicious.</p></div>
-      <div class="how-c" data-n="03"><div class="how-sn">Step 03</div><div class="how-ic" aria-hidden="true">🏆</div><h3>Submit and Compete</h3><p>Pay $5 to enter the monthly leaderboard and prize pot. 60% to 1st, 30% to 2nd, 10% to 3rd. Every catch also logs to your personal fish diary with GPS coordinates for private analytics.</p></div>
+    <div class="grid-4" style="gap:2px">
+      <div style="background:var(--charcoal);padding:32px 24px;position:relative;overflow:hidden">
+        <div style="position:absolute;top:-10px;right:12px;font-family:var(--display);font-size:6rem;font-weight:800;color:rgba(94,166,199,.05);line-height:1">01</div>
+        <div style="font-family:var(--mono);font-size:11px;font-weight:600;color:var(--ice);letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px">Step 01</div>
+        <div style="width:44px;height:44px;border:1px solid var(--border-strong);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:20px;background:var(--gunmetal);margin-bottom:16px" aria-hidden="true">📦</div>
+        <h3 style="font-family:var(--display);font-size:1.3rem;font-weight:700;text-transform:uppercase;color:var(--snow);margin-bottom:10px">Get Certified</h3>
+        <p style="font-size:14px;line-height:1.7">Order your Certified Angler Kit ($34.99). We ship a branded RMA sticker, certified ruler, and digital scale. The sticker must appear in every leaderboard photo.</p>
+      </div>
+      <div style="background:var(--charcoal);padding:32px 24px;position:relative;overflow:hidden">
+        <div style="position:absolute;top:-10px;right:12px;font-family:var(--display);font-size:6rem;font-weight:800;color:rgba(94,166,199,.05);line-height:1">02</div>
+        <div style="font-family:var(--mono);font-size:11px;font-weight:600;color:var(--ice);letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px">Step 02</div>
+        <div style="width:44px;height:44px;border:1px solid var(--border-strong);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:20px;background:var(--gunmetal);margin-bottom:16px" aria-hidden="true">🎣</div>
+        <h3 style="font-family:var(--display);font-size:1.3rem;font-weight:700;text-transform:uppercase;color:var(--snow);margin-bottom:10px">Catch and Measure</h3>
+        <p style="font-size:14px;line-height:1.7">Land your fish. Place the RMA sticker and ruler in frame. Make sure the head, tail, and full length are visible. Proper photos get approved faster.</p>
+      </div>
+      <div style="background:var(--charcoal);padding:32px 24px;position:relative;overflow:hidden">
+        <div style="position:absolute;top:-10px;right:12px;font-family:var(--display);font-size:6rem;font-weight:800;color:rgba(94,166,199,.05);line-height:1">03</div>
+        <div style="font-family:var(--mono);font-size:11px;font-weight:600;color:var(--ice);letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px">Step 03</div>
+        <div style="width:44px;height:44px;border:1px solid var(--border-strong);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:20px;background:var(--gunmetal);margin-bottom:16px" aria-hidden="true">📸</div>
+        <h3 style="font-family:var(--display);font-size:1.3rem;font-weight:700;text-transform:uppercase;color:var(--snow);margin-bottom:10px">Submit Your Photos</h3>
+        <p style="font-size:14px;line-height:1.7">Upload via the app. AI-assisted photo review checks for your sticker, identifies the species, and cross-checks the measurement. Community members flag anything suspicious.</p>
+      </div>
+      <div style="background:var(--charcoal);padding:32px 24px;position:relative;overflow:hidden">
+        <div style="position:absolute;top:-10px;right:12px;font-family:var(--display);font-size:6rem;font-weight:800;color:rgba(94,166,199,.05);line-height:1">04</div>
+        <div style="font-family:var(--mono);font-size:11px;font-weight:600;color:var(--ice);letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px">Step 04</div>
+        <div style="width:44px;height:44px;border:1px solid var(--border-strong);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:20px;background:var(--gunmetal);margin-bottom:16px" aria-hidden="true">🏆</div>
+        <h3 style="font-family:var(--display);font-size:1.3rem;font-weight:700;text-transform:uppercase;color:var(--snow);margin-bottom:10px">Compete on the Board</h3>
+        <p style="font-size:14px;line-height:1.7">Pay $5 to enter the monthly prize pot. 60% goes to 1st, 30% to 2nd, 10% to 3rd. Every catch logs to your private fish diary with GPS for personal analytics.</p>
+      </div>
+    </div>
+    <div class="text-center mt-28">
+      <a href="/kit.html" class="btn btn-lg btn-primary">Get Your Certified Kit — $34.99</a>
+      <a href="/submit-catch.html" class="btn btn-lg btn-secondary" style="margin-left:12px">See Submission Requirements</a>
     </div>
   </div>
 </section>
 
-<!-- KIT + POT -->
-<section class="sec sec-alt" id="kit">
+<!-- ═══ KIT + PRIZE POT ════════════════════════════════ -->
+<section class="section section-alt" id="kit">
   <div class="inner">
-    <div class="kit-g">
+    <div class="grid-2" style="gap:60px;align-items:start">
       <div>
         <p class="lbl lbl-blue" style="margin-bottom:12px">Certified Angler Kit</p>
-        <h2 class="d-lg" style="margin-bottom:16px">Everything You Need to Compete</h2>
-        <p style="margin-bottom:26px">The sticker is your key to the leaderboard. Without it visible in the photo, the catch cannot be verified. Our AI-assisted system checks for it on every submission.</p>
-        <div class="kit-ruler" id="kitRuler" aria-hidden="true"></div>
-        <div class="kit-items">
-          <div class="kit-i"><div class="kit-ico" aria-hidden="true">🏷️</div><div><div class="kit-n">RMA Certified Sticker</div><div class="kit-d">QR-coded, waterproof, UV-resistant. Must appear clearly in all leaderboard photos.</div></div></div>
-          <div class="kit-i"><div class="kit-ico" aria-hidden="true">📏</div><div><div class="kit-n">Certified Measuring Ruler</div><div class="kit-d">36-inch folding ruler with high-contrast markings optimized for accurate photo measurement.</div></div></div>
-          <div class="kit-i"><div class="kit-ico" aria-hidden="true">⚖️</div><div><div class="kit-n">Digital Scale</div><div class="kit-d">60 lb capacity with tare function. For optional weight logging in your fish diary.</div></div></div>
+        <h2 class="d-lg" style="margin-bottom:16px;color:var(--snow)">The Key to the Leaderboard</h2>
+        <p style="margin-bottom:24px">Without the RMA sticker visible in your photo, your catch cannot be verified. The kit includes everything you need to compete legitimately.</p>
+        <!-- Ruler decoration -->
+        <div style="height:28px;background:var(--gunmetal);border:1px solid var(--border-strong);border-radius:4px;margin-bottom:24px;display:flex;align-items:flex-end;padding:0 6px 4px;overflow:hidden" aria-hidden="true" id="kitRuler"></div>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:28px">
+          <div style="display:flex;align-items:flex-start;gap:14px;padding:15px 16px;background:var(--charcoal);border:1px solid var(--border);border-radius:4px">
+            <span style="font-size:19px;flex-shrink:0;margin-top:2px" aria-hidden="true">🏷️</span>
+            <div><div style="font-weight:600;color:var(--snow);font-size:14px;margin-bottom:2px">RMA Certified Sticker</div><div style="font-size:13px;color:var(--silver)">QR-coded, waterproof, UV-resistant. Must appear clearly in all leaderboard photos. Your proof of membership.</div></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:14px;padding:15px 16px;background:var(--charcoal);border:1px solid var(--border);border-radius:4px">
+            <span style="font-size:19px;flex-shrink:0;margin-top:2px" aria-hidden="true">📏</span>
+            <div><div style="font-weight:600;color:var(--snow);font-size:14px;margin-bottom:2px">Certified Measuring Ruler</div><div style="font-size:13px;color:var(--silver)">36-inch folding ruler with high-contrast markings for accurate on-water photo measurement.</div></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:14px;padding:15px 16px;background:var(--charcoal);border:1px solid var(--border);border-radius:4px">
+            <span style="font-size:19px;flex-shrink:0;margin-top:2px" aria-hidden="true">⚖️</span>
+            <div><div style="font-weight:600;color:var(--snow);font-size:14px;margin-bottom:2px">Digital Scale</div><div style="font-size:13px;color:var(--silver)">60 lb capacity with tare function. For weight logging in your personal fish diary.</div></div>
+          </div>
         </div>
-        <div class="kit-p">$34.99</div>
-        <p class="kit-ps">One-time · Free shipping · Ships within 3–5 business days</p>
-        <button class="btn-sub" onclick="toast('Kit ordering launches soon!')">Order Your Kit</button>
+        <div style="font-family:var(--mono);font-size:2.4rem;font-weight:600;color:var(--snow);margin-bottom:4px">$34.99</div>
+        <p style="font-size:13px;color:var(--silver);margin-bottom:22px">One-time purchase · Free shipping · Ships within 3–5 business days</p>
+        <a href="/kit.html" class="btn btn-lg btn-primary">Order Your Kit</a>
+        <a href="/kit.html" class="btn btn-md btn-ghost" style="margin-left:10px">Learn More →</a>
       </div>
-      <div class="pp">
-        <div class="pp-t">Prize Pot Calculator</div>
-        <div class="pp-s">Estimate the monthly breakdown</div>
-        <div class="sl-rw">
-          <div class="sl-h"><span class="sl-lb">Catch submissions this month</span><span class="sl-v" id="slVal">120 submissions</span></div>
-          <input type="range" class="rsl" id="potSlider" min="10" max="600" value="120" step="1" oninput="calcPot()" aria-label="Number of submissions">
+      <div class="pot-panel">
+        <div class="pot-title">Prize Pot Calculator</div>
+        <div class="pot-sub">Estimate monthly payouts</div>
+        <div style="margin-bottom:20px">
+          <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:7px">
+            <span style="color:var(--lt-silver);font-weight:500">Catch submissions this month</span>
+            <span style="font-family:var(--mono);color:var(--ice);font-weight:600;font-size:14px" id="potSlVal">120 submissions</span>
+          </div>
+          <input type="range" class="rma-range" id="potSlider" min="10" max="600" value="120" step="1" oninput="homeCalcPot()" aria-label="Number of submissions">
         </div>
-        <div class="pc-g">
-          <div class="pc top"><div class="pc-rk">🥇 1st Place</div><div class="pc-a b" id="p1">$342</div><div class="pc-p">60% of pot</div></div>
-          <div class="pc"><div class="pc-rk">🥈 2nd Place</div><div class="pc-a" id="p2">$171</div><div class="pc-p">30% of pot</div></div>
-          <div class="pc"><div class="pc-rk">🥉 3rd Place</div><div class="pc-a" id="p3">$57</div><div class="pc-p">10% of pot</div></div>
+        <div class="pot-row">
+          <div class="pot-card top"><div class="pot-card-rank">🥇 1st Place</div><div class="pot-card-amt blue" id="potP1">$342</div><div class="pot-card-pct">60% of pot</div></div>
+          <div class="pot-card"><div class="pot-card-rank">🥈 2nd Place</div><div class="pot-card-amt" id="potP2">$171</div><div class="pot-card-pct">30% of pot</div></div>
+          <div class="pot-card"><div class="pot-card-rank">🥉 3rd Place</div><div class="pot-card-amt" id="potP3">$57</div><div class="pot-card-pct">10% of pot</div></div>
         </div>
-        <div class="pt">
-          <div>Total pot: <span class="pt-v" id="potTot">$570</span></div>
-          <div class="pt-s">$5 × <span id="potN">120</span> submissions × 95% (after 5% platform fee)</div>
+        <div class="pot-total">
+          <div>Total pot: <span class="pot-total-val" id="potTot">$570</span></div>
+          <div class="pot-total-sub">$5 × <span id="potN">120</span> entries × 95% (after 5% platform fee)</div>
         </div>
-        <p class="pt-n">Split: 60% / 30% / 10% = 100% of available pot. Platform retains 5% administrative fee. Amounts shown are estimates.</p>
+        <p class="pot-note">Split: 60% / 30% / 10% = 100% of available pot. Platform retains 5% administrative fee from gross entries. Amounts are estimates based on submission volume. <a href="/contest-rules.html" style="color:var(--ice)">Full contest rules →</a></p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SPECIES -->
-<section class="sec sec-dark" id="species">
+<!-- ═══ SPECIES ════════════════════════════════════════ -->
+<section class="section section-dark" id="species">
   <div class="inner">
-    <div class="sh"><p class="lbl lbl-blue">Species Guide</p><h2 class="d-lg">Know Your Fish</h2><p>12 species tracked across all five Rocky Mountain states. Each has its own leaderboard, ID guide, and lake-specific tips.</p></div>
-    <div class="sp-g" id="spGrid"></div>
+    <div class="sh" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:40px">
+      <div>
+        <p class="lbl lbl-blue">Species Guide</p>
+        <h2 class="d-lg" style="color:var(--snow)">Know Your Fish</h2>
+        <p style="max-width:440px">12 species tracked across all five Rocky Mountain states. Each has its own leaderboard and ID guide.</p>
+      </div>
+      <a href="/species.html" class="btn btn-md btn-outline-ice" style="flex-shrink:0">Full Species Guide →</a>
+    </div>
+    <div class="grid-auto" id="homeSpGrid" style="grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:2px"></div>
   </div>
 </section>
 
-<!-- DIARY -->
-<section class="sec sec-alt" id="diary">
+<!-- ═══ FISH DIARY PREVIEW ════════════════════════════ -->
+<section class="section section-alt" id="diary">
   <div class="inner">
-    <div class="di-g">
+    <div class="grid-2" style="gap:60px;align-items:center">
       <div>
         <p class="lbl lbl-blue" style="margin-bottom:12px">Fish Diary</p>
-        <h2 class="d-lg" style="margin-bottom:14px">Your Fishing Intelligence</h2>
-        <p>Every catch logs GPS coordinates, conditions, lure, depth, and water temp. Over time your diary builds a personal heat map of your best spots — you control who sees them.</p>
-        <div class="di-ft">
-          <div class="di-fi"><div class="fi-ck" aria-hidden="true">✓</div>GPS spot logging with per-catch privacy controls</div>
-          <div class="di-fi"><div class="fi-ck" aria-hidden="true">✓</div>Personal catch heat maps per lake</div>
-          <div class="di-fi"><div class="fi-ck" aria-hidden="true">✓</div>Best lures, depth, and time-of-day analytics</div>
-          <div class="di-fi"><div class="fi-ck" aria-hidden="true">✓</div>Sell your best spots to other anglers</div>
-          <div class="di-fi"><div class="fi-ck" aria-hidden="true">✓</div>Personal-best tracker per species</div>
+        <h2 class="d-lg" style="margin-bottom:16px;color:var(--snow)">Your Fishing Intelligence</h2>
+        <p style="margin-bottom:8px">Every catch you log builds your personal fishing picture. GPS coordinates, conditions, lure, depth, water temp — all private until you choose to share.</p>
+        <div style="display:flex;flex-direction:column;gap:9px;margin:20px 0 28px">
+          <div style="display:flex;align-items:center;gap:12px;font-size:14px;color:var(--lt-silver)"><div style="width:19px;height:19px;border-radius:50%;background:rgba(94,166,199,.15);border:1px solid var(--glacier);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--ice);flex-shrink:0">✓</div>GPS spot logging with per-catch privacy controls</div>
+          <div style="display:flex;align-items:center;gap:12px;font-size:14px;color:var(--lt-silver)"><div style="width:19px;height:19px;border-radius:50%;background:rgba(94,166,199,.15);border:1px solid var(--glacier);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--ice);flex-shrink:0">✓</div>Personal catch heat maps per lake</div>
+          <div style="display:flex;align-items:center;gap:12px;font-size:14px;color:var(--lt-silver)"><div style="width:19px;height:19px;border-radius:50%;background:rgba(94,166,199,.15);border:1px solid var(--glacier);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--ice);flex-shrink:0">✓</div>Best lures, depth, and time-of-day analytics</div>
+          <div style="display:flex;align-items:center;gap:12px;font-size:14px;color:var(--lt-silver)"><div style="width:19px;height:19px;border-radius:50%;background:rgba(94,166,199,.15);border:1px solid var(--glacier);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--ice);flex-shrink:0">✓</div>Optional private spot-sharing controls</div>
+          <div style="display:flex;align-items:center;gap:12px;font-size:14px;color:var(--lt-silver)"><div style="width:19px;height:19px;border-radius:50%;background:rgba(94,166,199,.15);border:1px solid var(--glacier);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--ice);flex-shrink:0">✓</div>Personal-best tracker per species</div>
         </div>
-        <button class="btn-sub" onclick="toast('Fish diary launches with the app!')">Start Your Diary</button>
+        <a href="/fish-diary.html" class="btn btn-lg btn-primary">Start Your Fish Diary</a>
       </div>
-      <div class="di-cd">
-        <div class="di-mp">
-          <svg width="100%" height="100%" viewBox="0 0 460 155" xmlns="http://www.w3.org/2000/svg" aria-label="Sample fish diary map with catch GPS pins">
+      <div style="background:var(--charcoal);border:1px solid var(--border);border-radius:14px;padding:22px;overflow:hidden">
+        <div style="height:155px;border-radius:8px;overflow:hidden;background:var(--gunmetal);margin-bottom:16px">
+          <svg width="100%" height="100%" viewBox="0 0 460 155" xmlns="http://www.w3.org/2000/svg" aria-label="Sample fish diary map showing catch GPS pins">
             <rect width="460" height="155" fill="#10161B"/>
             <ellipse cx="230" cy="78" rx="190" ry="56" fill="#163F55" opacity="0.8"/>
             <ellipse cx="230" cy="78" rx="152" ry="45" fill="none" stroke="#2D6582" stroke-width="0.8" opacity="0.5"/>
             <ellipse cx="230" cy="78" rx="112" ry="33" fill="none" stroke="#2D6582" stroke-width="0.7" opacity="0.35"/>
-            <ellipse cx="230" cy="78" rx="72" ry="22" fill="none" stroke="#2D6582" stroke-width="0.6" opacity="0.25"/>
             <circle cx="168" cy="63" r="7" fill="#5EA6C7" opacity="0.9"/><circle cx="168" cy="63" r="13" fill="#5EA6C7" opacity="0.12"/>
             <circle cx="202" cy="86" r="9" fill="#9CCFE3" opacity="0.95"/><circle cx="202" cy="86" r="16" fill="#9CCFE3" opacity="0.1"/>
-            <circle cx="292" cy="53" r="6" fill="#5EA6C7" opacity="0.7"/><circle cx="292" cy="53" r="10" fill="#5EA6C7" opacity="0.1"/>
+            <circle cx="292" cy="53" r="6" fill="#5EA6C7" opacity="0.7"/>
             <circle cx="318" cy="92" r="7" fill="#5EA6C7" opacity="0.8"/>
-            <circle cx="158" cy="98" r="5" fill="#AEBBC4" opacity="0.45"/>
             <text x="218" y="82" font-size="8" fill="rgba(244,247,248,.65)" font-family="JetBrains Mono">28.3"</text>
             <text x="176" y="59" font-size="7" fill="rgba(244,247,248,.5)" font-family="JetBrains Mono">21.5"</text>
-            <rect x="283" y="24" width="60" height="16" rx="2" fill="#1B242B" opacity="0.9"/>
-            <text x="288" y="35" font-size="8" fill="#AEBBC4" font-family="JetBrains Mono">🔒 Private</text>
+            <rect x="280" y="22" width="62" height="16" rx="2" fill="#1B242B" opacity="0.9"/>
+            <text x="285" y="33" font-size="8" fill="#AEBBC4" font-family="JetBrains Mono">🔒 Private</text>
           </svg>
         </div>
-        <div class="di-st">
-          <div class="ds"><div class="ds-v">47</div><div class="ds-l">Catches</div></div>
-          <div class="ds"><div class="ds-v">28.3"</div><div class="ds-l">Best</div></div>
-          <div class="ds"><div class="ds-v">6</div><div class="ds-l">Lakes</div></div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px">
+          <div style="background:var(--gunmetal);border:1px solid var(--border);border-radius:4px;padding:11px;text-align:center"><div style="font-family:var(--mono);font-size:1.05rem;font-weight:600;color:var(--snow)">47</div><div style="font-size:10px;color:var(--silver);text-transform:uppercase;letter-spacing:.07em;margin-top:2px">Catches</div></div>
+          <div style="background:var(--gunmetal);border:1px solid var(--border);border-radius:4px;padding:11px;text-align:center"><div style="font-family:var(--mono);font-size:1.05rem;font-weight:600;color:var(--snow)">28.3"</div><div style="font-size:10px;color:var(--silver);text-transform:uppercase;letter-spacing:.07em;margin-top:2px">Best</div></div>
+          <div style="background:var(--gunmetal);border:1px solid var(--border);border-radius:4px;padding:11px;text-align:center"><div style="font-family:var(--mono);font-size:1.05rem;font-weight:600;color:var(--snow)">6</div><div style="font-size:10px;color:var(--silver);text-transform:uppercase;letter-spacing:.07em;margin-top:2px">Lakes</div></div>
         </div>
-        <div class="di-en">
-          <div class="de"><div class="de-ico" aria-hidden="true">🌈</div><div><div class="de-nm">Rainbow Trout · Flaming Gorge</div><div class="de-mt">Jun 14 · 60ft · Tube Jig</div></div><div class="de-r"><div class="de-ln">28.3"</div><div class="de-pv">🔒 Private</div></div></div>
-          <div class="de"><div class="de-ico" aria-hidden="true">🟤</div><div><div class="de-nm">Brown Trout · Deer Creek</div><div class="de-mt">Jun 8 · 24ft · Wooly Bugger</div></div><div class="de-r"><div class="de-ln">21.5"</div><div class="de-pv">🌐 Public</div></div></div>
-          <div class="de"><div class="de-ico" aria-hidden="true">🏔️</div><div><div class="de-nm">Lake Trout · Blue Mesa</div><div class="de-mt">May 28 · 95ft · Tube Jig</div></div><div class="de-r"><div class="de-ln">19.1"</div><div class="de-pv" style="color:var(--glacier)">💰 For Sale</div></div></div>
+        <div>
+          <div style="display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px solid var(--border)"><span style="font-size:17px">🌈</span><div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--snow)">Rainbow Trout · Flaming Gorge</div><div style="font-size:11px;color:var(--silver)">Jun 14 · 60ft · Tube Jig</div></div><div style="text-align:right"><div style="font-family:var(--mono);font-size:13px;font-weight:600;color:var(--ice)">28.3"</div><div style="font-size:10px;color:var(--silver)">🔒 Private</div></div></div>
+          <div style="display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px solid var(--border)"><span style="font-size:17px">🟤</span><div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--snow)">Brown Trout · Deer Creek</div><div style="font-size:11px;color:var(--silver)">Jun 8 · 24ft · Wooly Bugger</div></div><div style="text-align:right"><div style="font-family:var(--mono);font-size:13px;font-weight:600;color:var(--ice)">21.5"</div><div style="font-size:10px;color:var(--silver)">🌐 Public</div></div></div>
+          <div style="display:flex;align-items:center;gap:11px;padding:11px 0"><span style="font-size:17px">🏔️</span><div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--snow)">Lake Trout · Blue Mesa</div><div style="font-size:11px;color:var(--silver)">May 28 · 95ft · Tube Jig</div></div><div style="text-align:right"><div style="font-family:var(--mono);font-size:13px;font-weight:600;color:var(--ice)">19.1"</div><div style="font-size:10px;color:var(--glacier)">💡 Choose to share</div></div></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- REPORTS -->
-<section class="sec sec-dark" id="reports">
+<!-- ═══ REPORTS PREVIEW ════════════════════════════════ -->
+<section class="section section-dark" id="reports">
   <div class="inner">
-    <div class="sh"><p class="lbl lbl-blue">Current Conditions</p><h2 class="d-lg">Fishing Reports</h2><p>Weekly automated reports from state wildlife agencies plus member submissions. Updated every Monday at 6 AM Mountain Time. Automated reports are labeled clearly.</p></div>
-    <div class="rep-g" id="repGrid"></div>
-    <div class="tc mt28"><button class="btn-gh" onclick="toast('Full report archive coming soon')">View All Reports →</button></div>
-  </div>
-</section>
-
-<!-- GUIDES -->
-<section class="sec sec-alt" id="guides">
-  <div class="inner">
-    <div class="sh"><p class="lbl lbl-blue">Find a Guide</p><h2 class="d-lg">Local Experts</h2><p>Verified guides who know these waters. Browse and contact directly — no booking fees or commissions taken.</p></div>
-    <div class="gu-g" id="guideGrid"></div>
-    <div style="margin-top:18px;background:var(--charcoal);border:1px solid var(--border);border-radius:8px;padding:18px 22px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
-      <div><div style="font-weight:600;color:var(--snow);margin-bottom:2px">Are you a guide?</div><div style="font-size:13px;color:var(--silver)">Free listing. Featured placement on lake pages from $19/month.</div></div>
-      <button class="btn-gh" onclick="toast('Guide signup launching soon!')">List Your Services →</button>
-    </div>
-  </div>
-</section>
-
-<!-- TACKLE -->
-<section class="sec sec-dark" id="tackle">
-  <div class="inner">
-    <div class="sh"><p class="lbl lbl-blue">Tackle Shop</p><h2 class="d-lg">What's Working Right Now</h2><p>Lake-specific gear recommendations tied to live fishing reports. Affiliate links — we earn a small commission at no extra cost to you.</p></div>
-    <div class="tk-g" id="tackleGrid"></div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="cta-s">
-  <div class="cta-bg" role="img" aria-label="Mountain lake landscape"></div>
-  <div class="cta-ov" aria-hidden="true"></div>
-  <svg class="cta-mtn" viewBox="0 0 1440 70" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0,70 L0,45 L150,10 L270,38 L390,5 L510,32 L630,0 L750,28 L870,5 L990,32 L1110,8 L1230,36 L1440,14 L1440,70Z" fill="#080B0E"/>
-  </svg>
-  <div class="cta-cnt">
-    <p class="lbl lbl-blue" style="margin-bottom:14px">Ready?</p>
-    <h2 class="d-lg" style="margin-bottom:14px">Get on the Board</h2>
-    <p>Order your kit, log your first catch, and join the verified Rocky Mountain fishing leaderboard.</p>
-    <div class="cta-bts">
-      <a href="#kit" class="btn-ice">Get Certified — $34.99</a>
-      <a href="#leaderboard" class="btn-out">View Leaderboard</a>
-      <a href="#lakes" class="btn-out">Explore Lakes</a>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <svg class="ft-mtn" viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0,100 L0,60 L100,25 L200,55 L320,8 L440,45 L560,12 L680,50 L800,18 L920,55 L1040,22 L1160,58 L1280,26 L1440,50 L1440,100Z" fill="var(--ice)"/>
-  </svg>
-  <div class="ft-in">
-    <div class="ft-g">
+    <div class="sh" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:32px">
       <div>
-        <div class="ft-br">Rocky Mountain <span>Anglers</span></div>
-        <p class="ft-tg">Verified catch leaderboards and fishing intelligence across the Rocky Mountain West.</p>
-        <div class="ft-st">UT · CO · WY · MT · ID</div>
+        <p class="lbl lbl-blue">Current Conditions</p>
+        <h2 class="d-lg" style="color:var(--snow)">Fishing Reports</h2>
+        <p style="max-width:480px">Weekly automated reports from state agencies plus member submissions. Updated every Monday at 6 AM MT.</p>
       </div>
-      <div class="ft-col"><h4>Fish</h4><ul><li><a href="#lakes">All Lakes</a></li><li><a href="#species">Species Guide</a></li><li><a href="#reports">Fishing Reports</a></li><li><a href="#leaderboard">Leaderboard</a></li></ul></div>
-      <div class="ft-col"><h4>Community</h4><ul><li><a href="#">Sign In</a></li><li><a href="#kit">Get Certified Kit</a></li><li><a href="#diary">Fish Diary</a></li><li><a href="#guides">Find a Guide</a></li></ul></div>
-      <div class="ft-col"><h4>Legal</h4><ul><li><a href="#">Contest Rules</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Use</a></li><li><a href="#">Affiliate Disclosure</a></li><li><a href="#">Contact</a></li></ul></div>
+      <a href="/reports.html" class="btn btn-md btn-outline-ice" style="flex-shrink:0">All Reports →</a>
     </div>
-    <div class="ft-bt">
-      <p>© 2026 Rocky Mountain Anglers. All rights reserved.</p>
-      <p class="ft-lg">Prize competitions are skill-based contests. Legal review required per state before launch. 5% platform fee applies. Data shown is for demonstration purposes only.</p>
+    <div style="display:flex;flex-direction:column;gap:10px" id="homeRepGrid"></div>
+  </div>
+</section>
+
+<!-- ═══ GUIDES + TACKLE PREVIEW ════════════════════════ -->
+<section class="section section-alt">
+  <div class="inner">
+    <div class="grid-2" style="gap:56px">
+      <div>
+        <p class="lbl lbl-blue" style="margin-bottom:12px">Find a Guide</p>
+        <h2 class="d-lg" style="margin-bottom:14px;color:var(--snow)">Local Experts</h2>
+        <p style="margin-bottom:24px">Verified guides who know these lakes. Browse and contact directly — no booking fees or commissions.</p>
+        <div style="display:flex;flex-direction:column;gap:2px;margin-bottom:20px" id="homeGuideList"></div>
+        <a href="/guides.html" class="btn btn-md btn-outline-ice">Browse All Guides →</a>
+      </div>
+      <div>
+        <p class="lbl lbl-blue" style="margin-bottom:12px">Tackle Shop</p>
+        <h2 class="d-lg" style="margin-bottom:14px;color:var(--snow)">What's Working</h2>
+        <p style="margin-bottom:24px">Lake-specific gear tied to live conditions. Affiliate links — we earn a small commission.</p>
+        <div style="display:flex;flex-direction:column;gap:2px;margin-bottom:20px" id="homeTackleList"></div>
+        <a href="/tackle.html" class="btn btn-md btn-outline-ice">Full Tackle Recommendations →</a>
+      </div>
     </div>
   </div>
-</footer>
+</section>
 
-<div class="toast" id="toastEl" role="alert" aria-live="polite"></div>
+<!-- ═══ CTA STRIP ══════════════════════════════════════ -->
+<section class="cta-strip">
+  <div class="cta-strip-bg" style="background-image:url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&auto=format&fit=crop&q=80')" role="img" aria-label="Mountain lake landscape"></div>
+  <div class="cta-strip-ov" aria-hidden="true"></div>
+  <div class="cta-strip-mtn" id="ctaMtn"></div>
+  <div class="cta-strip-content">
+    <p class="lbl lbl-blue" style="margin-bottom:14px;justify-content:center;display:flex">Ready?</p>
+    <h2 class="d-lg" style="margin-bottom:14px">Ready to Get on the Board?</h2>
+    <p>Get certified, submit your first catch, and compete with anglers across the Rocky Mountain West.</p>
+    <div class="cta-btns">
+      <a href="/kit.html"         class="btn btn-lg btn-primary">Get Certified — $34.99</a>
+      <a href="/leaderboard.html" class="btn btn-lg btn-outline">View Leaderboard</a>
+      <a href="/lakes.html"       class="btn btn-lg btn-outline">Explore Lakes</a>
+    </div>
+  </div>
+</section>
 
+<div id="footer-placeholder"></div>
+
+<script src="/js/rma-data.js"></script>
 <script>
-/* ── Payout config — single source of truth ── */
-const PAY = {p1:.60, p2:.30, p3:.10, platform:.05};
+// Inject shared nav + footer
+document.getElementById('nav-placeholder').innerHTML    = RMA_Nav();
+document.getElementById('mob-nav-placeholder').innerHTML = '';
+document.getElementById('footer-placeholder').innerHTML = RMA_Footer();
 
-/* ── Data ── */
-const LAKES=[
-  {slug:'flaming-gorge',name:'Flaming Gorge Reservoir',state:'UT',acres:42000,depth:436,status:'hot',county:'Daggett County',species:['Lake Trout','Rainbow Trout','Smallmouth Bass'],summary:'World-class lake trout in a red-rock canyon reservoir. Trophy fish to 50+ lbs caught regularly in the deep cool water.',img:'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=640&auto=format&fit=crop&q=75'},
-  {slug:'deer-creek',name:'Deer Creek Reservoir',state:'UT',acres:3400,depth:85,status:'good',county:'Wasatch County',species:['Rainbow Trout','Yellow Perch','Smallmouth Bass'],summary:'Wasatch Front gem near Provo with excellent rainbow trout, yellow perch, and smallmouth bass fishing.',img:'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=640&auto=format&fit=crop&q=75'},
-  {slug:'utah-lake',name:'Utah Lake',state:'UT',acres:148000,depth:14,status:'good',county:'Utah County',species:['Channel Catfish','Walleye','White Bass'],summary:"Utah's largest freshwater lake by surface area. Warm-water species including catfish, walleye, and white bass.",img:'https://images.unsplash.com/photo-1439853949212-36589f9f2bf4?w=640&auto=format&fit=crop&q=75'},
-  {slug:'yuba-reservoir',name:'Yuba Reservoir',state:'UT',acres:11000,depth:38,status:'good',county:'Juab County',species:['Walleye','Rainbow Trout','Channel Catfish'],summary:'Trophy walleye fishing with consistent rainbow trout action in this southern Utah reservoir.',img:'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=640&auto=format&fit=crop&q=75'},
-  {slug:'echo-reservoir',name:'Echo Reservoir',state:'UT',acres:1100,depth:36,status:'slow',county:'Summit County',species:['Rainbow Trout','Yellow Perch'],summary:'Heavily stocked Summit County reservoir at elevation. Reliable family-friendly fishing close to Park City.',img:'https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?w=640&auto=format&fit=crop&q=75'},
-  {slug:'blue-mesa',name:'Blue Mesa Reservoir',state:'CO',acres:9000,depth:340,status:'hot',county:'Gunnison County',species:['Lake Trout','Rainbow Trout','Kokanee Salmon'],summary:"Colorado's largest reservoir. World-class lake trout to 30+ lbs and exceptional kokanee salmon fishing.",img:'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=640&auto=format&fit=crop&q=75'},
-  {slug:'lake-granby',name:'Lake Granby',state:'CO',acres:7256,depth:265,status:'good',county:'Grand County',species:['Lake Trout','Kokanee Salmon','Rainbow Trout'],summary:'Trophy lake trout and kokanee salmon with spectacular views of the Rocky Mountain National Park peaks.',img:'https://images.unsplash.com/photo-1470770903676-69b98201ea1c?w=640&auto=format&fit=crop&q=75'},
-  {slug:'horsetooth',name:'Horsetooth Reservoir',state:'CO',acres:1900,depth:180,status:'good',county:'Larimer County',species:['Smallmouth Bass','Rainbow Trout','Walleye'],summary:'Popular Front Range fishery near Fort Collins with excellent smallmouth bass and stocked rainbow trout.',img:'https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=640&auto=format&fit=crop&q=75'},
-  {slug:'eleven-mile',name:'Eleven Mile Reservoir',state:'CO',acres:3405,depth:100,status:'hot',county:'Park County',species:['Northern Pike','Rainbow Trout','Kokanee Salmon'],summary:'Trophy northern pike and kokanee salmon fishing with breathtaking high-altitude South Platte scenery.',img:'https://images.unsplash.com/photo-1535931737580-a99567967ddc?w=640&auto=format&fit=crop&q=75'},
-  {slug:'dillon-reservoir',name:'Dillon Reservoir',state:'CO',acres:3300,depth:256,status:'good',county:'Summit County',species:['Rainbow Trout','Brown Trout'],summary:"Colorado's highest major reservoir. 10 HP limit. Alpine scenery and consistent rainbow and brown trout fishing.",img:'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=640&auto=format&fit=crop&q=75'},
-  {slug:'boysen-reservoir',name:'Boysen Reservoir',state:'WY',acres:19600,depth:80,status:'good',county:'Fremont County',species:['Walleye','Sauger','Rainbow Trout'],summary:'Wind River Canyon reservoir with excellent walleye, sauger, and rainbow trout fishing across diverse structure.',img:'https://images.unsplash.com/photo-1439853949212-36589f9f2bf4?w=640&auto=format&fit=crop&q=75'},
-  {slug:'fremont-lake',name:'Fremont Lake',state:'WY',acres:5330,depth:600,status:'good',county:'Sublette County',species:['Lake Trout','Rainbow Trout','Cutthroat Trout'],summary:"Wyoming's deepest natural lake. Glacially formed with cold, clear water and trophy lake trout.",img:'https://images.unsplash.com/photo-1470770903676-69b98201ea1c?w=640&auto=format&fit=crop&q=75'},
-  {slug:'jackson-lake',name:'Jackson Lake',state:'WY',acres:15800,depth:438,status:'good',county:'Teton County',species:['Brown Trout','Lake Trout','Cutthroat Trout'],summary:'Grand Teton National Park reservoir. Brown and lake trout fishing beneath the dramatic Teton Range.',img:'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=640&auto=format&fit=crop&q=75'},
-  {slug:'flathead-lake',name:'Flathead Lake',state:'MT',acres:191000,depth:370,status:'hot',county:'Lake County',species:['Lake Trout','Yellow Perch','Smallmouth Bass'],summary:'Largest natural freshwater lake west of the Mississippi. Nationally significant lake trout and bull trout fishery.',img:'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=640&auto=format&fit=crop&q=75'},
-  {slug:'fort-peck-lake',name:'Fort Peck Lake',state:'MT',acres:383000,depth:220,status:'hot',county:'Valley County',species:['Walleye','Northern Pike','Smallmouth Bass'],summary:"Montana's largest reservoir. World-class walleye, northern pike, and smallmouth bass in uncrowded water.",img:'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=640&auto=format&fit=crop&q=75'},
-  {slug:'canyon-ferry-lake',name:'Canyon Ferry Lake',state:'MT',acres:35000,depth:60,status:'good',county:'Lewis and Clark County',species:['Rainbow Trout','Brown Trout','Walleye'],summary:"Helena's home lake. Rainbow trout, brown trout, and a strong walleye fishery near the state capitol.",img:'https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?w=640&auto=format&fit=crop&q=75'},
-  {slug:'lake-pend-oreille',name:'Lake Pend Oreille',state:'ID',acres:148000,depth:1158,status:'hot',county:'Bonner County',species:['Rainbow Trout','Lake Trout','Smallmouth Bass'],summary:'Over 1,100 feet deep. Legendary Kamloops rainbow trout to 30+ lbs in northern Idaho.',img:'https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=640&auto=format&fit=crop&q=75'},
-  {slug:'american-falls',name:'American Falls Reservoir',state:'ID',acres:56000,depth:40,status:'hot',county:'Power County',species:['Rainbow Trout','Yellow Perch','Walleye'],summary:"Idaho's top reservoir for rainbow trout, yellow perch, and walleye on the Snake River.",img:'https://images.unsplash.com/photo-1535931737580-a99567967ddc?w=640&auto=format&fit=crop&q=75'},
-  {slug:'lucky-peak',name:'Lucky Peak Reservoir',state:'ID',acres:2700,depth:239,status:'good',county:'Ada County',species:['Rainbow Trout','Smallmouth Bass','Yellow Perch'],summary:"Boise's home reservoir. Excellent spring rainbow trout action and summer smallmouth bass fishing.",img:'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=640&auto=format&fit=crop&q=75'},
-];
+// Hero — transparent nav on scroll
+RMA_initNav(true);
 
-const SPECIES=[
-  {em:'🌈',name:'Rainbow Trout',sci:'Oncorhynchus mykiss',rec:'43"'},
-  {em:'🟤',name:'Brown Trout',sci:'Salmo trutta',rec:'42.9"'},
-  {em:'🏔️',name:'Lake Trout',sci:'Salvelinus namaycush',rec:'50"'},
-  {em:'✂️',name:'Cutthroat Trout',sci:'Oncorhynchus clarkii',rec:'39"'},
-  {em:'🐟',name:'Kokanee Salmon',sci:'Oncorhynchus nerka',rec:'28"'},
-  {em:'🐯',name:'Tiger Trout',sci:'Brown x Brook hybrid',rec:'34"'},
-  {em:'🐠',name:'Smallmouth Bass',sci:'Micropterus dolomieu',rec:'27"'},
-  {em:'👁️',name:'Walleye',sci:'Sander vitreus',rec:'35.8"'},
-  {em:'🗡️',name:'Northern Pike',sci:'Esox lucius',rec:'52.5"'},
-  {em:'🦓',name:'Tiger Muskie',sci:'Esox hybrid',rec:'60"'},
-  {em:'🟡',name:'Yellow Perch',sci:'Perca flavescens',rec:'19.9"'},
-  {em:'😸',name:'Channel Catfish',sci:'Ictalurus punctatus',rec:'47"'},
-];
+// Mountain SVGs
+document.getElementById('heroMtn').innerHTML = RMA_MtnSVG('#080B0E');
+document.getElementById('ctaMtn').innerHTML  = RMA_MtnSVG('#080B0E', 0.28);
 
-const LB={
-  monthly:[
-    {rank:1,angler:'T. Rowland',loc:'MT',species:'Lake Trout',lake:'Flathead Lake',len:'41.5"',prize:'$342'},
-    {rank:2,angler:'C. Bohin',loc:'UT',species:'Rainbow Trout',lake:'Flaming Gorge',len:'28.3"',prize:'$171'},
-    {rank:3,angler:'M. Jensen',loc:'CO',species:'Northern Pike',lake:'Eleven Mile',len:'44.1"',prize:'$57'},
-    {rank:4,angler:'R. Hoffman',loc:'WY',species:'Brown Trout',lake:'Jackson Lake',len:'27.8"',prize:'—'},
-    {rank:5,angler:'A. Torres',loc:'ID',species:'Rainbow Trout',lake:'Pend Oreille',len:'26.2"',prize:'—'},
-    {rank:6,angler:'D. Park',loc:'CO',species:'Lake Trout',lake:'Blue Mesa',len:'24.9"',prize:'—'},
-  ],
-  annual:[
-    {rank:1,angler:'T. Rowland',loc:'MT',species:'Lake Trout',lake:'Flathead Lake',len:'47.2"',prize:'Season Champion'},
-    {rank:2,angler:'J. Williams',loc:'ID',species:'Rainbow Trout',lake:'Pend Oreille',len:'31.8"',prize:'Runner-up'},
-    {rank:3,angler:'K. Brown',loc:'WY',species:'Northern Pike',lake:'Fremont Lake',len:'48.5"',prize:'3rd'},
-    {rank:4,angler:'C. Bohin',loc:'UT',species:'Rainbow Trout',lake:'Flaming Gorge',len:'28.3"',prize:'—'},
-    {rank:5,angler:'M. Jensen',loc:'CO',species:'Northern Pike',lake:'Eleven Mile',len:'44.1"',prize:'—'},
-  ],
-  alltime:[
-    {rank:1,angler:'B. Hansen',loc:'MT',species:'Lake Trout',lake:'Flathead Lake',len:'53.5"',prize:'Hall of Fame'},
-    {rank:2,angler:'W. Prescott',loc:'ID',species:'Tiger Muskie',lake:'Pend Oreille',len:'58.2"',prize:'Hall of Fame'},
-    {rank:3,angler:'L. Dumont',loc:'CO',species:'Lake Trout',lake:'Blue Mesa',len:'49.8"',prize:'Hall of Fame'},
-    {rank:4,angler:'R. Kwan',loc:'WY',species:'Northern Pike',lake:'Fremont Lake',len:'51.3"',prize:'Hall of Fame'},
-    {rank:5,angler:'T. Rowland',loc:'MT',species:'Lake Trout',lake:'Flathead Lake',len:'47.2"',prize:'Hall of Fame'},
-  ]
-};
-
-const REPORTS=[
-  {lake:'Flaming Gorge Reservoir',state:'UT',date:'Jun 16, 2026',cond:'hot',body:'Lake trout aggressive in 60–80ft. Tube jigs in chartreuse producing fish to 15 lbs. Rainbow trout solid near dam face at dawn.',tags:['Lake Trout','Rainbow Trout','Jigging'],src:'member'},
-  {lake:'Blue Mesa Reservoir',state:'CO',date:'Jun 14, 2026',cond:'hot',body:'CDOW stocked 8,000 rainbow trout last week. Fish holding in East Elk arm at 15–25ft. Kokanee surfacing in morning — small spoons at 4 mph.',tags:['Rainbow Trout','Kokanee','Trolling'],src:'auto'},
-  {lake:'Flathead Lake',state:'MT',date:'Jun 13, 2026',cond:'good',body:'Yellow perch schooled near south bay. Lake trout running deep at 120ft+. Water clarity exceptional this week — go with natural colors.',tags:['Yellow Perch','Lake Trout'],src:'member'},
-  {lake:'Fort Peck Lake',state:'MT',date:'Jun 12, 2026',cond:'hot',body:'MT FWP reports excellent walleye on main river channel at dawn and dusk. Nightcrawlers on bottom rigs outperforming artificials.',tags:['Walleye','Northern Pike'],src:'auto'},
-];
-
-const GUIDES=[
-  {name:'High Country Fly',init:'HCF',spec:'Trophy Trout · Lake Trout',bio:'20 years guiding on Flaming Gorge and Utah mountain lakes. Full-day trips, all gear provided.',lakes:['Flaming Gorge','Deer Creek'],feat:true},
-  {name:'Rocky Ridge Guide Co.',init:'RR',spec:'Walleye · Pike · Bass',bio:'Colorado guide covering Blue Mesa, Eleven Mile, and Horsetooth. Half and full-day options.',lakes:['Blue Mesa','Eleven Mile'],feat:false},
-  {name:'Montana Trophy Fishing',init:'MTF',spec:'Lake Trout · Perch · Walleye',bio:'Expert on Flathead Lake and Fort Peck. Multi-day expeditions available. Big fish specialists.',lakes:['Flathead Lake','Fort Peck'],feat:true},
-  {name:'Snake River Angler',init:'SRA',spec:'Rainbow Trout · Kokanee',bio:'Idaho guide specializing in Pend Oreille and American Falls. Kamloops rainbow specialists.',lakes:['Lake Pend Oreille','American Falls'],feat:false},
-];
-
-const TACKLE=[
-  {lake:'Flaming Gorge',sp:'Lake Trout',name:'Tube Jig Kit — Chartreuse/Smoke',desc:'6" tube jigs in proven Flaming Gorge colors. Fished vertically at 60–80ft on 1–2 oz heads.',badge:'Top Rated'},
-  {lake:'Blue Mesa',sp:'Kokanee Salmon',name:'UV Kokanee Spoon Trolling Pack',desc:'Brass and chrome spoons in 1.5–2". Trolled at 1.5–2 mph for consistent kokanee results.',badge:'Seasonal Pick'},
-  {lake:'Eleven Mile',sp:'Northern Pike',name:'30lb Fluorocarbon Leader Material',desc:"Pike teeth cut lighter line immediately. 30lb fluoro is the minimum at Eleven Mile.",badge:'Essential'},
-  {lake:'Fort Peck',sp:'Walleye',name:'Bottom Bouncer Rig Kit',desc:'Pre-tied walleye rigs with 1/2–1 oz bouncers. Standard Fort Peck walleye setup.',badge:'Local Favorite'},
-  {lake:'Flathead Lake',sp:'Yellow Perch',name:'Tungsten Jig Pack 1/64–1/32 oz',desc:'Ultra-light tungsten in white/chartreuse. Drop vertically over perch schools shown on sonar.',badge:'Top Rated'},
-  {lake:'Pend Oreille',sp:'Rainbow Trout',name:'Trolling Flasher + Hoochie Kit',desc:'For Kamloops rainbows — 8–11" flashers at 3+ mph, 60–100ft. The flasher is mandatory.',badge:'Must Have'},
-];
-
-const SM={hot:'🔥 Hot',good:'✓ Good',slow:'⏳ Slow',iced_over:'🧊 Iced',closed:'⛔ Closed'};
-const SC={hot:'s-hot',good:'s-good',slow:'s-slow',iced_over:'s-slow'};
-const DC={hot:'d-hot',good:'d-good',slow:'d-slow'};
-
-/* ── Render lakes ── */
-function renderLakes(filter){
-  const list=filter==='all'?LAKES:LAKES.filter(l=>l.state===filter);
-  document.getElementById('lakeGrid').innerHTML=list.map(l=>`
-<a href="/lake/${l.slug}.html" class="lc" data-st="${l.state}" aria-label="${l.name} — click for full lake details">
-  <div class="li-w">
-    <img class="li" src="${l.img}" alt="${l.name}, ${l.state}" loading="lazy" width="640" height="210" onerror="this.style.background='#2B3740'">
-    <div class="li-ov" aria-hidden="true"></div>
-    <span class="ls-b ${SC[l.status]||'s-slow'}">${SM[l.status]||'? Unknown'}</span>
-  </div>
-  <div class="lb">
-    <div class="l-sr"><span class="l-st">${l.state}</span><span class="l-dp mono">${l.depth}ft deep</span></div>
-    <div class="l-nm">${l.name}</div>
-    <div class="l-co">${l.county} · ${l.acres.toLocaleString()} acres</div>
-    <p class="l-sm">${l.summary}</p>
-    <div class="l-sp">${l.species.slice(0,3).map(s=>`<span class="l-ch">${s}</span>`).join('')}</div>
-  </div>
-  <div class="l-arr" aria-hidden="true">→</div>
-</a>`).join('');
+// Lakes — show first 6 featured
+function homeFilterLakes(el) {
+  document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  const st = el.dataset.st;
+  const list = st === 'all' ? RMA_LAKES.slice(0,6) : RMA_LAKES.filter(l => l.state === st).slice(0,6);
+  document.getElementById('homeLakeGrid').innerHTML = list.map(RMA_LakeCard).join('');
 }
+homeFilterLakes(document.querySelector('.filter-tab[data-st="all"]'));
 
-function filterLakes(el){
-  document.querySelectorAll('.sb').forEach(b=>b.classList.remove('on'));
-  el.classList.add('on');
-  renderLakes(el.dataset.st);
+// Leaderboard
+function homeSwitchLB(el, key) {
+  document.querySelectorAll('#leaderboard .filter-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  RMA_renderLB(RMA_LB[key], 'homeLBBody', 'homeLBCards');
 }
+RMA_renderLB(RMA_LB.monthly, 'homeLBBody', 'homeLBCards');
 
-/* ── Leaderboard ── */
-function renderLB(data){
-  const rc={1:'r1',2:'r2',3:'r3'};
-  document.getElementById('lbBody').innerHTML=data.map(r=>`
-<tr>
-  <td><span class="l-rnk ${rc[r.rank]||''}">${r.rank}</span></td>
-  <td><div class="a-wrap"><div class="a-av" aria-hidden="true">${r.angler.split(' ').map(n=>n[0]).join('')}</div><div><div class="a-nm">${r.angler}</div><div class="a-lo">${r.loc}</div></div></div></td>
-  <td class="lb-sp">${r.species}</td>
-  <td class="lb-lk">${r.lake}</td>
-  <td class="lb-ln">${r.len}</td>
-  <td style="text-align:right">${r.prize==='—'?`<span style="color:var(--silver)">—</span>`:`<span class="p-bdg">${r.prize}</span>`}</td>
-</tr>`).join('');
-  document.getElementById('lbMob').innerHTML=data.map(r=>`
-<div class="lb-mc">
-  <div class="mc-rk ${rc[r.rank]||''}">${r.rank}</div>
-  <div class="mc-bd"><div class="mc-an">${r.angler} <span style="color:var(--silver);font-size:11px">${r.loc}</span></div><div class="mc-mt">${r.species} · ${r.lake}</div>${r.prize!=='—'?`<div style="margin-top:5px"><span class="p-bdg">${r.prize}</span></div>`:''}</div>
-  <div class="mc-ln">${r.len}</div>
-</div>`).join('');
+// Species
+document.getElementById('homeSpGrid').innerHTML = RMA_SPECIES.map(RMA_SpeciesCard).join('');
+
+// Reports (first 3)
+document.getElementById('homeRepGrid').innerHTML = RMA_REPORTS.slice(0,3).map(RMA_ReportCard).join('');
+
+// Guides (compact — 2 featured)
+document.getElementById('homeGuideList').innerHTML = RMA_GUIDES.filter(g => g.featured).map(g => `
+  <div style="background:var(--charcoal);border:1px solid var(--border);border-radius:8px;padding:16px 18px;display:flex;align-items:center;gap:14px">
+    <div style="width:42px;height:42px;border-radius:50%;background:var(--steel);border:1px solid var(--border-strong);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:.9rem;font-weight:700;color:var(--ice);flex-shrink:0">${g.init}</div>
+    <div style="flex:1;min-width:0"><div style="font-weight:600;color:var(--snow);font-size:14px;margin-bottom:1px">${g.name}</div><div style="font-size:12px;color:var(--glacier)">${g.spec}</div></div>
+    <button class="btn btn-sm btn-outline-ice" onclick="RMA_toast('Guide contact — launching soon!')">Book</button>
+  </div>`).join('');
+
+// Tackle (compact — first 3)
+document.getElementById('homeTackleList').innerHTML = RMA_TACKLE.slice(0,3).map(t => `
+  <div style="background:var(--charcoal);border:1px solid var(--border);border-radius:8px;padding:14px 16px">
+    <div style="font-size:11px;font-weight:600;color:var(--glacier);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">${t.lake} · ${t.sp}</div>
+    <div style="font-size:14px;font-weight:600;color:var(--snow);margin-bottom:4px">${t.name}</div>
+    <div style="font-size:12px;color:var(--silver)">${t.desc.split('.')[0]}.</div>
+  </div>`).join('');
+
+// Prize pot
+function homeCalcPot() {
+  RMA_calcPot('potSlider', { n:'potN', slv:'potSlVal', p1:'potP1', p2:'potP2', p3:'potP3', tot:'potTot', hero:'potHero' });
 }
+homeCalcPot();
 
-function switchLB(el,k){
-  document.querySelectorAll('.lbt').forEach(t=>t.classList.remove('on'));
-  el.classList.add('on');
-  renderLB(LB[k]);
-}
-
-/* ── Species ── */
-function renderSpecies(){
-  document.getElementById('spGrid').innerHTML=SPECIES.map(s=>`
-<div class="sp-c" onclick="toast('Full species page coming soon!')" tabindex="0" role="button" aria-label="${s.name}">
-  <span class="sp-ic" aria-hidden="true">${s.em}</span>
-  <div class="sp-nm">${s.name}</div>
-  <div class="sp-sc">${s.sci}</div>
-  <div class="sp-rc"><span>Platform record</span> ${s.rec}</div>
-</div>`).join('');
-}
-
-/* ── Reports ── */
-function renderReports(){
-  document.getElementById('repGrid').innerHTML=REPORTS.map(r=>`
-<div class="rep-c">
-  <div class="rep-h">
-    <div><div class="rep-lk">${r.lake}</div><div class="rep-st">${r.state} · <span class="dot ${DC[r.cond]||'d-slow'}" aria-hidden="true"></span>${r.cond.toUpperCase()}</div></div>
-    <div class="rep-m">${r.src==='auto'?'<span class="rt rt-a">🤖 Auto-Report</span>':''}<span class="rep-dt">${r.date}</span></div>
-  </div>
-  <p class="rep-bd">${r.body}</p>
-  <div class="rep-tg">${r.tags.map(t=>`<span class="rt rt-f">${t}</span>`).join('')}</div>
-</div>`).join('');
-}
-
-/* ── Guides ── */
-function renderGuides(){
-  document.getElementById('guideGrid').innerHTML=GUIDES.map(g=>`
-<div class="gu-c ${g.feat?'ft':''}">
-  ${g.feat?'<span class="gu-fb">▲ Featured Guide</span>':''}
-  <div class="gu-av" aria-hidden="true">${g.init}</div>
-  <div class="gu-nm">${g.name}</div>
-  <div class="gu-sp">${g.spec}</div>
-  <p class="gu-bi">${g.bio}</p>
-  <div class="gu-lk">${g.lakes.map(l=>`<span class="gu-lc">${l}</span>`).join('')}</div>
-  <button class="gu-btn" onclick="toast('Guide booking launching soon!')">Book a Trip</button>
-</div>`).join('');
-}
-
-/* ── Tackle ── */
-function renderTackle(){
-  document.getElementById('tackleGrid').innerHTML=TACKLE.map(t=>`
-<div class="tk-c">
-  <span class="tk-b"><span class="tk-lk">${t.lake}</span> · ${t.sp} · ${t.badge}</span>
-  <div class="tk-nm">${t.name}</div>
-  <p class="tk-ds">${t.desc}</p>
-  <button class="tk-by" onclick="toast('Affiliate link — opens partner store')">Shop Now →</button>
-  <div class="tk-di">Affiliate link — we may earn a small commission.</div>
-</div>`).join('');
-}
-
-/* ── Prize pot ── */
-function calcPot(){
-  const n=parseInt(document.getElementById('potSlider').value);
-  const pot=n*5*(1-PAY.platform);
-  document.getElementById('slVal').textContent=n+' submissions';
-  document.getElementById('potN').textContent=n;
-  document.getElementById('p1').textContent='$'+Math.round(pot*PAY.p1).toLocaleString();
-  document.getElementById('p2').textContent='$'+Math.round(pot*PAY.p2).toLocaleString();
-  document.getElementById('p3').textContent='$'+Math.round(pot*PAY.p3).toLocaleString();
-  document.getElementById('potTot').textContent='$'+Math.round(pot).toLocaleString();
-  document.getElementById('potHero').textContent='$'+Math.round(pot).toLocaleString();
-}
-
-/* ── Ruler decoration ── */
-function buildRuler(){
-  const r=document.getElementById('kitRuler');
-  if(!r)return;
-  let h='';
-  const w=Math.floor(r.offsetWidth/38)||10;
-  for(let i=0;i<=36;i++){
-    const ht=i%12===0?20:i%6===0?16:i%2===0?11:7;
-    h+=`<div class="k-rm" style="width:1px;height:${ht}px;margin-right:${w}px"></div>`;
+// Ruler decoration
+(function(){
+  const r = document.getElementById('kitRuler');
+  if (!r) return;
+  const w = Math.floor((r.offsetWidth || 400) / 38) || 10;
+  let h = '';
+  for (let i = 0; i <= 36; i++) {
+    const ht = i%12===0 ? 20 : i%6===0 ? 16 : i%2===0 ? 11 : 7;
+    h += `<div style="width:1px;height:${ht}px;background:var(--silver);opacity:.4;border-radius:1px;flex-shrink:0;margin-right:${w}px"></div>`;
   }
-  r.innerHTML=h;
-}
-
-/* ── Nav ── */
-function toggleMob(){
-  const mn=document.getElementById('mobNav');
-  const btn=document.getElementById('hamBtn');
-  const isOpen=mn.classList.contains('open');
-  mn.classList.toggle('open');
-  btn.setAttribute('aria-expanded',!isOpen);
-  mn.setAttribute('aria-hidden',isOpen);
-  document.body.style.overflow=isOpen?'':'hidden';
-}
-window.addEventListener('scroll',()=>{
-  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60);
-},{passive:true});
-
-/* ── Toast ── */
-let tTimer;
-function toast(msg){
-  const el=document.getElementById('toastEl');
-  el.textContent=msg; el.classList.add('show');
-  clearTimeout(tTimer); tTimer=setTimeout(()=>el.classList.remove('show'),3000);
-}
-
-/* ── Init ── */
-renderLakes('all');
-renderLB(LB.monthly);
-renderSpecies();
-renderReports();
-renderGuides();
-renderTackle();
-calcPot();
-buildRuler();
+  r.innerHTML = h;
+})();
 </script>
 </body>
 </html>
