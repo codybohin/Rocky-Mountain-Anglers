@@ -160,11 +160,11 @@
   // Hero
   document.getElementById('lakeBg').style.backgroundImage = "url('" + lake.imgHero + "')";
   document.getElementById('lakeBg').setAttribute('aria-label', lake.name + ' aerial view');
-  document.getElementById('lakeStateTag').textContent = lake.state + ' · ' + lake.region;
+  document.getElementById('lakeStateTag').textContent = (lake.vibe ? lake.vibe + ' · ' : '') + lake.region;
   const sbEl = document.getElementById('lakeStatusBadge');
   sbEl.textContent = SM[lake.status] || 'Unknown';
   sbEl.className = 'badge ' + (SC[lake.status] || 'badge-slow');
-  document.getElementById('lakeName').textContent  = lake.name;
+  document.getElementById('lakeName').textContent  = lake.fullName || lake.name;
   document.getElementById('lakeRegion').textContent = lake.county + ' · ' + lake.acres.toLocaleString() + ' acres · ' + lake.elev.toLocaleString() + ' ft elevation';
 
   // Stat chips
@@ -181,7 +181,7 @@
   ).join('');
 
   // About
-  document.getElementById('lakeAbout').textContent = lake.summary;
+  document.getElementById('lakeAbout').textContent = lake.about || lake.summary;
 
   // Species chips
   document.getElementById('lakeSpeciesList').innerHTML = lake.species.map(sp => {
@@ -199,12 +199,13 @@
   const lbData = lb.length ? lb : RMA_LB.monthly.slice(0,4).map(e => ({...e, lake: lake.name}));
   RMA_renderLB(lbData, 'lakeBoard', 'lakeBoardCards');
 
-  // Seasonal tactics
+  // Seasonal tactics — per-lake from data
+  const T = lake.tactics || {};
   const tactics = [
-    { season:'Spring', tip:'Post-ice turnover brings fish shallow. Target 15–30ft with bright lures at first light.', icon:'🌱' },
-    { season:'Summer', tip:'Thermocline pushes fish deep (40–80ft+). Downriggers and deep jigging essential.', icon:'☀️' },
-    { season:'Fall',   tip:'Fish feed aggressively before winter. Most active 20–45ft during afternoon hours.', icon:'🍂' },
-    { season:'Winter', tip:'Ice fishing (where allowed) is productive. Check state regulations for ice season.', icon:'❄️' },
+    { season:'Spring', tip: T.spring || 'Post-ice fish move shallow. Check the latest reports.', icon:'🌱' },
+    { season:'Summer', tip: T.summer || 'Fish go deep mid-day. Early and late are best.', icon:'☀️' },
+    { season:'Fall',   tip: T.fall   || 'Aggressive pre-winter feeding. Best all-around season.', icon:'🍂' },
+    { season:'Winter', tip: T.winter || 'Check ice conditions and current regulations.', icon:'❄️' },
   ];
   document.getElementById('lakeTactics').innerHTML = tactics.map(t =>
     '<div style="background:var(--charcoal);border:1px solid var(--border);border-radius:8px;padding:16px">' +
@@ -236,15 +237,27 @@
     ['Elevation', lake.elev.toLocaleString() + ' ft'],
     ['Motorboat', lake.motorboat ? 'Allowed' : 'Restricted'],
     ['HP Limit',  lake.hpLimit ? lake.hpLimit + ' HP max' : 'None'],
-    ['Boat Ramp', lake.boatRamp ? 'Available' : 'None listed'],
+    ['Boat Ramps', lake.ramps ? lake.ramps.length + ' ramps' : (lake.boatRamp ? 'Available' : 'None listed')],
   ].map(([l,v]) => '<div class="reg-card-row"><span>' + l + '</span><span>' + v + '</span></div>').join('');
 
+  // Boat ramps list (below quick stats)
+  if (lake.ramps && lake.ramps.length) {
+    document.getElementById('lakeQuickStats').innerHTML +=
+      '<div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--border)">' +
+      '<div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--silver);margin-bottom:8px">Boat Ramps</div>' +
+      lake.ramps.map(r => '<div style="font-size:13px;color:var(--lt-silver);padding:3px 0">⚓ ' + r + '</div>').join('') +
+      '</div>';
+  }
+
   // Regulations
-  document.getElementById('lakeRegsBody').innerHTML = [
-    ['License Required', 'Yes — ' + lake.state + ' fishing license'],
-    ['Slot Limits',      'Check current state regulations'],
-    ['Bag Limits',       'Varies by species — verify with state'],
-  ].map(([l,v]) => '<div class="reg-card-row"><span>' + l + '</span><span>' + v + '</span></div>').join('');
+  const regRows = [
+    ['License Required', 'Utah fishing license'],
+    ['Bag Limits',       'Varies by species — verify with DWR'],
+  ];
+  if (lake.slug === 'strawberry')   regRows.splice(1, 0, ['Cutthroat Slot', '15–22" must be released']);
+  if (lake.slug === 'flaming-gorge') regRows.splice(1, 0, ['Burbot Rule', 'All burbot must be kept']);
+  if (lake.slug === 'lake-powell')  regRows.splice(1, 0, ['Striped Bass', 'No limit — keep what you catch']);
+  document.getElementById('lakeRegsBody').innerHTML = regRows.map(([l,v]) => '<div class="reg-card-row"><span>' + l + '</span><span>' + v + '</span></div>').join('');
   document.getElementById('lakeRegsLink').href = STATE_AGENCIES[lake.state] || '#';
   document.getElementById('lakeRegsLink').textContent = lake.state + ' Wildlife Agency Regulations →';
 

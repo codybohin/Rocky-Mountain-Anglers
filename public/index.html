@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rocky Mountain Anglers — Fish the Rockies. Prove It.</title>
-<meta name="description" content="Verified catch leaderboards, lake fishing intelligence, and fishing reports for Utah, Colorado, Wyoming, Montana, and Idaho.">
-<meta property="og:title"       content="Rocky Mountain Anglers — Fish the Rockies. Prove It.">
-<meta property="og:description" content="Verified catch leaderboards and lake intelligence for serious Rocky Mountain anglers.">
+<title>Rocky Mountain Anglers — Fish Utah. Prove It.</title>
+<meta name="description" content="Verified catch leaderboards, fishing reports, and lake intelligence for Flaming Gorge, Strawberry, Willard Bay, Utah Lake, and Lake Powell.">
+<meta property="og:title"       content="Rocky Mountain Anglers — Fish Utah. Prove It.">
+<meta property="og:description" content="Verified fishing competition on Utah's 5 flagship lakes.">
 <meta property="og:type"        content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,22 +26,22 @@
   <div class="hero-content">
     <div class="hero-eyebrow">
       <div class="hero-divider" aria-hidden="true"></div>
-      <span class="hero-states">UT · CO · WY · MT · ID</span>
+      <span class="hero-states">UTAH LAUNCH · 5 FLAGSHIP LAKES</span>
       <div class="hero-divider" aria-hidden="true"></div>
     </div>
     <h1 class="d-2xl" style="margin-bottom:18px;color:var(--snow)">
-      Fish the Rockies.<br><span style="color:var(--ice)">Prove It.</span>
+      Fish Utah.<br><span style="color:var(--ice)">Prove It.</span>
     </h1>
-    <p style="font-size:1.05rem;color:var(--lt-silver);max-width:580px;margin:0 auto 36px;line-height:1.8">Verified catch leaderboards, lake reports, species intelligence, and private fishing logs for serious Rocky Mountain anglers across Utah, Colorado, Wyoming, Montana, and Idaho.</p>
+    <p style="font-size:1.05rem;color:var(--lt-silver);max-width:580px;margin:0 auto 36px;line-height:1.8">Verified catch leaderboards, real fishing reports, and private fishing logs for Utah's five flagship waters: Flaming Gorge, Strawberry, Willard Bay, Utah Lake, and Lake Powell. More states coming.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:14px">
       <a href="/leaderboard.html" class="btn btn-lg btn-primary">Explore the Leaderboard</a>
       <a href="/lakes.html"       class="btn btn-lg btn-outline">Find a Lake</a>
     </div>
     <p style="font-size:12px;color:var(--silver)">Compete on the leaderboard — <a href="/kit.html" style="color:var(--ice);text-decoration:underline;text-underline-offset:3px">Get your Certified Kit →</a></p>
     <div class="hero-stats">
-      <div class="hero-stat"><span class="hero-stat-val">19+</span><span class="hero-stat-lbl">Featured Lakes</span></div>
+      <div class="hero-stat"><span class="hero-stat-val">5</span><span class="hero-stat-lbl">Flagship Lakes</span></div>
       <div class="hero-stat"><span class="hero-stat-val">12</span><span class="hero-stat-lbl">Species Tracked</span></div>
-      <div class="hero-stat"><span class="hero-stat-val">5</span><span class="hero-stat-lbl">States</span></div>
+      <div class="hero-stat"><span class="hero-stat-val">228K</span><span class="hero-stat-lbl">Acres of Water</span></div>
       <div class="hero-stat"><span class="hero-stat-val blue" id="potHero">$570</span><span class="hero-stat-lbl">Demo Prize Pot <span class="demo-notice" style="font-size:9px;padding:2px 6px">Demo</span></span></div>
     </div>
   </div>
@@ -54,8 +54,8 @@
       <div>
         <p class="lbl lbl-blue" style="margin-bottom:12px">Why Rocky Mountain Anglers Exists</p>
         <h2 class="d-lg" style="margin-bottom:20px;color:var(--snow)">Fishing Reports Are Scattered.<br>Bragging Rights Are Hard to Prove.</h2>
-        <p style="margin-bottom:16px">Good lake knowledge is buried in Facebook groups and outdated forums. When you catch a 40-inch lake trout, there's nowhere to document it, verify it, or compete with other serious anglers.</p>
-        <p>Rocky Mountain Anglers brings verified catches, lake intelligence, monthly prize competition, and a growing community into one platform — built specifically for the lakes you actually fish.</p>
+        <p style="margin-bottom:16px">Utah fishing knowledge is buried in Facebook groups and decade-old forum threads. When you land a 40-inch Gorge mack or a slot-buster Strawberry cutt, there's nowhere to document it, verify it, or compete with other serious Utah anglers.</p>
+        <p>Rocky Mountain Anglers brings verified catches, real lake intelligence, and monthly prize competition into one platform — launching first on the five Utah waters that matter most.</p>
       </div>
       <div style="display:flex;flex-direction:column;gap:14px">
         <div style="background:var(--charcoal);border:1px solid var(--border);border-left:3px solid var(--ice);border-radius:0 8px 8px 0;padding:18px 20px">
@@ -86,20 +86,13 @@
       <div>
         <p class="lbl lbl-blue">Water Directory</p>
         <h2 class="d-lg" style="color:var(--snow)">Find Your Lake</h2>
-        <p style="max-width:480px">A growing directory of motorboat-accessible Rocky Mountain lakes. Each card links to full lake intelligence.</p>
+        <p style="max-width:480px">Five flagship Utah waters at launch — each with deep local intelligence, live reports, and its own leaderboard. More lakes added as the community grows.</p>
       </div>
       <a href="/lakes.html" class="btn btn-md btn-outline-ice" style="flex-shrink:0">View All Lakes →</a>
     </div>
-    <div class="filter-tabs" role="tablist" style="margin-bottom:28px">
-      <button class="filter-tab active" data-st="all"  onclick="homeFilterLakes(this)" role="tab">All States</button>
-      <button class="filter-tab"        data-st="UT"   onclick="homeFilterLakes(this)" role="tab">Utah</button>
-      <button class="filter-tab"        data-st="CO"   onclick="homeFilterLakes(this)" role="tab">Colorado</button>
-      <button class="filter-tab"        data-st="WY"   onclick="homeFilterLakes(this)" role="tab">Wyoming</button>
-      <button class="filter-tab"        data-st="MT"   onclick="homeFilterLakes(this)" role="tab">Montana</button>
-      <button class="filter-tab"        data-st="ID"   onclick="homeFilterLakes(this)" role="tab">Idaho</button>
-    </div>
+    
     <div class="grid-auto" id="homeLakeGrid"></div>
-    <p style="text-align:center;margin-top:28px;font-size:13px;color:var(--silver)">Showing featured lakes. <a href="/lakes.html" style="color:var(--ice)">Browse the full directory →</a></p>
+    <p style="text-align:center;margin-top:28px;font-size:13px;color:var(--silver)">More Utah waters — and more states — coming as the community grows.</p>
   </div>
 </section>
 
@@ -110,7 +103,7 @@
       <div>
         <p class="lbl lbl-blue">Community Rankings</p>
         <h2 class="d-lg" style="color:var(--snow)">Leaderboard</h2>
-        <p style="max-width:480px">Rankings by fish length. Submit a verified catch ($5) to compete for the monthly prize pot. <span class="demo-notice">Sample Data</span></p>
+        <p style="max-width:480px">Utah rankings by verified fish length. Submit a catch ($5) to compete for the monthly prize pot. <span class="demo-notice">Sample Data</span></p>
       </div>
       <a href="/leaderboard.html" class="btn btn-md btn-outline-ice" style="flex-shrink:0">Full Leaderboard →</a>
     </div>
@@ -290,9 +283,9 @@
           <div style="background:var(--gunmetal);border:1px solid var(--border);border-radius:4px;padding:11px;text-align:center"><div style="font-family:var(--mono);font-size:1.05rem;font-weight:600;color:var(--snow)">6</div><div style="font-size:10px;color:var(--silver);text-transform:uppercase;letter-spacing:.07em;margin-top:2px">Lakes</div></div>
         </div>
         <div>
-          <div style="display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px solid var(--border)"><span style="font-size:17px">🌈</span><div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--snow)">Rainbow Trout · Flaming Gorge</div><div style="font-size:11px;color:var(--silver)">Jun 14 · 60ft · Tube Jig</div></div><div style="text-align:right"><div style="font-family:var(--mono);font-size:13px;font-weight:600;color:var(--ice)">28.3"</div><div style="font-size:10px;color:var(--silver)">🔒 Private</div></div></div>
-          <div style="display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px solid var(--border)"><span style="font-size:17px">🟤</span><div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--snow)">Brown Trout · Deer Creek</div><div style="font-size:11px;color:var(--silver)">Jun 8 · 24ft · Wooly Bugger</div></div><div style="text-align:right"><div style="font-family:var(--mono);font-size:13px;font-weight:600;color:var(--ice)">21.5"</div><div style="font-size:10px;color:var(--silver)">🌐 Public</div></div></div>
-          <div style="display:flex;align-items:center;gap:11px;padding:11px 0"><span style="font-size:17px">🏔️</span><div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--snow)">Lake Trout · Blue Mesa</div><div style="font-size:11px;color:var(--silver)">May 28 · 95ft · Tube Jig</div></div><div style="text-align:right"><div style="font-family:var(--mono);font-size:13px;font-weight:600;color:var(--ice)">19.1"</div><div style="font-size:10px;color:var(--glacier)">💡 Choose to share</div></div></div>
+          <div style="display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px solid var(--border)"><span style="font-size:17px">🌈</span><div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--snow)">Kokanee · Flaming Gorge</div><div style="font-size:11px;color:var(--silver)">Jul 2 · 48ft · Pink Squid</div></div><div style="text-align:right"><div style="font-family:var(--mono);font-size:13px;font-weight:600;color:var(--ice)">28.3"</div><div style="font-size:10px;color:var(--silver)">🔒 Private</div></div></div>
+          <div style="display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px solid var(--border)"><span style="font-size:17px">🟤</span><div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--snow)">Cutthroat · Strawberry</div><div style="font-size:11px;color:var(--silver)">Jun 27 · 18ft · Tube Jig</div></div><div style="text-align:right"><div style="font-family:var(--mono);font-size:13px;font-weight:600;color:var(--ice)">21.5"</div><div style="font-size:10px;color:var(--silver)">🌐 Public</div></div></div>
+          <div style="display:flex;align-items:center;gap:11px;padding:11px 0"><span style="font-size:17px">🏔️</span><div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--snow)">Striped Bass · Lake Powell</div><div style="font-size:11px;color:var(--silver)">Jun 20 · Boil · Topwater Spook</div></div><div style="text-align:right"><div style="font-family:var(--mono);font-size:13px;font-weight:600;color:var(--ice)">19.1"</div><div style="font-size:10px;color:var(--glacier)">💡 Choose to share</div></div></div>
         </div>
       </div>
     </div>
@@ -344,7 +337,7 @@
   <div class="cta-strip-content">
     <p class="lbl lbl-blue" style="margin-bottom:14px;justify-content:center;display:flex">Ready?</p>
     <h2 class="d-lg" style="margin-bottom:14px">Ready to Get on the Board?</h2>
-    <p>Get certified, submit your first catch, and compete with anglers across the Rocky Mountain West.</p>
+    <p>Get certified, submit your first catch, and compete with anglers across Utah — from the Gorge to Powell.</p>
     <div class="cta-btns">
       <a href="/kit.html"         class="btn btn-lg btn-primary">Get Certified — $34.99</a>
       <a href="/leaderboard.html" class="btn btn-lg btn-outline">View Leaderboard</a>
@@ -369,15 +362,8 @@ RMA_initNav(true);
 document.getElementById('heroMtn').innerHTML = RMA_MtnSVG('#080B0E');
 document.getElementById('ctaMtn').innerHTML  = RMA_MtnSVG('#080B0E', 0.28);
 
-// Lakes — show first 6 featured
-function homeFilterLakes(el) {
-  document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
-  el.classList.add('active');
-  const st = el.dataset.st;
-  const list = st === 'all' ? RMA_LAKES.slice(0,6) : RMA_LAKES.filter(l => l.state === st).slice(0,6);
-  document.getElementById('homeLakeGrid').innerHTML = list.map(RMA_LakeCard).join('');
-}
-homeFilterLakes(document.querySelector('.filter-tab[data-st="all"]'));
+// All 5 flagship Utah lakes
+document.getElementById('homeLakeGrid').innerHTML = RMA_LAKES.map(RMA_LakeCard).join('');
 
 // Leaderboard
 function homeSwitchLB(el, key) {

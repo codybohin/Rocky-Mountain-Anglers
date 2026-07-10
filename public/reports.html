@@ -19,12 +19,13 @@
     <div class="sh" style="margin-bottom:32px">
       <p class="lbl lbl-blue">Current Conditions</p>
       <h1 class="d-xl" style="color:var(--snow)">Fishing Reports</h1>
-      <p style="max-width:560px">Weekly automated reports from state wildlife agencies plus real-time member submissions. Automated reports are labeled clearly. Updated every Monday at 6 AM Mountain Time.</p>
+      <p style="max-width:560px">Weekly automated reports built from Utah DWR data plus real-time member submissions from all five lakes. Automated reports are labeled clearly. Updated every Monday at 6 AM Mountain Time.</p>
     </div>
     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px">
-      <select class="form-select" style="width:auto" id="repStateF" onchange="repRender()" aria-label="Filter by state">
-        <option value="">All States</option>
-        <option>UT</option><option>CO</option><option>WY</option><option>MT</option><option>ID</option>
+      <select class="form-select" style="width:auto" id="repLakeF" onchange="repRender()" aria-label="Filter by lake">
+        <option value="">All Lakes</option>
+        <option>Flaming Gorge</option><option>Strawberry</option><option>Willard Bay</option>
+        <option>Utah Lake</option><option>Lake Powell</option>
       </select>
       <select class="form-select" style="width:auto" id="repSrcF" onchange="repRender()" aria-label="Filter by source">
         <option value="">All Sources</option>
@@ -50,10 +51,10 @@ document.getElementById('_footer').innerHTML = RMA_Footer();
 RMA_initNav(false);
 
 function repRender() {
-  const st  = document.getElementById('repStateF').value;
+  const lk  = document.getElementById('repLakeF').value;
   const src = document.getElementById('repSrcF').value;
   let list = RMA_REPORTS;
-  if (st)  list = list.filter(r => r.state === st);
+  if (lk)  list = list.filter(r => r.lake === lk);
   if (src) list = list.filter(r => r.src === src);
   document.getElementById('repGrid').innerHTML = list.length
     ? list.map(RMA_ReportCard).join('')

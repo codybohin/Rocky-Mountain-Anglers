@@ -19,19 +19,20 @@
     <div class="sh" style="margin-bottom:32px">
       <p class="lbl lbl-blue">Community Rankings</p>
       <h1 class="d-xl" style="color:var(--snow)">Leaderboard</h1>
-      <p style="max-width:560px">Rankings by verified fish length. Pay $5 to submit a catch and compete for the monthly prize pot. <span class="demo-notice">Sample Data — live rankings populate as anglers submit verified catches.</span></p>
+      <p style="max-width:560px">Utah rankings by verified fish length across all five flagship lakes. Pay $5 to submit a catch and compete for the monthly prize pot. <span class="demo-notice">Sample Data — live rankings populate as anglers submit verified catches.</span></p>
     </div>
     <!-- Filters row -->
     <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:24px">
-      <select class="form-select" style="width:auto" onchange="lbFilter()" id="lbStateFilter" aria-label="Filter by state">
-        <option value="">All States</option>
-        <option>UT</option><option>CO</option><option>WY</option><option>MT</option><option>ID</option>
+      <select class="form-select" style="width:auto" onchange="lbFilter()" id="lbLakeFilter" aria-label="Filter by lake">
+        <option value="">All Lakes</option>
+        <option>Flaming Gorge</option><option>Strawberry</option><option>Willard Bay</option>
+        <option>Utah Lake</option><option>Lake Powell</option>
       </select>
       <select class="form-select" style="width:auto" onchange="lbFilter()" id="lbSpeciesFilter" aria-label="Filter by species">
         <option value="">All Species</option>
-        <option>Rainbow Trout</option><option>Brown Trout</option><option>Lake Trout</option>
-        <option>Cutthroat Trout</option><option>Walleye</option><option>Northern Pike</option>
-        <option>Smallmouth Bass</option><option>Kokanee Salmon</option>
+        <option>Lake Trout</option><option>Cutthroat Trout</option><option>Rainbow Trout</option>
+        <option>Kokanee Salmon</option><option>Striped Bass</option><option>Wiper</option>
+        <option>Smallmouth Bass</option><option>Walleye</option><option>Channel Catfish</option><option>White Bass</option>
       </select>
       <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--silver);cursor:pointer">
         <input type="checkbox" id="lbVerifiedOnly" onchange="lbFilter()" style="accent-color:var(--ice)"> Verified only
@@ -49,7 +50,7 @@
     <div style="overflow-x:auto">
       <table class="lb-table" aria-label="Leaderboard">
         <thead><tr>
-          <th>Rank</th><th>Angler</th><th>Species</th><th>Lake</th><th>State</th>
+          <th>Rank</th><th>Angler</th><th>Species</th><th>Lake</th><th>Location</th>
           <th>Status</th><th style="text-align:right">Length</th><th style="text-align:right">Prize / Status</th>
         </tr></thead>
         <tbody id="lbBody"></tbody>
@@ -91,11 +92,11 @@ function lbTab(el, key) {
   lbFilter();
 }
 function lbFilter() {
-  const st = document.getElementById('lbStateFilter').value;
+  const lk = document.getElementById('lbLakeFilter').value;
   const sp = document.getElementById('lbSpeciesFilter').value;
   const vo = document.getElementById('lbVerifiedOnly').checked;
   let data = RMA_LB[_lbKey];
-  if (st) data = data.filter(r => r.loc === st);
+  if (lk) data = data.filter(r => r.lake === lk);
   if (sp) data = data.filter(r => r.species.includes(sp));
   if (vo) data = data.filter(r => r.verified);
   RMA_renderLB(data, 'lbBody', 'lbCards');
